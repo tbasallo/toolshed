@@ -73,17 +73,14 @@ namespace Toolshed
         /// <returns>A DateTime that represents the start of the week that the date in the parameter is in.</returns>
         public static DateTime GetStartOfWeek(DateTime date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
         {
-            var days = 0;
             //it's in the previous week
             if (firstDayOfWeek > date.DayOfWeek)
             {
                 //since the week start is in the previous week, let's go to that week and then do the normal stuff
                 date = date.AddDays(-7);
             }
-                
-            days = (date.DayOfWeek - firstDayOfWeek) * -1;
 
-            var date1 = date.AddDays(days);
+            var date1 = date.AddDays(-(date.DayOfWeek - firstDayOfWeek));
             return GetStartOfDay(date1);
         }
 
@@ -108,7 +105,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="startDate">The first, earlier, of two dates</param>
         /// <param name="endDate">The second, later, of two dates</param>
-        /// <returns>An integer that represents the number of weeks between the dates in the parameters</returns>        
+        /// <returns>An integer that represents the number of weeks between the dates in the parameters</returns>
         public static int GetWeeksBetweenDates(DateTime startDate, DateTime endDate)
         {
             return (int)GetTotalWeeksBetweenDates(startDate, endDate);
