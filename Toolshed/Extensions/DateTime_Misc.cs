@@ -7,32 +7,6 @@ namespace Toolshed
     public static partial class DateHelperExtensions
     {
         /// <summary>
-        /// Returns the DateTime in the Eastern Standard time zone
-        /// </summary>
-        public static DateTime ToEasternStandardTimeZone(this DateTime date)
-        {
-            var timeZoneId = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-            if (date.Kind == DateTimeKind.Unspecified)
-            {
-                //we have to assume that this time is already in UTC
-                return TimeZoneInfo.ConvertTimeFromUtc(date, timeZoneId);
-            }
-
-            //otherwise, .net knows what to do
-            var utc = date.ToUniversalTime();
-            return TimeZoneInfo.ConvertTimeFromUtc(utc, timeZoneId);
-        }
-
-        /// <summary>
-        /// Returns the DateTime in the Eastern Standard time zone as a stirng using the provided format
-        /// </summary>
-        /// <param name="format">The format to use when returning the date</param>
-        public static string ToEasternStandardTimeZone(this DateTime date, string format)
-        {
-            return date.ToEasternStandardTimeZone().ToString(format);
-        }
-
-        /// <summary>
         /// Rounds the datetime based on the specified DateTimeRoundTo
         /// </summary>
         public static DateTime Round(this DateTime d, DateTimeRoundTo dateTimeRoundTo)
