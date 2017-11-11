@@ -44,7 +44,7 @@ namespace Toolshed
         /// </summary>
         public static DateTime? ToEasternStandardTimeZone(this DateTime? date, DateTime? defaultValue = null)
         {
-            if (date.HasValue)
+            if (!date.HasValue)
             {
                 return defaultValue;
             }
@@ -57,7 +57,7 @@ namespace Toolshed
         /// </summary>
         public static string ToEasternStandardTimeZone(this DateTime? date, string format, string defaultValue = null)
         {
-            if (date.HasValue)
+            if (!date.HasValue)
             {
                 return defaultValue;
             }
@@ -88,7 +88,7 @@ namespace Toolshed
         /// </summary>
         public static DateTime? ToEasternStandardTimeZone(this DateTimeOffset? date, DateTime? defaultValue = null)
         {
-            if (date.HasValue)
+            if (!date.HasValue)
             {
                 return defaultValue;
             }
@@ -101,7 +101,7 @@ namespace Toolshed
         /// </summary>
         public static string ToEasternStandardTimeZone(this DateTimeOffset? date, string format, string defaultValue = null)
         {
-            if (date.HasValue)
+            if (!date.HasValue)
             {
                 return defaultValue;
             }
