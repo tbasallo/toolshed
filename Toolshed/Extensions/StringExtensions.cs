@@ -73,6 +73,44 @@ namespace Toolshed
         }
 
         /// <summary>
+        /// Indicates if the string's length is within the specified values
+        /// </summary>
+        /// <param name="minimumLength"></param>
+        /// <param name="maximumLength"></param>
+        /// <returns></returns>
+        public static bool IsLengthWithinRange(this string s, int minimumLength, int maximumLength)
+        {
+            if (s == null) return false;
+            return (s.Length.IsInRange(minimumLength, maximumLength));
+        }
+
+
+        /// <summary>
+        /// Indicates if the string is equal to the specified value using the selected StringComparison type (defaults to OrdinalIgnoreCase)
+        /// </summary>
+        /// <returns>Boolean indicating if the values are equal</returns>
+        public static bool IsEqualTo(this string s, string value, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        {
+            if (s == null) return false;
+            if (value == null) return false;
+            return s.Equals(value, comparisonType);
+        }
+
+        /// <summary>
+        /// Indicates if the specified values is found in this string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="value"></param>
+        /// <param name="comparisonType"></param>
+        /// <returns>Boolean indicating if the specified value is in this string. Should this be called HasValue, IsWithin, ....</returns>
+        public static bool IsContained(this string s, string value, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        {
+            if (s == null) return false;
+            if (value == null) return false;
+            return s.IndexOf(value, comparisonType) > -1;
+        }
+
+        /// <summary>
         /// Returns a string array that contains the substrings in this string that are delimited by the specified string. A parameter specifies whether to return empty array elements.
         /// </summary>
         /// <param name="s">extension method - this string</param>
