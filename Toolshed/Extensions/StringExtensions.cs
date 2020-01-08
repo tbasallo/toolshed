@@ -384,10 +384,5 @@ namespace Toolshed
                 yield return s.Substring(i, lengthGroupSize);
             }
         }
-
-
     }
-
-}
-
 }
