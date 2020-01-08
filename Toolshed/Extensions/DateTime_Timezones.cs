@@ -19,6 +19,11 @@ namespace Toolshed
             var utc = date.ToUniversalTime();
             return TimeZoneInfo.ConvertTimeFromUtc(utc, timeZoneId);
         }
+        public static DateTime ToTimeZone(this DateTimeOffset date, string timeZone)
+        {
+            var timeZoneId = TimeZoneInfo.FindSystemTimeZoneById(timeZone);                                    
+            return TimeZoneInfo.ConvertTimeFromUtc(date.UtcDateTime, timeZoneId);            
+        }
 
 
         /// <summary>
@@ -26,45 +31,49 @@ namespace Toolshed
         /// </summary>
         public static DateTime ToEasternStandardTimeZone(this DateTime date)
         {
-            return date.ToTimeZone("Eastern Standard Time");
-        }
-
-        /// <summary>
-        /// Returns the DateTime in the Eastern Standard time zone as a stirng using the provided format
-        /// </summary>
-        /// <param name="format">The format to use when returning the date</param>
-        public static string ToEasternStandardTimeZone(this DateTime date, string format)
-        {
-            return date.ToEasternStandardTimeZone().ToString(format);
-        }
-
-
-        /// <summary>
-        /// Returns the DateTime in the Eastern Standard time zone. If the date is null the optional the default value specified will be returned, otherwise null is returned
-        /// </summary>
-        public static DateTime? ToEasternStandardTimeZone(this DateTime? date, DateTime? defaultValue = null)
-        {
-            if (!date.HasValue)
+            if(OsHelper.IsWindows)
             {
-                return defaultValue;
+                return date.ToTimeZone(WindowsTimeZones.Eastern);
+            }
+            if (OsHelper.IsLinux)
+            {
+                return date.ToTimeZone(LinuxTimeZones.Eastern);
             }
 
-            return date.Value.ToEasternStandardTimeZone();
+            return date;
         }
-
         /// <summary>
-        /// Returns the DateTime in the Eastern Standard time zone in the specified time zone. If the date is null the optional the default value specified will be returned, otherwise null is returned
+        /// Returns the DateTime in the Central Standard time zone
         /// </summary>
-        public static string ToEasternStandardTimeZone(this DateTime? date, string format, string defaultValue = null)
+        public static DateTime ToCentralStandardTimeZone(this DateTime date)
         {
-            if (!date.HasValue)
+            if (OsHelper.IsWindows)
             {
-                return defaultValue;
+                return date.ToTimeZone(WindowsTimeZones.Central);
+            }
+            if (OsHelper.IsLinux)
+            {
+                return date.ToTimeZone(LinuxTimeZones.Central);
             }
 
-            return date.Value.ToEasternStandardTimeZone(format);
+            return date;
         }
+        /// <summary>
+        /// Returns the DateTime in the Pacific Standard time zone
+        /// </summary>
+        public static DateTime ToPacificStandardTimeZone(this DateTime date)
+        {
+            if (OsHelper.IsWindows)
+            {
+                return date.ToTimeZone(WindowsTimeZones.Pacific);
+            }
+            if (OsHelper.IsLinux)
+            {
+                return date.ToTimeZone(LinuxTimeZones.Pacific);
+            }
 
+            return date;
+        }
 
 
         /// <summary>
@@ -72,41 +81,63 @@ namespace Toolshed
         /// </summary>
         public static DateTime ToEasternStandardTimeZone(this DateTimeOffset date)
         {
-            return date.DateTime.ToEasternStandardTimeZone();
-        }
-
-        /// <summary>
-        /// Returns the DateTime in the Eastern Standard time zone in the specified format
-        /// </summary>
-        public static string ToEasternStandardTimeZone(this DateTimeOffset date, string format)
-        {
-            return date.DateTime.ToEasternStandardTimeZone(format);
-        }
-
-        /// <summary>
-        /// Returns the DateTime in the Eastern Standard time zone. If the date is null the optional the default value specified will be returned, otherwise null is returned
-        /// </summary>
-        public static DateTime? ToEasternStandardTimeZone(this DateTimeOffset? date, DateTime? defaultValue = null)
-        {
-            if (!date.HasValue)
+            if (OsHelper.IsWindows)
             {
-                return defaultValue;
+                return date.ToTimeZone(WindowsTimeZones.Eastern);
+            }
+            if (OsHelper.IsLinux)
+            {
+                return date.ToTimeZone(LinuxTimeZones.Eastern);
             }
 
-            return date.Value.DateTime.ToEasternStandardTimeZone();
+            return date.DateTime;
         }
-
         /// <summary>
-        /// Returns the DateTime in the Eastern Standard time zone in the specified format. If the date is null the optional the default value specified will be returned, otherwise null is returned
+        /// Returns the DateTime in the Central Standard time zone
         /// </summary>
-        public static string ToEasternStandardTimeZone(this DateTimeOffset? date, string format, string defaultValue = null)
+        public static DateTime ToCentralStandardTimeZone(this DateTimeOffset date)
         {
-            if (!date.HasValue)
+            if (OsHelper.IsWindows)
             {
-                return defaultValue;
+                return date.ToTimeZone(WindowsTimeZones.Central);
+            }
+            if (OsHelper.IsLinux)
+            {
+                return date.ToTimeZone(LinuxTimeZones.Central);
             }
 
-            return date.Value.DateTime.ToEasternStandardTimeZone(format);
+            return date.DateTime;
         }
+        /// <summary>
+        /// Returns the DateTime in the Pacific Standard time zone
+        /// </summary>
+        public static DateTime ToPacificStandardTimeZone(this DateTimeOffset date)
+        {
+            if (OsHelper.IsWindows)
+            {
+                return date.ToTimeZone(WindowsTimeZones.Pacific);
+            }
+            if (OsHelper.IsLinux)
+            {
+                return date.ToTimeZone(LinuxTimeZones.Pacific);
+            }
+
+            return date.DateTime;
+        }
+    }
+
+
+    //https://github.com/unicode-org/cldr/blob/master/common/bcp47/timezone.xml
+    public static class LinuxTimeZones
+    {
+        public const string Eastern = "US/Eastern";
+        public const string Central = "US/Central";
+        public const string Pacific = "US/Pacific ";
+    }
+    public static class WindowsTimeZones
+    {
+        public const string Eastern = "Eastern Standard Time";
+        public const string Central = "Central Standard Time";
+        public const string Pacific = "Pacific Standard Time";
     }
 }

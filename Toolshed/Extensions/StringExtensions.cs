@@ -358,6 +358,36 @@ namespace Toolshed
             string pattern = @"\s{2,}";
             return Regex.Replace(s, pattern, " ", RegexOptions.Singleline | RegexOptions.IgnoreCase);
         }
+
+        /// <summary>
+        /// Returns the current string into groups made up of the number of characters specified in characterGroupSize. 
+        /// e.g., a string with a length of 800 and a lengthGroupSize of 200 will return four groups of a string with a length of 200.
+        /// </summary>        
+        /// <param name="lengthGroupSize">The maximum length of each string returned</param>
+        /// <returns></returns>
+        public static IEnumerable<string> SplitBy(this string s, int lengthGroupSize)
+        {            
+            if (string.IsNullOrEmpty(s)) yield break;
+
+            if(s.Length <= lengthGroupSize)
+            {
+                yield return s;
+            }
+
+            if (lengthGroupSize < 1) throw new ArgumentException("groupSize must be greater than 0", "groupSize");
+
+            for (int i = 0; i < s.Length; i += lengthGroupSize)
+            {
+                if (lengthGroupSize + i > s.Length)
+                    lengthGroupSize = s.Length - i;
+
+                yield return s.Substring(i, lengthGroupSize);
+            }
+        }
+
+
     }
+
+}
 
 }
