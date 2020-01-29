@@ -287,38 +287,93 @@ namespace Toolshed
             return d.Value.ToString(format);
         }
 
-        /// <summary>
-        /// Returns the number with a trailing percent and the space removed, unless overwritten
-        /// </summary>        
-        /// <param name="format">The format used, defaults to p1</param>
-        /// <param name="decimalPlaces">The number of paces after the decimal</param>        
-        /// <param name="defaultValue">The value return if the INT is null</param>
-        /// <returns>The number as a string with the trailing %</returns>
-        public static string ToHtmlPercent(this int? d, int decimalPlaces = 1, bool removeSpacePriorToPercent = true, string defaultValue = "")
+/// <summary>
+        /// Converts a double value to an HTMl friendly version.
+        /// </summary>
+        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinity">TH evalue to display instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
+        /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
+        /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
+        public static string ToHtmlPercent(this int value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
         {
-            if (!d.HasValue)
+            if (!format.StartsWith("p"))
             {
-                return defaultValue;
+                throw new ArgumentException("Format must start with p to represent a percentage, e.g., p1, p2, etc.", format);
             }
 
-            return d.ToHtmlPercent(decimalPlaces, removeSpacePriorToPercent);
-        }
-
-        /// <summary>
-        /// Returns the number with a trailing percent and the space removed, unless overwritten
-        /// </summary>        
-        /// <param name="decimalPlaces">The number of paces after the decimal</param>        
-        /// <returns>The number as a string with the trailing %</returns>
-        public static string ToHtmlPercent(this int d, int decimalPlaces = 1, bool removeSpacePriorToPercent = true)
-        {
-            if (removeSpacePriorToPercent)
+            if (value == 0 && overrideValueForZeroResult != null)
             {
-                return d.ToString("p" + decimalPlaces).RemoveSpaces();
+                return overrideValueForZeroResult;
             }
 
-            return d.ToString("p" + decimalPlaces);
+            if ((double.IsNaN(value) || double.IsInfinity(value)) && defaultValueForNanOrInfinity != null)
+            {
+                return defaultValueForNanOrInfinity;
+            }
+
+            if (removeSpaces)
+            {
+                return value.ToString(format).RemoveSpaces();
+            }
+            else
+            {
+                return value.ToString(format);
+            }
+        }
+        public static string ToHtmlPercent(this int? value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
+        {
+            if (!value.HasValue)
+            {
+                return "";
+            }
+
+            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinity, overrideValueForZeroResult, removeSpaces);
         }
 
+/// <summary>
+        /// Converts a double value to an HTMl friendly version.
+        /// </summary>
+        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinity">TH evalue to display instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
+        /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
+        /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
+        public static string ToHtmlPercent(this double value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
+        {
+            if (!format.StartsWith("p"))
+            {
+                throw new ArgumentException("Format must start with p to represent a percentage, e.g., p1, p2, etc.", format);
+            }
+
+            if (value == 0 && overrideValueForZeroResult != null)
+            {
+                return overrideValueForZeroResult;
+            }
+
+            if ((double.IsNaN(value) || double.IsInfinity(value)) && defaultValueForNanOrInfinity != null)
+            {
+                return defaultValueForNanOrInfinity;
+            }
+
+            if (removeSpaces)
+            {
+                return value.ToString(format).RemoveSpaces();
+            }
+            else
+            {
+                return value.ToString(format);
+            }
+        }
+        public static string ToHtmlPercent(this double? value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
+        {
+            if (!value.HasValue)
+            {
+                return "";
+            }
+
+            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinity, overrideValueForZeroResult, removeSpaces);
+        }
 
         /// <summary>
         /// Indicates whether this number is greater than the threshold provided
