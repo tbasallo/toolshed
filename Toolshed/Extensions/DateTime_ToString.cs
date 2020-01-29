@@ -72,6 +72,20 @@ namespace Toolshed
         {
             return DateHelper.ToUrlFriendly(date, delimiter);
         }
+                /// <summary>
+        /// Returns a URL friendly string of the date using the specified delimiter or default.
+        /// </summary>
+        /// <param name="delimiter">The string to use to delimit the date parts</param>
+        /// <returns>A string like 12-31-1977</returns>
+        public static string ToUrlFriendly(this DateTime? date, string delimiter = "-")
+        {
+            if (date.HasValue)
+            {
+                return date.Value.ToUrlFriendly(delimiter);
+            }
+
+            return "";
+        }
 
         /// <summary>
         /// Compares two dates to determine how to display them
