@@ -287,7 +287,7 @@ namespace Toolshed
             return d.Value.ToString(format);
         }
 
-/// <summary>
+        /// <summary>
         /// Converts a double value to an HTMl friendly version.
         /// </summary>
         /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
@@ -321,17 +321,26 @@ namespace Toolshed
                 return value.ToString(format);
             }
         }
-        public static string ToHtmlPercent(this int? value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
+        
+        /// <summary>
+        /// Converts a double value to an HTMl friendly version.
+        /// </summary>
+        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
+        /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
+        /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
+        public static string ToHtmlPercent(this int? value, string format = "p1", string defaultValueForNanOrInfinityOrNull = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
         {
             if (!value.HasValue)
             {
-                return "";
+                return defaultValueForNanOrInfinityOrNull;
             }
 
-            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinity, overrideValueForZeroResult, removeSpaces);
+            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinityOrNull, overrideValueForZeroResult, removeSpaces);
         }
 
-/// <summary>
+        /// <summary>
         /// Converts a double value to an HTMl friendly version.
         /// </summary>
         /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
@@ -365,14 +374,23 @@ namespace Toolshed
                 return value.ToString(format);
             }
         }
-        public static string ToHtmlPercent(this double? value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
+        
+        /// <summary>
+        /// Converts a double value to an HTMl friendly version.
+        /// </summary>
+        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
+        /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
+        /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
+        public static string ToHtmlPercent(this double? value, string format = "p1", string defaultValueForNanOrInfinityOrNull = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
         {
             if (!value.HasValue)
             {
-                return "";
+                return defaultValueForNanOrInfinityOrNull;
             }
 
-            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinity, overrideValueForZeroResult, removeSpaces);
+            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinityOrNull, overrideValueForZeroResult, removeSpaces);
         }
 
         /// <summary>
