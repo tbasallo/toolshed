@@ -203,7 +203,7 @@ namespace Toolshed
 
             return string.Format("{0:##.##} {1}", Arithmetic.Divide(bytes, divisor), filesize);
         }
-        
+
         /// <summary>
         /// Returns the file size as a descriptive string (12MB)
         /// </summary>
@@ -287,6 +287,37 @@ namespace Toolshed
             return d.Value.ToString(format);
         }
 
+        /// <summary>
+        /// Returns the number with a trailing percent and the space removed, unless overwritten
+        /// </summary>        
+        /// <param name="format">The format used, defaults to p1</param>
+        /// <param name="decimalPlaces">The number of paces after the decimal</param>        
+        /// <param name="defaultValue">The value return if the INT is null</param>
+        /// <returns>The number as a string with the trailing %</returns>
+        public static string ToHtmlPercent(this int? d, int decimalPlaces = 1, bool removeSpacePriorToPercent = true, string defaultValue = "")
+        {
+            if (!d.HasValue)
+            {
+                return defaultValue;
+            }
+
+            return d.ToHtmlPercent(decimalPlaces, removeSpacePriorToPercent);
+        }
+
+        /// <summary>
+        /// Returns the number with a trailing percent and the space removed, unless overwritten
+        /// </summary>        
+        /// <param name="decimalPlaces">The number of paces after the decimal</param>        
+        /// <returns>The number as a string with the trailing %</returns>
+        public static string ToHtmlPercent(this int d, int decimalPlaces = 1, bool removeSpacePriorToPercent = true)
+        {
+            if (removeSpacePriorToPercent)
+            {
+                return d.ToString("p" + decimalPlaces).RemoveSpaces();
+            }
+
+            return d.ToString("p" + decimalPlaces);
+        }
 
 
         /// <summary>
