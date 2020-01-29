@@ -13,7 +13,7 @@ namespace Toolshed
         {
             if (string.IsNullOrEmpty(value))
             {
-                if (!defaultValue.HasValue) throw new ArgumentNullException("value", "string cannot be null or you must provide a default value");
+                if (!defaultValue.HasValue) throw new ArgumentNullException(nameof(value), "string cannot be null or you must provide a default value");
                 return defaultValue.Value;
             }
 
@@ -119,7 +119,7 @@ namespace Toolshed
         /// <returns>A string array string[]</returns>
         public static string[] Split(this string s, string delimiter, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
         {
-            return s.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
+            return s.Split(new string[] { delimiter }, options);
         }
 
         /// <summary>
@@ -341,9 +341,7 @@ namespace Toolshed
         {
             if (string.IsNullOrEmpty(s)) return s;
 
-            var e = s.Replace("'", "\'");
-            var d = Regex.Replace(s, @"'", "\'");
-            return d;
+            return s.Replace("'", "\'");
         }
 
         /// <summary>

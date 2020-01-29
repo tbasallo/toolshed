@@ -145,7 +145,7 @@ namespace Toolshed
             }
 
             string filesize = "MB";
-            int divisor = 0;
+            int divisor;;
 
             if (bytes >= 1073741824)
             {
@@ -180,7 +180,7 @@ namespace Toolshed
             }
 
             string filesize = "MB";
-            int divisor = 0;
+            int divisor;
 
             if (bytes >= 1073741824)
             {
@@ -215,7 +215,7 @@ namespace Toolshed
             }
 
             string filesize = "MB";
-            int divisor = 0;
+            int divisor;
 
             if (bytes >= 1073741824)
             {
@@ -431,7 +431,7 @@ namespace Toolshed
         /// <summary>
         /// Indicates whether this number is a negative number, less than 0
         /// </summary>
-        public static bool IsNegative(this int value, int threshold)
+        public static bool IsNegative(this int value)
         {
             return value < 0;
         }
@@ -481,7 +481,7 @@ namespace Toolshed
         /// <summary>
         /// Indicates whether this number is a negative number, less than 0
         /// </summary>
-        public static bool IsNegative(this double value, double threshold)
+        public static bool IsNegative(this double value)
         {
             return value < 0;
         }
