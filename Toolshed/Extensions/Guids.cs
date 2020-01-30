@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Toolshed.Extensions
+namespace Toolshed
 {
     public static class Guids
     {
