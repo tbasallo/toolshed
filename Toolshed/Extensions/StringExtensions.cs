@@ -255,12 +255,39 @@ namespace Toolshed
             return string.IsNullOrWhiteSpace(s) ? defaultValue : s;
         }
 
+        /// <summary>
+        /// Returns a string as a byte array. If using for encoding a Base64 string, use ToBase64 instead
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static byte[] ToByteArray(this string s)
         {
             if (string.IsNullOrEmpty(s)) return null;
 
-            var encoding = new UTF8Encoding();
-            return encoding.GetBytes(s);
+            return Encoding.UTF8.GetBytes(s);
+        }
+
+        /// <summary>
+        /// Returns a UTF8 Base64 string from the current string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns>A base64 string</returns>
+        public static string ToBase64(this string s)
+        {
+            if (string.IsNullOrEmpty(s)) return null;
+
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(s));
+        }
+
+        /// <summary>
+        /// Returns the current UTF8 BASE64 string as the original string
+        /// </summary>
+        /// <returns>A string from base 64</returns>
+        public static string FromBase64(this string s)
+        {
+            if (string.IsNullOrEmpty(s)) return null;
+
+            return Encoding.UTF8.GetString(Convert.FromBase64String(s));
         }
 
         public static string ToJavascriptSafeString(this string s)
@@ -284,13 +311,13 @@ namespace Toolshed
         }
 
         /// <summary>
-        /// Returns the current string into groups made up of the number of characters specified in characterGroupSize. 
+        /// Returns the current string into groups made up of the number of characters specified in characterGroupSize.
         /// e.g., a string with a length of 800 and a lengthGroupSize of 200 will return four groups of a string with a length of 200.
-        /// </summary>        
+        /// </summary>
         /// <param name="lengthGroupSize">The maximum length of each string returned</param>
         /// <returns></returns>
         public static IEnumerable<string> SplitBy(this string s, int lengthGroupSize)
-        {            
+        {
             if (string.IsNullOrEmpty(s)) yield break;
 
             if(s.Length <= lengthGroupSize)
