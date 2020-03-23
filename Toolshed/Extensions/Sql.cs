@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace Toolshed
 {
-    public static class Sql
+    public static class SqlExtensions
     {
         /// <summary>
         /// Returns a string that can be used in a T-SQL statement. The returned string is comma delimited wrapped in parenthesis: ('x','y','z')
