@@ -21,8 +21,8 @@ namespace Toolshed
         }
         public static DateTime ToTimeZone(this DateTimeOffset date, string timeZone)
         {
-            var timeZoneId = TimeZoneInfo.FindSystemTimeZoneById(timeZone);                                    
-            return TimeZoneInfo.ConvertTimeFromUtc(date.UtcDateTime, timeZoneId);            
+            var timeZoneId = TimeZoneInfo.FindSystemTimeZoneById(timeZone);
+            return TimeZoneInfo.ConvertTimeFromUtc(date.UtcDateTime, timeZoneId);
         }
 
 
@@ -132,7 +132,7 @@ namespace Toolshed
     {
         public const string Eastern = "US/Eastern";
         public const string Central = "US/Central";
-        public const string Pacific = "US/Pacific ";
+        public const string Pacific = "US/Pacific";
     }
     public static class WindowsTimeZones
     {
