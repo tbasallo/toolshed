@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Toolshed
 {
@@ -23,6 +24,62 @@ namespace Toolshed
         {
             var timeZoneId = TimeZoneInfo.FindSystemTimeZoneById(timeZone);
             return TimeZoneInfo.ConvertTimeFromUtc(date.UtcDateTime, timeZoneId);
+        }
+
+
+
+        /// <summary>
+        /// Returns the DateTime in the state's MAIN (majority) time zone.
+        /// </summary>
+        /// <param name="state">The 2 letter state that the time zone is for</param>
+        /// <returns></returns>
+        public static DateTime ToUsaStateTimeZone(this DateTime date, string state, bool throwExceptionForBadArgument = false)
+        {
+            if (string.IsNullOrWhiteSpace(state))
+            {
+                if (throwExceptionForBadArgument)
+                {
+                    throw new ArgumentException(nameof(state), "State must be provided and is must be two characters");
+                }
+                return date;
+            }
+
+            if (state.Length != 2)
+            {
+                if (throwExceptionForBadArgument)
+                {
+                    throw new ArgumentException(nameof(state), "State must be two characters");
+                }
+                return date;
+            }
+
+            var s = UnitedStates.Get50States().Where(d => d.Abbreviation.IsEqualTo(state)).FirstOrDefault();
+            if(s == null)
+            {
+                if (throwExceptionForBadArgument)
+                {
+                    throw new ArgumentException(nameof(state), "Unknown state");
+                }
+                return date;
+            }
+
+            switch (s.TimeZone)
+            {
+                case "EST":
+                    return date.ToEasternStandardTimeZone();
+                case "CST":
+                    return date.ToCentralStandardTimeZone();
+                case "MST":
+                    return date.ToMountainStandardTimeZone();
+                case "PST":
+                    return date.ToPacificStandardTimeZone();
+                default:
+                    if (throwExceptionForBadArgument)
+                    {
+                        throw new ArgumentException(nameof(state), "Unknown time zone (library problem)");
+                    }
+                    return date;
+            }
         }
 
 
@@ -74,6 +131,23 @@ namespace Toolshed
 
             return date;
         }
+        /// <summary>
+        /// Returns the DateTime in the Mountain Standard time zone
+        /// </summary>
+        public static DateTime ToMountainStandardTimeZone(this DateTime date)
+        {
+            if (OsHelper.IsWindows)
+            {
+                return date.ToTimeZone(WindowsTimeZones.Mountain);
+            }
+            if (OsHelper.IsLinux)
+            {
+                return date.ToTimeZone(LinuxTimeZones.Mountain);
+            }
+
+            return date;
+        }
+
 
 
         /// <summary>
@@ -124,6 +198,22 @@ namespace Toolshed
 
             return date.DateTime;
         }
+        /// <summary>
+        /// Returns the DateTime in the Mountain Standard time zone
+        /// </summary>
+        public static DateTime ToMountainStandardTimeZone(this DateTimeOffset date)
+        {
+            if (OsHelper.IsWindows)
+            {
+                return date.ToTimeZone(WindowsTimeZones.Mountain);
+            }
+            if (OsHelper.IsLinux)
+            {
+                return date.ToTimeZone(LinuxTimeZones.Mountain);
+            }
+
+            return date.DateTime;
+        }
     }
 
 
@@ -133,11 +223,13 @@ namespace Toolshed
         public const string Eastern = "US/Eastern";
         public const string Central = "US/Central";
         public const string Pacific = "US/Pacific";
+        public const string Mountain = "US/Mountain";
     }
     public static class WindowsTimeZones
     {
         public const string Eastern = "Eastern Standard Time";
         public const string Central = "Central Standard Time";
         public const string Pacific = "Pacific Standard Time";
+        public const string Mountain = "Mountain Standard Time";
     }
 }
