@@ -214,22 +214,40 @@ namespace Toolshed
 
             return date.DateTime;
         }
+        
+        /// Returns the DateTime in the Mountain Standard time zone
+        /// </summary>
+        public static DateTime ToMountainStandardTimeZone(this DateTimeOffset date)
+        {
+            if (OsHelper.IsWindows)
+            {
+                return date.ToTimeZone(WindowsTimeZones.Mountain);
+            }
+            if (OsHelper.IsLinux)
+            {
+                return date.ToTimeZone(LinuxTimeZones.Mountain);
+            }
+
+            return date.DateTime;
+        }
     }
 
 
     //https://github.com/unicode-org/cldr/blob/master/common/bcp47/timezone.xml
     public static class LinuxTimeZones
     {
-        public const string Eastern = "US/Eastern";
-        public const string Central = "US/Central";
-        public const string Pacific = "US/Pacific";
-        public const string Mountain = "US/Mountain";
+        public const string EST = "America/New_York";
+        public const string CST = "America/Chicago";
+        public const string PST = "America/Los_Angeles";
+        public const string MST = "America/Denver";
+        public const string MST_NODST = "America/Phoenix";
     }
     public static class WindowsTimeZones
     {
-        public const string Eastern = "Eastern Standard Time";
-        public const string Central = "Central Standard Time";
-        public const string Pacific = "Pacific Standard Time";
-        public const string Mountain = "Mountain Standard Time";
+        public const string EST = "Eastern Standard Time";
+        public const string CST = "Central Standard Time";
+        public const string PST = "Pacific Standard Time";
+        public const string MST = "Mountain Standard Time";
+        public const string MST_NODST = "US Mountain Standard Time";
     }
 }
