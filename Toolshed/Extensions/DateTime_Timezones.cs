@@ -54,7 +54,7 @@ namespace Toolshed
             }
 
             var s = UnitedStates.Get50States().Where(d => d.Abbreviation.IsEqualTo(state)).FirstOrDefault();
-            if(s == null)
+            if (s == null)
             {
                 if (throwExceptionForBadArgument)
                 {
@@ -63,23 +63,7 @@ namespace Toolshed
                 return date;
             }
 
-            switch (s.TimeZone)
-            {
-                case "EST":
-                    return date.ToEasternStandardTimeZone();
-                case "CST":
-                    return date.ToCentralStandardTimeZone();
-                case "MST":
-                    return date.ToMountainStandardTimeZone();
-                case "PST":
-                    return date.ToPacificStandardTimeZone();
-                default:
-                    if (throwExceptionForBadArgument)
-                    {
-                        throw new ArgumentException(nameof(state), "Unknown time zone (library problem)");
-                    }
-                    return date;
-            }
+            return date.ToTimeZone(s.TimeZone);
         }
 
 
@@ -88,7 +72,7 @@ namespace Toolshed
         /// </summary>
         public static DateTime ToEasternStandardTimeZone(this DateTime date)
         {
-            if(OsHelper.IsWindows)
+            if (OsHelper.IsWindows)
             {
                 return date.ToTimeZone(WindowsTimeZones.Eastern);
             }
@@ -134,15 +118,29 @@ namespace Toolshed
         /// <summary>
         /// Returns the DateTime in the Mountain Standard time zone
         /// </summary>
-        public static DateTime ToMountainStandardTimeZone(this DateTime date)
+        public static DateTime ToMountainStandardTimeZone(this DateTime date, bool isDst = true)
         {
             if (OsHelper.IsWindows)
             {
-                return date.ToTimeZone(WindowsTimeZones.Mountain);
+                if (isDst)
+                {
+                    return date.ToTimeZone(WindowsTimeZones.Mountain);
+                }
+                else
+                {
+                    return date.ToTimeZone(WindowsTimeZones.USMountain);
+                }
             }
             if (OsHelper.IsLinux)
             {
-                return date.ToTimeZone(LinuxTimeZones.Mountain);
+                if (isDst)
+                {
+                    return date.ToTimeZone(LinuxTimeZones.Mountain);
+                }
+                else
+                {
+                    return date.ToTimeZone(LinuxTimeZones.USMountain);
+                }
             }
 
             return date;
@@ -201,15 +199,29 @@ namespace Toolshed
         /// <summary>
         /// Returns the DateTime in the Mountain Standard time zone
         /// </summary>
-        public static DateTime ToMountainStandardTimeZone(this DateTimeOffset date)
+        public static DateTime ToMountainStandardTimeZone(this DateTimeOffset date, bool isDst = true)
         {
             if (OsHelper.IsWindows)
             {
-                return date.ToTimeZone(WindowsTimeZones.Mountain);
+                if (isDst)
+                {
+                    return date.ToTimeZone(WindowsTimeZones.Mountain);
+                }
+                else
+                {
+                    return date.ToTimeZone(WindowsTimeZones.USMountain);
+                }
             }
             if (OsHelper.IsLinux)
             {
-                return date.ToTimeZone(LinuxTimeZones.Mountain);
+                if (isDst)
+                {
+                    return date.ToTimeZone(LinuxTimeZones.Mountain);
+                }
+                else
+                {
+                    return date.ToTimeZone(LinuxTimeZones.USMountain);
+                }
             }
 
             return date.DateTime;
@@ -220,10 +232,13 @@ namespace Toolshed
     //https://github.com/unicode-org/cldr/blob/master/common/bcp47/timezone.xml
     public static class LinuxTimeZones
     {
-        public const string Eastern = "US/Eastern";
-        public const string Central = "US/Central";
-        public const string Pacific = "US/Pacific";
-        public const string Mountain = "US/Mountain";
+        public const string Eastern = "America/New_York";
+        public const string Central = "America/Chicago";
+        public const string Pacific = "America/Los_Angeles";
+        public const string Mountain = "America/Denver";
+        public const string USMountain = "America/Phoenix";
+        public const string Alaska = "America/Anchorage";
+        public const string Hawaii = "Pacific/Honolulu";
     }
     public static class WindowsTimeZones
     {
@@ -231,5 +246,8 @@ namespace Toolshed
         public const string Central = "Central Standard Time";
         public const string Pacific = "Pacific Standard Time";
         public const string Mountain = "Mountain Standard Time";
+        public const string USMountain = "US Mountain Standard Time";
+        public const string Alaska = "Alaska Daylight Time";
+        public const string Hawaii = "Hawaii Standard Time";
     }
 }
