@@ -9,16 +9,32 @@ namespace Toolshed
     {
         public static DateTime ToTimeZone(this DateTime date, string timeZone)
         {
-            var timeZoneId = TimeZoneInfo.FindSystemTimeZoneById(timeZone);
-            if (date.Kind == DateTimeKind.Unspecified)
+            try
             {
-                //we have to assume that this time is already in UTC
-                return TimeZoneInfo.ConvertTimeFromUtc(date, timeZoneId);
-            }
+                var timeZoneId = TimeZoneInfo.FindSystemTimeZoneById(timeZone);
+                if (date.Kind == DateTimeKind.Unspecified)
+                {
+                    //we have to assume that this time is already in UTC
+                    return TimeZoneInfo.ConvertTimeFromUtc(date, timeZoneId);
+                }
 
-            //otherwise, .net knows what to do - I HOPE :/ sorry Jon....
-            var utc = date.ToUniversalTime();
-            return TimeZoneInfo.ConvertTimeFromUtc(utc, timeZoneId);
+                //otherwise, .net knows what to do - I HOPE :/ sorry Jon....
+                var utc = date.ToUniversalTime();
+                return TimeZoneInfo.ConvertTimeFromUtc(utc, timeZoneId);
+            }
+            catch (TimeZoneNotFoundException)
+            {
+                var timeZoneId = TimeZoneInfo.FindSystemTimeZoneById(DateHelper.GetTimeZoneName(timeZone));
+                if (date.Kind == DateTimeKind.Unspecified)
+                {
+                    //we have to assume that this time is already in UTC
+                    return TimeZoneInfo.ConvertTimeFromUtc(date, timeZoneId);
+                }
+
+                //otherwise, .net knows what to do - I HOPE :/ sorry Jon....
+                var utc = date.ToUniversalTime();
+                return TimeZoneInfo.ConvertTimeFromUtc(utc, timeZoneId);
+            }
         }
         public static DateTime ToTimeZone(this DateTimeOffset date, string timeZone)
         {
@@ -63,7 +79,7 @@ namespace Toolshed
                 return date;
             }
 
-            return date.ToTimeZone(s.TimeZone);
+            return date.ToTimeZone(DateHelper.GetTimeZoneName(s.TimeZone));
         }
 
 
