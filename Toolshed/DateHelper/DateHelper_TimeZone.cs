@@ -19,7 +19,9 @@ namespace Toolshed
             {
                 case "EST":
                 case "EASTERN STANDARD TIME":
+                case "EASTERN":
                 case "US/EASTERN":
+                case "AMERICA/NEW_YORK":
                     if (OsHelper.IsLinux)
                     {
                         return LinuxTimeZones.Eastern;
@@ -32,6 +34,8 @@ namespace Toolshed
                 case "CST":
                 case "CENTRAL STANDARD TIME":
                 case "US/CENTRAL":
+                case "CENTRAL":
+                case "AMERICA/CHICAGO":
                     if (OsHelper.IsLinux)
                     {
                         return LinuxTimeZones.Central;
@@ -44,6 +48,20 @@ namespace Toolshed
                 case "MST":
                 case "MOUNTAIN STANDARD TIME":
                 case "US/MOUNTAIN":
+                case "MOUNTAIN":
+                case "AMERICA/DENVER":
+                    if (OsHelper.IsLinux)
+                    {
+                        return LinuxTimeZones.Mountain;
+                    }
+                    else
+                    {
+                        return WindowsTimeZones.Mountain;
+                    }
+                case "MDT":
+                case "US MOUNTAIN STANDARD TIME":
+                case "USMOUNTAIN":
+                case "AMERICA/PHOENIX":
                     if (OsHelper.IsLinux)
                     {
                         return LinuxTimeZones.Mountain;
@@ -54,8 +72,10 @@ namespace Toolshed
                     }
 
                 case "PST":
+                case "PACIFIC":
                 case "PACIFIC STANDARD TIME":
                 case "US/PACIFIC":
+                case "AMERICA/LOS_ANGELES":
                     if (OsHelper.IsLinux)
                     {
                         return LinuxTimeZones.Pacific;
@@ -66,7 +86,14 @@ namespace Toolshed
                     }
             }
 
-            return WindowsTimeZones.Eastern;
+            if (OsHelper.IsLinux)
+            {
+                return LinuxTimeZones.Eastern;
+            }
+            else
+            {
+                return WindowsTimeZones.Eastern;
+            }
         }
 
 
