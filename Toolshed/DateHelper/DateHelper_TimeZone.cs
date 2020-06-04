@@ -64,11 +64,11 @@ namespace Toolshed
                 case "AMERICA/PHOENIX":
                     if (OsHelper.IsLinux)
                     {
-                        return LinuxTimeZones.Mountain;
+                        return LinuxTimeZones.USMountain;
                     }
                     else
                     {
-                        return WindowsTimeZones.Mountain;
+                        return WindowsTimeZones.USMountain;
                     }
 
                 case "PST":
