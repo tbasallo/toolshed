@@ -11,7 +11,7 @@ namespace Toolshed
         public string Capital { get; set; }
 
         /// <summary>
-        /// The main/mojor time zone for the state
+        /// The main/major time zone for the state
         /// </summary>
         public string TimeZone { get; set; }
 
