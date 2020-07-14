@@ -130,5 +130,25 @@ namespace Toolshed
 
             return sb.ToString();
         }
+        
+        /// <summary>
+        /// Returns the specified list as an IEnumerable of the same list type of sizes no more than the specified group size.
+        /// </summary>
+        public static IEnumerable<List<T>> SplitBy<T>(List<T> list, int groupSize)
+        {
+            if (list == null || list.Count == 0) yield break;
+
+            if (list.Count <= groupSize)
+            {
+                yield return list;
+            }
+
+            if (groupSize < 1) throw new ArgumentException("groupSize must be greater than 0", "groupSize");
+
+            for (int i = 0; i < list.Count; i += groupSize)
+            {
+                yield return list.GetRange(i, Math.Min(groupSize, list.Count - i));
+            }
+        }
     }
 }
