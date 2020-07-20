@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -21,7 +22,7 @@ namespace Toolshed
             return value.Equals(trueValue, caseSensitivity);
         }
 
-        
+
 
         /// <summary>
         /// Returns a boolean indicating whether this string is a Regex email match
@@ -89,5 +90,20 @@ namespace Toolshed
             return s.IndexOf(value, comparisonType) > -1;
         }
 
+
+        //makes built-in methods easier
+
+        //
+        // Summary:
+        //     Indicates whether a specified string is null, empty, or consists only of white-space
+        //     characters.
+        //
+        // Returns:
+        //     true if the value parameter is null or System.String.Empty, or if value consists
+        //     exclusively of white-space characters.
+        public static bool IsNullOrWhiteSpace(this string s)
+        {
+            return string.IsNullOrWhiteSpace(s);
+        }
     }
 }
