@@ -16,15 +16,6 @@ namespace Toolshed
         {
             return Divide(dividend, Convert.ToDouble(divisor), decimals);
         }
-        public static double Divide(double? dividend, double? divisor, int? decimals = null, double defaultValue = 0)
-        {
-            if (dividend.HasValue && divisor.HasValue)
-            {
-                return Divide(dividend.Value, divisor.Value, decimals);
-            }
-
-            return defaultValue;
-        }
         public static double Divide(double dividend, double divisor, int? decimals = null)
         {
             if (decimals.HasValue)
@@ -35,6 +26,24 @@ namespace Toolshed
             {
                 return dividend / divisor;
             }
+        }
+
+        /// <summary>
+        /// Divides the two numbers, returning a double with the specified number of decimal places. If either the dividend or divisor is null, the default value will be returned (defaults to 0).
+        /// </summary>
+        /// <param name="dividend"></param>
+        /// <param name="divisor"></param>
+        /// <param name="decimals"></param>
+        /// <param name="defaultValue">The value returned if either the dividend or divisor is null</param>
+        /// <returns></returns>
+        public static double Divide(double? dividend, double? divisor, int? decimals = null, double defaultValue = 0)
+        {
+            if (dividend.HasValue && divisor.HasValue)
+            {
+                return Divide(dividend.Value, divisor.Value, decimals);
+            }
+
+            return defaultValue;
         }
 
         public static int GetQuintile(int rank, int totalRanked)
