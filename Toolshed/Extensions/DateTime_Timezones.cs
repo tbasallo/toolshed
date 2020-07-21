@@ -82,6 +82,38 @@ namespace Toolshed
             return date.ToTimeZone(DateHelper.GetTimeZoneName(s.TimeZone));
         }
 
+        /// <summary>
+        /// Converts the current DateTime into UTC based on the state's time zone
+        /// </summary>
+        /// <param name="state">The USA state  for the DateTime</param>
+        /// <returns>A DateTime converted to UTC</returns>
+        public static DateTime FromUsaTimeZone(this DateTime date, string state)
+        {
+            var s = UnitedStates.Get50States().Where(d => d.Abbreviation.IsEqualTo(state)).FirstOrDefault();
+            return date.FromTimeZoneToUtc(s.TimeZone);
+        }
+
+        /// <summary>
+        /// Converts the current DateTime into UTC based on the specified time zone
+        /// </summary>
+        /// <param name="date">The date/time to convert</param>
+        /// <param name="timeZone">The time zone of the date/time provided</param>
+        /// <returns>A DateTime converted to UTC</returns>
+        public static DateTime FromTimeZoneToUtc(this DateTime date, string timeZone)
+        {
+            var tz = TimeZoneInfo.FindSystemTimeZoneById(DateHelper.GetTimeZoneName(timeZone));
+            if (tz.IsDaylightSavingTime(date))
+            {
+                var hours = (tz.BaseUtcOffset.TotalHours * -1) - 1;
+                return (new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second, date.Millisecond, DateTimeKind.Utc)).AddHours(hours);
+            }
+            else
+            {
+                var hours = (tz.BaseUtcOffset.TotalHours * -1);
+                return (new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second, date.Millisecond, DateTimeKind.Utc)).AddHours(hours);
+            }
+        }
+
 
         /// <summary>
         /// Returns the DateTime in the Eastern Standard time zone
