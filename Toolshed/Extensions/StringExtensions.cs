@@ -29,10 +29,6 @@ namespace Toolshed
         }
 
 
-        public static string RemoveSpaces(this string s)
-        {
-            return s.Replace(" ", "");
-        }
 
 
 
@@ -98,26 +94,7 @@ namespace Toolshed
             return s;
         }
 
-        /// <summary>
-        /// Removes all the non-alpha (only words, numbers and the underscore remain)
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        public static string ReplaceNonAlpha(this string s, string replacement)
-        {
-            if (string.IsNullOrEmpty(s)) return string.Empty;
-            return Regex.Replace(s, @"\W", replacement, RegexOptions.IgnoreCase);
-        }
 
-        /// <summary>
-        /// Removes all non-alpha characters from the string
-        /// </summary>
-        /// <returns></returns>
-        public static string RemoveNonAlpha(this string s)
-        {
-            if (string.IsNullOrEmpty(s)) return string.Empty;
-            return Regex.Replace(s, @"\W", "", RegexOptions.IgnoreCase);
-        }
 
         public static string MakePlural(this string s, int value)
         {
@@ -227,12 +204,8 @@ namespace Toolshed
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s.ToLowerInvariant()).TrimSafely();
         }
 
-        public static string RemoveNonNumbers(this string s)
-        {
-            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
 
-            return Regex.Replace(s, @"\D", string.Empty, RegexOptions.None);
-        }
+
 
         /// <summary>
         /// Returns the string using the fromat provided if the string passes string.IsNullOrWhiteSpace otherwise return an empty string
@@ -297,18 +270,6 @@ namespace Toolshed
             return s.Replace("'", "\'");
         }
 
-        /// <summary>
-        /// Replaces all multi-white space character with a single white space character
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        public static string ReduceWhiteSpace(this string s)
-        {
-            if (string.IsNullOrEmpty(s)) return s;
-
-            string pattern = @"\s{2,}";
-            return Regex.Replace(s, pattern, " ", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        }
 
         /// <summary>
         /// Returns the current string into groups made up of the number of characters specified in characterGroupSize.

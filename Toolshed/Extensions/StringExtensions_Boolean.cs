@@ -105,5 +105,17 @@ namespace Toolshed
         {
             return string.IsNullOrWhiteSpace(s);
         }
+
+/// <summary>
+        /// Indicates if there are numbers in this string
+        /// </summary>
+        /// <returns>Boolean indicating if the specified value has a number</returns>
+        public static bool HasNumbers(this string s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return false;
+
+            return Regex.IsMatch(s, @"\d", RegexOptions.None);
+        }
+
     }
 }
