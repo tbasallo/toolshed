@@ -124,6 +124,16 @@ namespace Toolshed
                 return date.ToMonthTitle();
             }
 
+            if (date.StartOfDay() == date.StartOfMonth().StartOfDay() && endOfDateRange.Value.EndOfDay() == date.EndOfMonth().EndOfDay())
+            {
+                if (date.StartOfDay() == date.StartOfMonth().StartOfDay() && endOfDateRange.Value.EndOfDay() == date.EndOfMonth().EndOfDay())
+                {
+                    return ToMonthTitle(date, endOfDateRange.Value);
+                }
+
+                return date.ToMonthTitle();
+            }
+
             if (date.StartOfDay() == date.StartOfYear().StartOfDay() && endOfDateRange.Value.EndOfDay() == date.EndOfYear().EndOfDay())
             {
                 return string.Format("YTD {0}", date.Year);
@@ -132,7 +142,7 @@ namespace Toolshed
             return string.Format("{0} - {1}", date.ToShortDateString(), endOfDateRange.Value.ToShortDateString());
 
         }
-        
+
         /// <summary>
         /// Returns the specified date as Month Year (e.g., January 2017) using the current culture
         /// </summary>
@@ -141,6 +151,18 @@ namespace Toolshed
         public static string ToMonthTitle(DateTime date)
         {
             return string.Format("{0} {1}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date.Month), date.Year);
+        }
+
+        public static string ToMonthTitle(DateTime date1, DateTime date2)
+        {
+            if(date1.IsMonthAndYearEqual(date2))
+            {
+                return string.Format("{0} {1}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date1.Month), date1.Year);
+            }
+            else
+            {
+                return string.Format("{0} {1} - {2} {3}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date1.Month), date1.Year, date2.Month, date2.Year);
+            }
         }
 
         public const string ShortDateString = "d";
