@@ -33,6 +33,17 @@ namespace Toolshed
 
             return defaultValue;
         }
+        public static DateTime? ToDateTime(string value, DateTime? defaultValue)
+        {
+            if (string.IsNullOrEmpty(value)) return defaultValue;
+
+            if (DateTime.TryParse(value, out DateTime d))
+            {
+                return d;
+            }
+
+            return defaultValue;
+        }
 
 
         public static Guid ToGuid(string value, Guid defaultValue)
@@ -48,10 +59,20 @@ namespace Toolshed
         {
             if (string.IsNullOrEmpty(value)) return defaultValue;
 
-            bool l = defaultValue;
-            if (bool.TryParse(value, out l))
+            if (bool.TryParse(value, out bool b))
             {
-                return l;
+                return b;
+            }
+
+            return defaultValue;
+        }
+        public static bool? ToBool(string value, bool? defaultValue)
+        {
+            if (string.IsNullOrEmpty(value)) return defaultValue;
+
+            if (bool.TryParse(value, out bool b))
+            {
+                return b;
             }
 
             return defaultValue;
@@ -86,7 +107,27 @@ namespace Toolshed
         {
             if (string.IsNullOrEmpty(value)) return defaultValue;
 
-            value = value.Replace(",", string.Empty);
+            if (value.IndexOf(",") >= 0)
+            {
+                value = value.Replace(",", string.Empty);
+            }
+
+            if (short.TryParse(value, out short i))
+            {
+                return i;
+            }
+
+            return defaultValue;
+        }
+        public static short? ToShort(string value, short? defaultValue)
+        {
+            if (string.IsNullOrEmpty(value)) return defaultValue;
+
+            if (value.IndexOf(",") >= 0)
+            {
+                value = value.Replace(",", string.Empty);
+            }
+
             if (short.TryParse(value, out short i))
             {
                 return i;
@@ -120,6 +161,22 @@ namespace Toolshed
 
             return defaultValue;
         }
+        public static int? ToInt(string value, int? defaultValue)
+        {
+            if (string.IsNullOrEmpty(value)) return defaultValue;
+
+            if (value.IndexOf(",") >= 0)
+            {
+                value = value.Replace(",", string.Empty);
+            }
+
+            if (int.TryParse(value, out int i))
+            {
+                return i;
+            }
+
+            return defaultValue;
+        }
         public static int ToInt(object value, int defaultValue)
         {
             if (value == null) return defaultValue;
@@ -138,7 +195,27 @@ namespace Toolshed
         {
             if (string.IsNullOrEmpty(value)) return defaultValue;
 
-            value = value.Replace(",", string.Empty);
+            if(value.IndexOf(",") >= 0)
+            {
+                value = value.Replace(",", string.Empty);
+            }
+
+            if (double.TryParse(value, out double d))
+            {
+                return d;
+            }
+
+            return defaultValue;
+        }
+        public static double? ToDouble(string value, double? defaultValue)
+        {
+            if (string.IsNullOrEmpty(value)) return defaultValue;
+
+            if (value.IndexOf(",") >= 0)
+            {
+                value = value.Replace(",", string.Empty);
+            }
+
             if (double.TryParse(value, out double d))
             {
                 return d;
@@ -159,13 +236,24 @@ namespace Toolshed
                 return defaultValue;
             }
         }
+        
 
         public static long ToLong(string value, long defaultValue)
         {
             if (string.IsNullOrEmpty(value)) return defaultValue;
+            
+            if (long.TryParse(value, out long l))
+            {
+                return l;
+            }
 
-            long l = defaultValue;
-            if (long.TryParse(value, out l))
+            return defaultValue;
+        }
+        public static long? ToLong(string value, long? defaultValue)
+        {
+            if (string.IsNullOrEmpty(value)) return defaultValue;
+
+            if (long.TryParse(value, out long l))
             {
                 return l;
             }
