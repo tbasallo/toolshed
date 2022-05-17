@@ -106,6 +106,16 @@ namespace Toolshed
         }
 
         /// <summary>
+        /// Returns the specified date as Month Year (e.g., January 2017)
+        /// </summary>
+        /// <param name="date">The date to convert</param>
+        /// <returns>The date represented as Month Year</returns>
+        public static string ToMonthTitle(this DateTime date, DateTime date2)
+        {
+            return DateHelper.ToMonthTitle(date, date2);
+        }
+
+        /// <summary>
         /// Returns the specified date in the format provided if the DateTime? has a value,
         /// otherwise returns the defaultValue provided or an empty string
         /// </summary>

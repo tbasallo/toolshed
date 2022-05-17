@@ -87,12 +87,12 @@ namespace Toolshed
 
         }
         /// <summary>
-        /// Compares two dates to determine how to display them
+        /// Compares two dates to determine how to display them, excludes times
         /// </summary>
         /// <param name="date"></param>
         /// <param name="endOfDateRange"></param>
         /// <returns></returns>
-        public static string ToTitle(DateTime date, DateTime? endOfDateRange = null, bool includeTimes = false)
+        public static string ToTitle(DateTime date, DateTime? endOfDateRange = null)
         {
             if (!endOfDateRange.HasValue)
             {
@@ -114,33 +114,27 @@ namespace Toolshed
                 return date.ToLongDateString();
             }
 
-            if (date.ToShortDateString() == endOfDateRange.Value.ToShortDateString())
+            if (date.Date == endOfDateRange.Value.Date)
             {
                 return date.ToLongDateString();
             }
 
-            if (date.StartOfDay() == date.StartOfMonth().StartOfDay() && endOfDateRange.Value.EndOfDay() == date.EndOfMonth().EndOfDay())
-            {
-                return date.ToMonthTitle();
-            }
-
-            if (date.StartOfDay() == date.StartOfMonth().StartOfDay() && endOfDateRange.Value.EndOfDay() == date.EndOfMonth().EndOfDay())
-            {
-                if (date.StartOfDay() == date.StartOfMonth().StartOfDay() && endOfDateRange.Value.EndOfDay() == date.EndOfMonth().EndOfDay())
-                {
-                    return ToMonthTitle(date, endOfDateRange.Value);
-                }
-
-                return date.ToMonthTitle();
-            }
-
-            if (date.StartOfDay() == date.StartOfYear().StartOfDay() && endOfDateRange.Value.EndOfDay() == date.EndOfYear().EndOfDay())
+            if (date.Day == 1 && date.Month == 1 && date.Year == endOfDateRange.Value.Year && endOfDateRange.Value.Month == 12 && endOfDateRange.Value.Day == 31)
             {
                 return string.Format("YTD {0}", date.Year);
             }
 
-            return string.Format("{0} - {1}", date.ToShortDateString(), endOfDateRange.Value.ToShortDateString());
+            if (date.Day == 1 && date.Month == 1 && endOfDateRange.Value.Month == 12 && endOfDateRange.Value.Day == 31)
+            {
+                return string.Format("YTD {0}-{1}", date.Year, endOfDateRange.Value.Year);
+            }
 
+            if (date.Date.Day == 1 && endOfDateRange.Value.Day == DateTime.DaysInMonth(endOfDateRange.Value.Year, endOfDateRange.Value.Month))
+            {
+                return ToMonthTitle(date, endOfDateRange.Value);
+            }
+
+            return string.Format("{0:d} - {1:d}", date, endOfDateRange.Value);
         }
 
         /// <summary>
