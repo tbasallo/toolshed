@@ -10,6 +10,71 @@ namespace Toolshed
 {
     public static class SqlHelper
     {
+        public static void LogToConsoleStringLengths<T>(List<T> data, bool stopWhenDone = true, Type[] ignoreColumnAttributes = null)
+        {
+            foreach (var item in typeof(T).GetProperties())
+            {
+                if (ignoreColumnAttributes != null)
+                {
+                    var d1 = item.CustomAttributes;
+                    if (d1.Any(x => ignoreColumnAttributes.Contains(x.AttributeType)))
+                    {
+                        continue;
+                    }
+                }
+
+                if (item.PropertyType == typeof(string))
+                {
+                    var longest = 0;
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        var l = (string)item.GetValue(data[i]);
+                        if (l != null)
+                        {
+                            longest = longest > l.Length ? longest : l.Length;
+                        }
+                    }
+
+                    Console.WriteLine($"{item.Name}: {longest}");
+                }
+            }
+
+            if (stopWhenDone)
+            {
+                Console.WriteLine("Done - click a key to continue");
+                Console.ReadLine();
+            }
+        }
+
+
+        public static void BulkInsert<T>(SqlConnection connection, string tableName, List<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
+        {
+            using var bc = new SqlBulkCopy(connection)
+            {
+                BatchSize = batchSize,
+                BulkCopyTimeout = 3600,
+                DestinationTableName = tableName,
+                EnableStreaming = true                 
+            };            
+
+            foreach (var item in typeof(T).GetProperties())
+            {
+                if (ignoreColumnAttributes != null)
+                {
+                    var d1 = item.CustomAttributes;
+                    if (d1.Any(x => ignoreColumnAttributes.Contains(x.AttributeType)))
+                    {
+                        continue;
+                    }
+                }
+
+                bc.ColumnMappings.Add(item.Name, item.Name);
+            }
+
+            using var reader = ObjectReader.Create(data);
+
+            bc.WriteToServer(reader);
+        }
         public static void BulkInsert<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, List<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
         {
             using var bc = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock, sqlTransaction)
@@ -38,6 +103,35 @@ namespace Toolshed
 
             bc.WriteToServer(reader);
         }
+
+        public static async Task BulkInsertAsync<T>(SqlConnection connection, string tableName, List<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
+        {
+            using var bc = new SqlBulkCopy(connection)
+            {
+                BatchSize = batchSize,
+                BulkCopyTimeout = 3600,
+                DestinationTableName = tableName,
+                EnableStreaming = true
+            };
+
+            foreach (var item in typeof(T).GetProperties())
+            {
+                if (ignoreColumnAttributes != null)
+                {
+                    var d1 = item.CustomAttributes;
+                    if (d1.Any(x => ignoreColumnAttributes.Contains(x.AttributeType)))
+                    {
+                        continue;
+                    }
+                }
+
+                bc.ColumnMappings.Add(item.Name, item.Name);
+            }
+
+            using var reader = ObjectReader.Create(data);
+
+            await bc.WriteToServerAsync(reader);
+        }
         public static async Task BulkInsertAsync<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, List<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
         {
             using var bc = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock, sqlTransaction)
@@ -65,6 +159,41 @@ namespace Toolshed
             using var reader = ObjectReader.Create(data);
 
             await bc.WriteToServerAsync(reader);
+        }
+
+        public static async Task BulkInsertAsync<T>(SqlConnection connection, string tableName, ObjectReader objectReader, int batchSize = 5000, Type[] ignoreColumnAttributes = null, string[] ignoreColumns = null)
+        {
+            using var bc = new SqlBulkCopy(connection)
+            {
+                BatchSize = batchSize,
+                BulkCopyTimeout = 3600,
+                DestinationTableName = tableName,
+                EnableStreaming = true
+            };
+
+            foreach (var item in typeof(T).GetProperties())
+            {
+                if (ignoreColumnAttributes != null)
+                {
+                    var d1 = item.CustomAttributes;
+                    if (d1.Any(x => ignoreColumnAttributes.Contains(x.AttributeType)))
+                    {
+                        continue;
+                    }
+                }
+
+                if (ignoreColumns != null)
+                {
+                    if (ignoreColumns.Contains(item.Name))
+                    {
+                        continue;
+                    }
+                }
+
+                bc.ColumnMappings.Add(item.Name, item.Name);
+            }
+
+            await bc.WriteToServerAsync(objectReader);
         }
         public static async Task BulkInsertAsync<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, ObjectReader objectReader, int batchSize = 5000, Type[] ignoreColumnAttributes = null, string[] ignoreColumns = null)
         {
@@ -102,41 +231,7 @@ namespace Toolshed
         }
 
 
-        public static void LogToConsoleStringLengths<T>(List<T> data, bool stopWhenDone = true, Type[] ignoreColumnAttributes = null)
-        {
-            foreach (var item in typeof(T).GetProperties())
-            {
-                if (ignoreColumnAttributes != null)
-                {
-                    var d1 = item.CustomAttributes;
-                    if (d1.Any(x => ignoreColumnAttributes.Contains(x.AttributeType)))
-                    {
-                        continue;
-                    }
-                }
-
-                if (item.PropertyType == typeof(string))
-                {
-                    var longest = 0;
-                    for (int i = 0; i < data.Count; i++)
-                    {
-                        var l = (string)item.GetValue(data[i]);
-                        if (l != null)
-                        {
-                            longest = longest > l.Length ? longest : l.Length;
-                        }
-                    }
-
-                    Console.WriteLine($"{item.Name}: {longest}");
-                }
-            }
-
-            if (stopWhenDone)
-            {
-                Console.WriteLine("Done - click a key to continue");
-                Console.ReadLine();
-            }
-        }
+        
 
         public static void UseDatabase(this SqlConnection connection, string databaseName)
         {
