@@ -56,6 +56,19 @@ namespace Toolshed
 
             return list.Select(selector).Max();
         }
+        
+        
+        /// <summary>
+        /// Checks the list for items and returns 0 if the IEnumerable is null or empty, otherwise returns the count using Count()
+        /// </summary>        
+        public static int CountOrDefault<T>(this IEnumerable<T> list)
+        {
+            if (list == null || !list.Any())
+            {
+                return 0;
+            }
 
+            return list.Count();
+        }
     }
 }
