@@ -163,18 +163,35 @@ namespace Toolshed
 
             return s.ToUpper();
         }
-        public static string ToLowerInvariantSafely(this string s)
+        public static string ToUpperTrimSafely(this string s)
         {
-            if (string.IsNullOrEmpty(s)) return s;
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
 
-            return s.ToLowerInvariant();
+            return s.ToUpper().Trim();
+        }
+        
+        
+        
+        public static string ToLowerInvariantTrimSafely(this string s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+
+            return s.ToLowerInvariant().Trim();
         }
         public static string ToLowerInvariant(this string s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
 
             return s.ToLower();
+        }        
+        public static string ToLowerInvariantSafely(this string s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+
+            return s.ToLower();
         }
+
+
         public static string ToTelephoneNumber(this string s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
@@ -190,12 +207,7 @@ namespace Toolshed
             return s;
         }
 
-        public static string ToUpperTrimSafely(this string s)
-        {
-            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
-
-            return s.ToUpper().Trim();
-        }
+        
         public static string ToTitleCase(this string s)
         {
             if (string.IsNullOrEmpty(s)) return s;
