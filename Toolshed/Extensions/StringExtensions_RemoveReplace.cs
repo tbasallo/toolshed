@@ -9,12 +9,10 @@ namespace Toolshed
 {
     public static partial class StringExtensions
     {
-
-
-
-
         public static string RemoveSpaces(this string s)
         {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+
             return s.Replace(" ", "");
         }
 
