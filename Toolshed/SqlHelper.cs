@@ -47,7 +47,7 @@ namespace Toolshed
         }
 
 
-        public static void BulkInsert<T>(SqlConnection connection, string tableName, List<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
+        public static void BulkInsert<T>(SqlConnection connection, string tableName, IEnumerable<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
         {
             using var bc = new SqlBulkCopy(connection)
             {
@@ -75,7 +75,7 @@ namespace Toolshed
 
             bc.WriteToServer(reader);
         }
-        public static void BulkInsert<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, List<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
+        public static void BulkInsert<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, IEnumerable<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
         {
             using var bc = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock, sqlTransaction)
             {
@@ -302,7 +302,7 @@ namespace Toolshed
         }
 
 
-        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction = null, int? commandTimeout = 36000)
+        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction = null, int commandTimeout = 30)
         {
             if (transaction == null)
             {
@@ -310,40 +310,40 @@ namespace Toolshed
             }
             return ExecuteNonQuery(sql, connection, transaction, CommandType.Text, commandTimeout);
         }
-        public static int ExecuteNonQuery(string sql, SqlConnection connection, CommandType commandType, int? commandTimeout = 36000)
+        public static int ExecuteNonQuery(string sql, SqlConnection connection, CommandType commandType, int commandTimeout = 30)
         {
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
                 command.CommandType = commandType;
-                command.CommandTimeout = commandTimeout.Value;
+                command.CommandTimeout = commandTimeout;
                 return command.ExecuteNonQuery();
             }
         }
-        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction, CommandType commandType, int? commandTimeout = 36000)
+        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction, CommandType commandType, int commandTimeout = 30)
         {
             using (SqlCommand command = new SqlCommand(sql, connection, transaction))
             {
                 command.CommandType = commandType;
-                command.CommandTimeout = commandTimeout.Value;
+                command.CommandTimeout = commandTimeout;
                 return command.ExecuteNonQuery();
             }
         }
-        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlParameter[] parameters, CommandType commandType, int? commandTimeout = 36000)
+        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlParameter[] parameters, CommandType commandType, int commandTimeout = 30)
         {
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.CommandTimeout = commandTimeout.Value;
+                command.CommandTimeout = commandTimeout;
                 command.CommandType = commandType;
                 command.CommandText = sql;
                 command.Parameters.AddRange(parameters);
                 return command.ExecuteNonQuery();
             }
         }
-        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction, SqlParameter[] parameters, CommandType commandType, int? commandTimeout = 36000)
+        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction, SqlParameter[] parameters, CommandType commandType, int commandTimeout = 30)
         {
             using (SqlCommand command = new SqlCommand(sql, connection, transaction))
             {
-                command.CommandTimeout = commandTimeout.Value;
+                command.CommandTimeout = commandTimeout;
                 command.CommandType = commandType;
                 command.CommandText = sql;
                 command.Parameters.AddRange(parameters);
@@ -352,16 +352,16 @@ namespace Toolshed
         }
 
 
-        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, CommandType commandType)
+        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, CommandType commandType, int commandTimeout = 30)
         {
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
                 command.CommandType = commandType;
-                command.CommandTimeout = 0x8ca0;
+                command.CommandTimeout = commandTimeout;
                 return await command.ExecuteNonQueryAsync();
             }
         }
-        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction = null)
+        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction = null, int commandTimeout = 30)
         {
             if (transaction == null)
             {
@@ -369,31 +369,31 @@ namespace Toolshed
             }
             return await ExecuteNonQueryAsync(sql, connection, transaction, CommandType.Text);
         }
-        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction, CommandType commandType)
+        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction, CommandType commandType, int commandTimeout = 30)
         {
             using (SqlCommand command = new SqlCommand(sql, connection, transaction))
             {
                 command.CommandType = commandType;
-                command.CommandTimeout = 0x8ca0;
+                command.CommandTimeout = commandTimeout;
                 return await command.ExecuteNonQueryAsync();
             }
         }
-        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlParameter[] parameters, CommandType commandType)
+        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlParameter[] parameters, CommandType commandType, int commandTimeout = 30)
         {
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.CommandTimeout = 0x57e40;
+                command.CommandTimeout = commandTimeout;
                 command.CommandType = commandType;
                 command.CommandText = sql;
                 command.Parameters.AddRange(parameters);
                 return await command.ExecuteNonQueryAsync();
             }
         }
-        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction, SqlParameter[] parameters, CommandType commandType)
+        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction, SqlParameter[] parameters, CommandType commandType, int commandTimeout = 30)
         {
             using (SqlCommand command = new SqlCommand(sql, connection, transaction))
             {
-                command.CommandTimeout = 0x8ca0;
+                command.CommandTimeout = commandTimeout;
                 command.CommandType = commandType;
                 command.CommandText = sql;
                 command.Parameters.AddRange(parameters);
