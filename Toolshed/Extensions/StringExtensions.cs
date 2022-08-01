@@ -169,9 +169,9 @@ namespace Toolshed
 
             return s.ToUpper().Trim();
         }
-        
-        
-        
+
+
+
         public static string ToLowerInvariantTrimSafely(this string s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
@@ -183,7 +183,7 @@ namespace Toolshed
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
 
             return s.ToLower();
-        }        
+        }
         public static string ToLowerInvariantSafely(this string s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
@@ -207,7 +207,7 @@ namespace Toolshed
             return s;
         }
 
-        
+
         public static string ToTitleCase(this string s)
         {
             if (string.IsNullOrEmpty(s)) return s;
@@ -216,8 +216,24 @@ namespace Toolshed
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s.ToLowerInvariant()).TrimSafely();
         }
 
+        /// <summary>
+        /// Returns NULL if the specified string is null or empty/whitespace
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string ToNullIfEmpty(this string s)
+        {
+            if (s == null)
+            {
+                return null;
+            }
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return null;
+            }
 
-
+            return s;
+        }
 
         /// <summary>
         /// Returns the string using the fromat provided if the string passes string.IsNullOrWhiteSpace otherwise return an empty string
