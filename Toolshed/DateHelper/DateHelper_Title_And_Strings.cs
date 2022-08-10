@@ -147,6 +147,12 @@ namespace Toolshed
             return string.Format("{0} {1}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date.Month), date.Year);
         }
 
+        /// <summary>
+        /// Returns the specified date as Month Year - Month Year (e.g., January 2017) using the current culture. If the month and years are the same, then only one month year is displayed.
+        /// </summary>
+        /// <param name="date1"></param>
+        /// <param name="date2"></param>
+        /// <returns></returns>
         public static string ToMonthTitle(DateTime date1, DateTime date2)
         {
             if(date1.IsMonthAndYearEqual(date2))
@@ -155,7 +161,7 @@ namespace Toolshed
             }
             else
             {
-                return string.Format("{0} {1} - {2} {3}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date1.Month), date1.Year, date2.Month, date2.Year);
+                return string.Format("{0} {1} - {2} {3}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date1.Month), date1.Year, DateTimeFormatInfo.CurrentInfo.GetMonthName(date2.Month), date2.Year);
             }
         }
 
