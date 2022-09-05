@@ -47,12 +47,12 @@ namespace Toolshed
         }
 
 
-        public static void BulkInsert<T>(SqlConnection connection, string tableName, IEnumerable<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
+        public static void BulkInsert<T>(SqlConnection connection, string tableName, IEnumerable<T> data, int batchSize = 5000, int commandTimeout = 3600, Type[] ignoreColumnAttributes = null)
         {
             using var bc = new SqlBulkCopy(connection)
             {
                 BatchSize = batchSize,
-                BulkCopyTimeout = 3600,
+                BulkCopyTimeout = commandTimeout,
                 DestinationTableName = tableName,
                 EnableStreaming = true                 
             };            
@@ -75,12 +75,12 @@ namespace Toolshed
 
             bc.WriteToServer(reader);
         }
-        public static void BulkInsert<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, IEnumerable<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
+        public static void BulkInsert<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, IEnumerable<T> data, int batchSize = 5000, int commandTimeout = 3600, Type[] ignoreColumnAttributes = null)
         {
             using var bc = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock, sqlTransaction)
             {
                 BatchSize = batchSize,
-                BulkCopyTimeout = 3600,
+                BulkCopyTimeout = commandTimeout,
                 DestinationTableName = tableName,
                 EnableStreaming = true
             };
@@ -104,12 +104,12 @@ namespace Toolshed
             bc.WriteToServer(reader);
         }
 
-        public static async Task BulkInsertAsync<T>(SqlConnection connection, string tableName, List<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
+        public static async Task BulkInsertAsync<T>(SqlConnection connection, string tableName, List<T> data, int batchSize = 5000, int commandTimeout = 3600, Type[] ignoreColumnAttributes = null)
         {
             using var bc = new SqlBulkCopy(connection)
             {
                 BatchSize = batchSize,
-                BulkCopyTimeout = 3600,
+                BulkCopyTimeout = commandTimeout,
                 DestinationTableName = tableName,
                 EnableStreaming = true
             };
@@ -132,12 +132,12 @@ namespace Toolshed
 
             await bc.WriteToServerAsync(reader);
         }
-        public static async Task BulkInsertAsync<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, List<T> data, int batchSize = 5000, Type[] ignoreColumnAttributes = null)
+        public static async Task BulkInsertAsync<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, List<T> data, int batchSize = 5000, int commandTimeout = 3600, Type[] ignoreColumnAttributes = null)
         {
             using var bc = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock, sqlTransaction)
             {
                 BatchSize = batchSize,
-                BulkCopyTimeout = 3600,
+                BulkCopyTimeout = commandTimeout,
                 DestinationTableName = tableName,
                 EnableStreaming = true
             };
@@ -161,12 +161,12 @@ namespace Toolshed
             await bc.WriteToServerAsync(reader);
         }
 
-        public static async Task BulkInsertAsync<T>(SqlConnection connection, string tableName, ObjectReader objectReader, int batchSize = 5000, Type[] ignoreColumnAttributes = null, string[] ignoreColumns = null)
+        public static async Task BulkInsertAsync<T>(SqlConnection connection, string tableName, ObjectReader objectReader, int batchSize = 5000, int commandTimeout = 3600, Type[] ignoreColumnAttributes = null, string[] ignoreColumns = null)
         {
             using var bc = new SqlBulkCopy(connection)
             {
                 BatchSize = batchSize,
-                BulkCopyTimeout = 3600,
+                BulkCopyTimeout = commandTimeout,
                 DestinationTableName = tableName,
                 EnableStreaming = true
             };
@@ -195,12 +195,12 @@ namespace Toolshed
 
             await bc.WriteToServerAsync(objectReader);
         }
-        public static async Task BulkInsertAsync<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, ObjectReader objectReader, int batchSize = 5000, Type[] ignoreColumnAttributes = null, string[] ignoreColumns = null)
+        public static async Task BulkInsertAsync<T>(SqlConnection connection, SqlTransaction sqlTransaction, string tableName, ObjectReader objectReader, int batchSize = 5000, int commandTimeout = 3600, Type[] ignoreColumnAttributes = null, string[] ignoreColumns = null)
         {
             using var bc = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock, sqlTransaction)
             {
                 BatchSize = batchSize,
-                BulkCopyTimeout = 3600,
+                BulkCopyTimeout = commandTimeout,
                 DestinationTableName = tableName,
                 EnableStreaming = true
             };
@@ -365,9 +365,9 @@ namespace Toolshed
         {
             if (transaction == null)
             {
-                return await ExecuteNonQueryAsync(sql, connection, CommandType.Text);
+                return await ExecuteNonQueryAsync(sql, connection, CommandType.Text, commandTimeout);
             }
-            return await ExecuteNonQueryAsync(sql, connection, transaction, CommandType.Text);
+            return await ExecuteNonQueryAsync(sql, connection, transaction, CommandType.Text, commandTimeout);
         }
         public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction, CommandType commandType, int commandTimeout = 30)
         {
