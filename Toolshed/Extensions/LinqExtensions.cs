@@ -26,7 +26,44 @@ namespace Toolshed
             return list.Select(selector).Average();
         }
 
+        public static int MinOrDefault<T>(this IEnumerable<T> list, Func<T, int> selector)
+        {
+            if (list == null || !list.Any())
+            {
+                return 0;
+            }
 
+            return list.Select(selector).Min();
+        }
+        public static int MaxOrDefault<T>(this IEnumerable<T> list, Func<T, int> selector)
+        {
+            if (list == null || !list.Any())
+            {
+                return 0;
+            }
+
+            return list.Select(selector).Max();
+        }        
+
+        public static double MinOrDefault<T>(this IEnumerable<T> list, Func<T, double> selector)
+        {
+            if (list == null || !list.Any())
+            {
+                return 0;
+            }
+
+            return list.Select(selector).Min();
+        }
+        public static double MaxOrDefault<T>(this IEnumerable<T> list, Func<T, double> selector)
+        {
+            if (list == null || !list.Any())
+            {
+                return 0;
+            }
+
+            return list.Select(selector).Max();
+        }
+        
         public static double SumOrDefault<T>(this IEnumerable<T> list, Func<T, double> selector)
         {
             if (list == null || !list.Any())
@@ -46,7 +83,15 @@ namespace Toolshed
             return list.Select(selector).Sum();
         }
 
+        public static DateTime MinOrDefault<T>(this IEnumerable<T> list, Func<T, DateTime> selector, DateTime? defaultValue = null)
+        {
+            if (list == null || !list.Any())
+            {
+                return defaultValue.GetValueOrDefault(DateTime.MinValue);
+            }
 
+            return list.Select(selector).Min();
+        }
         public static DateTime MaxOrDefault<T>(this IEnumerable<T> list, Func<T, DateTime> selector, DateTime? defaultValue = null)
         {
             if (list == null || !list.Any())
