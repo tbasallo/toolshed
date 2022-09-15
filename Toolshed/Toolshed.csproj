@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net6.0</TargetFrameworks>
-    <Version>7.18.0</Version>
+    <Version>7.19.0</Version>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <RepositoryUrl>https://github.com/tbasallo/toolshed</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>

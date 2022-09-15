@@ -22,6 +22,11 @@ namespace Toolshed
                         continue;
                     }
                 }
+                
+                if (item.CustomAttributes.Any(x => x.AttributeType == typeof(IgnoreBulkImportAttribute)))
+                {
+                    continue;
+                }
 
                 if (item.PropertyType == typeof(string))
                 {
@@ -59,6 +64,10 @@ namespace Toolshed
 
             foreach (var item in typeof(T).GetProperties())
             {
+                if (item.CustomAttributes.Any(x => x.AttributeType == typeof(IgnoreBulkImportAttribute)))
+                {
+                    continue;
+                }
                 if (ignoreColumnAttributes != null)
                 {
                     var d1 = item.CustomAttributes;
@@ -87,6 +96,10 @@ namespace Toolshed
 
             foreach (var item in typeof(T).GetProperties())
             {
+                if (item.CustomAttributes.Any(x => x.AttributeType == typeof(IgnoreBulkImportAttribute)))
+                {
+                    continue;
+                }
                 if (ignoreColumnAttributes != null)
                 {
                     var d1 = item.CustomAttributes;
@@ -116,6 +129,10 @@ namespace Toolshed
 
             foreach (var item in typeof(T).GetProperties())
             {
+                if (item.CustomAttributes.Any(x => x.AttributeType == typeof(IgnoreBulkImportAttribute)))
+                {
+                    continue;
+                }
                 if (ignoreColumnAttributes != null)
                 {
                     var d1 = item.CustomAttributes;
@@ -144,6 +161,10 @@ namespace Toolshed
 
             foreach (var item in typeof(T).GetProperties())
             {
+                if (item.CustomAttributes.Any(x => x.AttributeType == typeof(IgnoreBulkImportAttribute)))
+                {
+                    continue;
+                }
                 if (ignoreColumnAttributes != null)
                 {
                     var d1 = item.CustomAttributes;
@@ -160,7 +181,6 @@ namespace Toolshed
 
             await bc.WriteToServerAsync(reader);
         }
-
         public static async Task BulkInsertAsync<T>(SqlConnection connection, string tableName, ObjectReader objectReader, int batchSize = 5000, int commandTimeout = 3600, Type[] ignoreColumnAttributes = null, string[] ignoreColumns = null)
         {
             using var bc = new SqlBulkCopy(connection)
@@ -173,6 +193,10 @@ namespace Toolshed
 
             foreach (var item in typeof(T).GetProperties())
             {
+                if (item.CustomAttributes.Any(x => x.AttributeType == typeof(IgnoreBulkImportAttribute)))
+                {
+                    continue;
+                }
                 if (ignoreColumnAttributes != null)
                 {
                     var d1 = item.CustomAttributes;
@@ -207,6 +231,10 @@ namespace Toolshed
 
             foreach (var item in typeof(T).GetProperties())
             {
+                if (item.CustomAttributes.Any(x => x.AttributeType == typeof(IgnoreBulkImportAttribute)))
+                {
+                    continue;
+                }
                 if (ignoreColumnAttributes != null)
                 {
                     var d1 = item.CustomAttributes;
