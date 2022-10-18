@@ -15,7 +15,7 @@ namespace Toolshed
         /// <param name="propertyNameCaseInsensitive"></param>
         /// <param name="maxDepth"></param>
         /// <returns></returns>
-        public static string ToJson<T>(this T model, bool propertyNameCaseInsensitive = true, int maxDepth = 10) where T : class, new()
+        public static string ToJson<T>(this T model, bool propertyNameCaseInsensitive = true, int maxDepth = 10)
         {
             if (model == null)
             {
@@ -33,7 +33,7 @@ namespace Toolshed
         /// <param name="propertyNameCaseInsensitive"></param>
         /// <param name="maxDepth"></param>
         /// <returns></returns>
-        public static T FromJson<T>(this string model, bool propertyNameCaseInsensitive = true, int maxDepth = 10) where T : class, new()
+        public static T FromJson<T>(this string model, bool propertyNameCaseInsensitive = true, int maxDepth = 10)
         {
             if (model == null)
             {
