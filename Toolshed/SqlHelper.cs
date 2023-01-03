@@ -304,7 +304,7 @@ namespace Toolshed
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
                 command.CommandType = CommandType.Text;
-                command.CommandTimeout = 0x8ca0;
+                command.CommandTimeout = CommandTimeout.GetValueOrDefault(command.CommandTimeout);
                 return (T)command.ExecuteScalar();
             }
         }
@@ -313,7 +313,7 @@ namespace Toolshed
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
                 command.CommandType = CommandType.Text;
-                command.CommandTimeout = 0x8ca0;
+                command.CommandTimeout = CommandTimeout.GetValueOrDefault(command.CommandTimeout);
                 return (T)await command.ExecuteScalarAsync();
             }
         }
@@ -323,7 +323,7 @@ namespace Toolshed
             using (SqlCommand command = new SqlCommand(sql, connection, transaction))
             {
                 command.CommandType = CommandType.Text;
-                command.CommandTimeout = 0x8ca0;
+                command.CommandTimeout = CommandTimeout.GetValueOrDefault(command.CommandTimeout);
                 return (T)command.ExecuteScalar();
             }
         }
@@ -332,7 +332,7 @@ namespace Toolshed
             using (SqlCommand command = new SqlCommand(sql, connection, transaction))
             {
                 command.CommandType = CommandType.Text;
-                command.CommandTimeout = 0x8ca0;
+                command.CommandTimeout = CommandTimeout.GetValueOrDefault(command.CommandTimeout);
                 return (T)await command.ExecuteScalarAsync();
             }
         }
@@ -463,7 +463,7 @@ namespace Toolshed
             using var command = new SqlCommand(sql, connection);
 
             command.CommandType = CommandType.Text;
-            command.CommandTimeout = 0x8ca0;
+            command.CommandTimeout = CommandTimeout.GetValueOrDefault(command.CommandTimeout);
             return (int)await command.ExecuteScalarAsync() == 1;
         }
 
