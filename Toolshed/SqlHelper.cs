@@ -10,6 +10,14 @@ namespace Toolshed
 {
     public static class SqlHelper
     {
+        /// <summary>
+        /// The command timeout that will be used for all commands if set. This is a static property and will apply to ALL commands using it for the rest of its life
+        /// unless changed. Use with care.
+        /// If you're unsure what that means, ask someone.
+        /// </summary>
+        public static int? CommandTimeout { get; set; } = 30;
+
+
         public static void LogToConsoleStringLengths<T>(List<T> data, bool stopWhenDone = true, Type[] ignoreColumnAttributes = null)
         {
             foreach (var item in typeof(T).GetProperties())
