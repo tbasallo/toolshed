@@ -15,7 +15,7 @@ namespace Toolshed
         /// unless changed. Use with care.
         /// If you're unsure what that means, ask someone.
         /// </summary>
-        public static int? CommandTimeout { get; set; } = 30;
+        public static int? CommandTimeout { get; set; }
 
 
         public static void LogToConsoleStringLengths<T>(List<T> data, bool stopWhenDone = true, Type[] ignoreColumnAttributes = null)
@@ -338,7 +338,7 @@ namespace Toolshed
         }
 
 
-        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction = null, int commandTimeout = 30)
+        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction = null, int? commandTimeout = null)
         {
             if (transaction == null)
             {
@@ -346,58 +346,63 @@ namespace Toolshed
             }
             return ExecuteNonQuery(sql, connection, transaction, CommandType.Text, commandTimeout);
         }
-        public static int ExecuteNonQuery(string sql, SqlConnection connection, CommandType commandType, int commandTimeout = 30)
+        public static int ExecuteNonQuery(string sql, SqlConnection connection, CommandType commandType, int? commandTimeout = null)
         {
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                command.CommandType = commandType;
-                command.CommandTimeout = commandTimeout;
-                return command.ExecuteNonQuery();
-            }
-        }
-        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction, CommandType commandType, int commandTimeout = 30)
+			using SqlCommand command = new SqlCommand(sql, connection);
+			command.CommandType = commandType;
+			if (commandTimeout.HasValue || CommandTimeout.HasValue)
+			{
+				command.CommandTimeout = commandTimeout.GetValueOrDefault(CommandTimeout.GetValueOrDefault(command.CommandTimeout));
+			}
+			return command.ExecuteNonQuery();
+		}
+        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction, CommandType commandType, int? commandTimeout = null)
         {
-            using (SqlCommand command = new SqlCommand(sql, connection, transaction))
-            {
-                command.CommandType = commandType;
-                command.CommandTimeout = commandTimeout;
-                return command.ExecuteNonQuery();
-            }
-        }
-        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlParameter[] parameters, CommandType commandType, int commandTimeout = 30)
+			using SqlCommand command = new SqlCommand(sql, connection, transaction);
+			command.CommandType = commandType;
+			if (commandTimeout.HasValue || CommandTimeout.HasValue)
+			{
+				command.CommandTimeout = commandTimeout.GetValueOrDefault(CommandTimeout.GetValueOrDefault(command.CommandTimeout));
+			}
+			return command.ExecuteNonQuery();
+		}
+        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlParameter[] parameters, CommandType commandType, int? commandTimeout = null)
         {
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                command.CommandTimeout = commandTimeout;
-                command.CommandType = commandType;
-                command.CommandText = sql;
-                command.Parameters.AddRange(parameters);
-                return command.ExecuteNonQuery();
-            }
-        }
-        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction, SqlParameter[] parameters, CommandType commandType, int commandTimeout = 30)
+			using SqlCommand command = new SqlCommand(sql, connection);
+			if (commandTimeout.HasValue || CommandTimeout.HasValue)
+			{
+				command.CommandTimeout = commandTimeout.GetValueOrDefault(CommandTimeout.GetValueOrDefault(command.CommandTimeout));
+			}
+			command.CommandType = commandType;
+			command.CommandText = sql;
+			command.Parameters.AddRange(parameters);
+			return command.ExecuteNonQuery();
+		}
+        public static int ExecuteNonQuery(string sql, SqlConnection connection, SqlTransaction transaction, SqlParameter[] parameters, CommandType commandType, int? commandTimeout = null)
         {
-            using (SqlCommand command = new SqlCommand(sql, connection, transaction))
-            {
-                command.CommandTimeout = commandTimeout;
-                command.CommandType = commandType;
-                command.CommandText = sql;
-                command.Parameters.AddRange(parameters);
-                return command.ExecuteNonQuery();
-            }
-        }
+			using SqlCommand command = new SqlCommand(sql, connection, transaction);
+			if (commandTimeout.HasValue || CommandTimeout.HasValue)
+			{
+				command.CommandTimeout = commandTimeout.GetValueOrDefault(CommandTimeout.GetValueOrDefault(command.CommandTimeout));
+			}
+			command.CommandType = commandType;
+			command.CommandText = sql;
+			command.Parameters.AddRange(parameters);
+			return command.ExecuteNonQuery();
+		}
 
 
-        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, CommandType commandType, int commandTimeout = 30)
+        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, CommandType commandType, int? commandTimeout = null)
         {
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                command.CommandType = commandType;
-                command.CommandTimeout = commandTimeout;
-                return await command.ExecuteNonQueryAsync();
-            }
-        }
-        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction = null, int commandTimeout = 30)
+			using SqlCommand command = new SqlCommand(sql, connection);
+			if (commandTimeout.HasValue || CommandTimeout.HasValue)
+			{
+				command.CommandTimeout = commandTimeout.GetValueOrDefault(CommandTimeout.GetValueOrDefault(command.CommandTimeout));
+			}
+			command.CommandType = commandType;
+			return await command.ExecuteNonQueryAsync();
+		}
+        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction = null, int? commandTimeout = null)
         {
             if (transaction == null)
             {
@@ -405,47 +410,40 @@ namespace Toolshed
             }
             return await ExecuteNonQueryAsync(sql, connection, transaction, CommandType.Text, commandTimeout);
         }
-        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction, CommandType commandType, int commandTimeout = 30)
+        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction, CommandType commandType, int? commandTimeout = null)
         {
-            using (SqlCommand command = new SqlCommand(sql, connection, transaction))
-            {
-                command.CommandType = commandType;
-                command.CommandTimeout = commandTimeout;
-                return await command.ExecuteNonQueryAsync();
-            }
-        }
-        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlParameter[] parameters, CommandType commandType, int commandTimeout = 30)
+			using SqlCommand command = new SqlCommand(sql, connection, transaction);
+			if (commandTimeout.HasValue || CommandTimeout.HasValue)
+			{
+				command.CommandTimeout = commandTimeout.GetValueOrDefault(CommandTimeout.GetValueOrDefault(command.CommandTimeout));
+			}
+			command.CommandType = commandType;
+			return await command.ExecuteNonQueryAsync();
+		}
+        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlParameter[] parameters, CommandType commandType, int? commandTimeout = null)
         {
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                command.CommandTimeout = commandTimeout;
-                command.CommandType = commandType;
-                command.CommandText = sql;
-                command.Parameters.AddRange(parameters);
-                return await command.ExecuteNonQueryAsync();
-            }
-        }
-        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction, SqlParameter[] parameters, CommandType commandType, int commandTimeout = 30)
+			using SqlCommand command = new SqlCommand(sql, connection);
+			if (commandTimeout.HasValue || CommandTimeout.HasValue)
+			{
+				command.CommandTimeout = commandTimeout.GetValueOrDefault(CommandTimeout.GetValueOrDefault(command.CommandTimeout));
+			}
+			command.CommandType = commandType;
+			command.CommandText = sql;
+			command.Parameters.AddRange(parameters);
+			return await command.ExecuteNonQueryAsync();
+		}
+        public async static Task<int> ExecuteNonQueryAsync(string sql, SqlConnection connection, SqlTransaction transaction, SqlParameter[] parameters, CommandType commandType, int? commandTimeout = null)
         {
-            using (SqlCommand command = new SqlCommand(sql, connection, transaction))
-            {
-                command.CommandTimeout = commandTimeout;
-                command.CommandType = commandType;
-                command.CommandText = sql;
-                command.Parameters.AddRange(parameters);
-                return await command.ExecuteNonQueryAsync();
-            }
-        }
-
-
-        
-
-
-
-
-
-
-
+			using SqlCommand command = new SqlCommand(sql, connection, transaction);
+			if (commandTimeout.HasValue || CommandTimeout.HasValue)
+			{
+				command.CommandTimeout = commandTimeout.GetValueOrDefault(CommandTimeout.GetValueOrDefault(command.CommandTimeout));
+			}
+			command.CommandType = commandType;
+			command.CommandText = sql;
+			command.Parameters.AddRange(parameters);
+			return await command.ExecuteNonQueryAsync();
+		}
 
         /// <summary>
         /// This checks if a given statement is true. It checks for a return value of 1 or 0 NOT a null value.
@@ -463,7 +461,10 @@ namespace Toolshed
             using var command = new SqlCommand(sql, connection);
 
             command.CommandType = CommandType.Text;
-            command.CommandTimeout = CommandTimeout.GetValueOrDefault(command.CommandTimeout);
+            if (CommandTimeout.HasValue)
+            {
+                command.CommandTimeout = CommandTimeout.GetValueOrDefault();
+            }
             return (int)await command.ExecuteScalarAsync() == 1;
         }
 
