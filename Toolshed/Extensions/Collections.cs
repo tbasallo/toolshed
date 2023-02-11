@@ -212,6 +212,15 @@ namespace Toolshed
         }
 
 
+
+        /// <summary>
+        /// Returns the value before and after the specified value. If there is no value before or after, then the specified default values are returned
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="value"></param>
+        /// <param name="defaultBefore">What to return if no value smaller than the specified value is found (defaults to double.MinValue)</param>
+        /// <param name="defaultAfter">What to return if no value larger than the specified value is found (defaults to double.MaxValue)</param>
+        /// <returns></returns>
         public static (double beforeValue, double afterValue) GetBeforeAndAfterValues(this IEnumerable<double> source, double value, double defaultBefore = double.MinValue, double defaultAfter = double.MaxValue)
         {
             double before = defaultBefore;
@@ -230,5 +239,33 @@ namespace Toolshed
 
             return (before, after);
         }
+
+        /// <summary>
+        /// Returns the value before and after the specified value. If there is no value before or after, then the specified default values are returned
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="value"></param>
+        /// <param name="defaultBefore">What to return if no value smaller than the specified value is found (defaults to double.MinValue)</param>
+        /// <param name="defaultAfter">What to return if no value larger than the specified value is found (defaults to double.MaxValue)</param>
+        /// <returns></returns>
+        public static (int beforeValue, int afterValue) GetBeforeAndAfterValues(this IEnumerable<int> source, double value, int defaultBefore = int.MinValue, int defaultAfter = int.MaxValue)
+        {
+            int before = defaultBefore;
+            int after = defaultAfter;
+            foreach (var x in source)
+            {
+                if (x <= value && x > before)
+                {
+                    before = x;
+                }
+                if (x >= value && x <= after)
+                {
+                    after = x;
+                }
+            }
+
+            return (before, after);
+        }
+
     }
 }
