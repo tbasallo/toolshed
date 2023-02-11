@@ -217,19 +217,44 @@ namespace Toolshed
         }
 
         /// <summary>
-        /// Returns NULL if the specified string is null or empty/whitespace
-        /// </summary>
-        /// <param name="s"></param>
+        /// Returns NULL for string that are null, empty or whitespace. Additionally, if an array of strings is provided, a match will also return NULL (case sensitive)
+        /// </summary>		
+        /// <param name="nullQualifyingString">An option list of strings that are checked to return null </param>
         /// <returns></returns>
-        public static string ToNullIfEmpty(this string s)
+        public static string ToNullIfEmpty(this string s, bool trimString = false, bool toUpper = false, string[] nullQualifyingString = null)
         {
             if (s == null)
+            {
+                return null;
+            }
+            if (s.Length == 0)
             {
                 return null;
             }
             if (string.IsNullOrWhiteSpace(s))
             {
                 return null;
+            }
+
+            if (nullQualifyingString != null)
+            {
+                if (nullQualifyingString.Contains(s))
+                {
+                    return null;
+                }
+            }
+
+            if (trimString && toUpper)
+            {
+                return s.ToUpper().Trim();
+            }
+            else if (trimString)
+            {
+                return s.Trim();
+            }
+            else if (toUpper)
+            {
+                return s.ToUpperInvariant();
             }
 
             return s;
