@@ -118,7 +118,7 @@ namespace Toolshed
         /// <param name="spaceBetweenDelimiter">Indicates whether a space should be inserted between the end of one delimiter and the start of the next item: "a,b,c" vs. "a, b, c"</param>
         /// <param name="ignoreNullValues">If true, removes null values from the returned string. Defaults to false (i.e will return a,c)</param>
         /// <returns>A string where the collection items are delimited using the specified delimiter</returns>
-        public static string ToDelimitedString(this ICollection<string> collection, string delimiter = ",", string format = null, bool spaceBetweenDelimiter = true, bool ignoreNullValues = false) where T : IComparable
+        public static string ToDelimitedString(this ICollection<string> collection, string delimiter = ",", string format = null, bool spaceBetweenDelimiter = true, bool ignoreNullValues = false)
         {
             if (collection.Count < 1)
             {
