@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30104.148
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toolshed", "Toolshed\Toolshed.csproj", "{C01D807D-D1DB-41CA-8D42-B89A8BF85861}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolGrinder", "ToolGrinder\ToolGrinder.csproj", "{9074ACD8-8476-46F9-9464-E55E7282FD20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,14 +17,18 @@ Global
 		{C01D807D-D1DB-41CA-8D42-B89A8BF85861}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C01D807D-D1DB-41CA-8D42-B89A8BF85861}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C01D807D-D1DB-41CA-8D42-B89A8BF85861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9074ACD8-8476-46F9-9464-E55E7282FD20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9074ACD8-8476-46F9-9464-E55E7282FD20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9074ACD8-8476-46F9-9464-E55E7282FD20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9074ACD8-8476-46F9-9464-E55E7282FD20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_UseGlobalSettings = True
-		BuildVersion_StartDate = 2000/1/1
-		BuildVersion_BuildVersioningStyle = None.None.YearMonthStamp.Increment
 		SolutionGuid = {1FE3DF30-2B6F-4A14-AA5F-2E2D379A4B1D}
+		BuildVersion_BuildVersioningStyle = None.None.YearMonthStamp.Increment
+		BuildVersion_StartDate = 2000/1/1
+		BuildVersion_UseGlobalSettings = True
 	EndGlobalSection
 EndGlobal

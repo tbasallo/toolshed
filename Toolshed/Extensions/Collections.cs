@@ -150,5 +150,25 @@ namespace Toolshed
                 yield return list.GetRange(i, Math.Min(groupSize, list.Count - i));
             }
         }
+
+
+        public static (double beforeValue, double afterValue) GetBeforeAndAfterValues(this IEnumerable<double> source, double value, double defaultBefore = double.MinValue, double defaultAfter = double.MaxValue)
+        {
+            double before = defaultBefore;
+            double after = defaultAfter;
+            foreach (var x in source)
+            {
+                if (x <= value && x > before)
+                {
+                    before = x;
+                }
+                if (x >= value && x <= after)
+                {
+                    after = x;
+                }
+            }
+
+            return (before, after);
+        }
     }
 }
