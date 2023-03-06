@@ -63,37 +63,40 @@ namespace Toolshed
         /// </summary>
         /// <param name="part">The desired part to be described</param>
         /// <param name="round">The number of decimals to be returned for partial time spans</param>
-        public static string ToShortDescriptionString(this TimeSpan timeSpan, TimeSpanPart part, int round = 2)
+        public static string ToShortDescriptionString(this TimeSpan timeSpan, TimeSpanPart part, int round = 2, bool abbreviate = false)
         {
-            switch (part)
+            if (abbreviate)
             {
-                case TimeSpanPart.Years:
-                    var y = Math.Round(timeSpan.TotalDays / 365, round);
-                    return string.Format("{0} {1}", y, "year".MakePlural(y));
-                case TimeSpanPart.Months:
-                    var mo = Math.Round(timeSpan.TotalDays / 30, round);
-                    return string.Format("{0} {1}", mo, "month".MakePlural(mo));
-                case TimeSpanPart.Weeks:
-                    var w = Math.Round(timeSpan.TotalDays / 7, round);
-                    return string.Format("{0} {1}", w, "week".MakePlural(w));
-                case TimeSpanPart.Days:
-                    var d = Math.Round(timeSpan.TotalDays, round);
-                    return string.Format("{0} {1}", d, "day".MakePlural(d));
-                case TimeSpanPart.Hours:
-                    var h = Math.Round(timeSpan.TotalHours, round);
-                    return string.Format("{0} {1}", h, "hour".MakePlural(h));
-                case TimeSpanPart.Minutes:
-                    var m = Math.Round(timeSpan.TotalMinutes, round);
-                    return string.Format("{0} {1}", m, "minute".MakePlural(m));
-                case TimeSpanPart.Seconds:
-                    var s = Math.Round(timeSpan.TotalSeconds, round);
-                    return string.Format("{0} {1}", s, "second".MakePlural(s));
-                case TimeSpanPart.Milliseconds:
-                    var mm = Math.Round(timeSpan.TotalMilliseconds, round);
-                    return string.Format("{0} {1}", mm, "millisecond".MakePlural(mm));
-                default:
-                    return timeSpan.ToLongDescriptionString();
+                return part switch
+                {
+                    TimeSpanPart.Years => string.Format("{0} {1}", Math.Round(timeSpan.TotalDays / 365, round), "yr".MakePlural(Math.Round(timeSpan.TotalDays / 365, round))),
+                    TimeSpanPart.Months => string.Format("{0} {1}", Math.Round(timeSpan.TotalDays / 30, round), "mn".MakePlural(Math.Round(timeSpan.TotalDays / 30, round))),
+                    TimeSpanPart.Weeks => string.Format("{0} {1}", Math.Round(timeSpan.TotalDays / 7, round), "wk".MakePlural(Math.Round(timeSpan.TotalDays / 7, round))),
+                    TimeSpanPart.Days => string.Format("{0} {1}", Math.Round(timeSpan.TotalDays, round), "day".MakePlural(Math.Round(timeSpan.TotalDays, round))),
+                    TimeSpanPart.Hours => string.Format("{0} {1}", Math.Round(timeSpan.TotalHours, round), "hr".MakePlural(Math.Round(timeSpan.TotalHours, round))),
+                    TimeSpanPart.Minutes => string.Format("{0} {1}", Math.Round(timeSpan.TotalMinutes, round), "min".MakePlural(Math.Round(timeSpan.TotalMinutes, round))),
+                    TimeSpanPart.Seconds => string.Format("{0} {1}", Math.Round(timeSpan.TotalSeconds, round), "sec".MakePlural(Math.Round(timeSpan.TotalSeconds, round))),
+                    TimeSpanPart.Milliseconds => string.Format("{0} {1}", Math.Round(timeSpan.TotalMilliseconds, round), "milli".MakePlural(Math.Round(timeSpan.TotalMilliseconds, round))),
+
+                    //THIS NEVER HAPPENS
+                    _ => string.Format("{0} {1}", Math.Round(timeSpan.TotalDays, round), "day".MakePlural(Math.Round(timeSpan.TotalDays, round)))
+                };
             }
+
+            return part switch
+            {
+                TimeSpanPart.Years => string.Format("{0} {1}", Math.Round(timeSpan.TotalDays / 365, round), "year".MakePlural(Math.Round(timeSpan.TotalDays / 365, round))),
+                TimeSpanPart.Months => string.Format("{0} {1}", Math.Round(timeSpan.TotalDays / 30, round), "month".MakePlural(Math.Round(timeSpan.TotalDays / 30, round))),
+                TimeSpanPart.Weeks => string.Format("{0} {1}", Math.Round(timeSpan.TotalDays / 7, round), "week".MakePlural(Math.Round(timeSpan.TotalDays / 7, round))),
+                TimeSpanPart.Days => string.Format("{0} {1}", Math.Round(timeSpan.TotalDays, round), "day".MakePlural(Math.Round(timeSpan.TotalDays, round))),
+                TimeSpanPart.Hours => string.Format("{0} {1}", Math.Round(timeSpan.TotalHours, round), "hour".MakePlural(Math.Round(timeSpan.TotalHours, round))),
+                TimeSpanPart.Minutes => string.Format("{0} {1}", Math.Round(timeSpan.TotalMinutes, round), "minute".MakePlural(Math.Round(timeSpan.TotalMinutes, round))),
+                TimeSpanPart.Seconds => string.Format("{0} {1}", Math.Round(timeSpan.TotalSeconds, round), "second".MakePlural(Math.Round(timeSpan.TotalSeconds, round))),
+                TimeSpanPart.Milliseconds => string.Format("{0} {1}", Math.Round(timeSpan.TotalMilliseconds, round), "milli".MakePlural(Math.Round(timeSpan.TotalMilliseconds, round))),
+
+                //THIS NEVER HAPPENS
+                _ => string.Format("{0} {1}", Math.Round(timeSpan.TotalDays, round), "day".MakePlural(Math.Round(timeSpan.TotalDays, round)))
+            };
         }
 
         /// <summary>
@@ -101,7 +104,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="round">The number of decimals to be returned for partial time spans</param>
         /// <returns></returns>
-        public static string ToMinimumDescriptionString(this TimeSpan timeSpan, int round = 2, TimeSpanPartType part = TimeSpanPartType.All)
+        public static string ToMinimumDescriptionString(this TimeSpan timeSpan, int round = 2, TimeSpanPartType part = TimeSpanPartType.All, bool abbreviate = false, bool show0SecondsWhenLessThan0 = true)
         {
             if (timeSpan.TotalDays > 1)
             {
@@ -109,39 +112,46 @@ namespace Toolshed
                 {
                     if (timeSpan.TotalDays > 364)
                     {
-                        return timeSpan.ToShortDescriptionString(TimeSpanPart.Years, round);
+                        return timeSpan.ToShortDescriptionString(TimeSpanPart.Years, round, abbreviate);
                     }
 
                     if (timeSpan.TotalDays > 30)
                     {
-                        return timeSpan.ToShortDescriptionString(TimeSpanPart.Months, round);
+                        return timeSpan.ToShortDescriptionString(TimeSpanPart.Months, round, abbreviate);
                     }
 
                     if (timeSpan.TotalDays > 7)
                     {
-                        return timeSpan.ToShortDescriptionString(TimeSpanPart.Weeks, round);
+                        return timeSpan.ToShortDescriptionString(TimeSpanPart.Weeks, round, abbreviate);
                     }
                 }
 
-                return timeSpan.ToShortDescriptionString(TimeSpanPart.Days, round);
+                return timeSpan.ToShortDescriptionString(TimeSpanPart.Days, round, abbreviate);
             }
 
             if (timeSpan.TotalHours > 1)
             {
-                return timeSpan.ToShortDescriptionString(TimeSpanPart.Hours, round);
+                return timeSpan.ToShortDescriptionString(TimeSpanPart.Hours, round, abbreviate);
             }
 
             if (timeSpan.TotalMinutes > 1)
             {
-                return timeSpan.ToShortDescriptionString(TimeSpanPart.Minutes, round);
+                return timeSpan.ToShortDescriptionString(TimeSpanPart.Minutes, round, abbreviate);
             }
 
             if (timeSpan.TotalSeconds > 1)
             {
-                return timeSpan.ToShortDescriptionString(TimeSpanPart.Seconds, round);
+                return timeSpan.ToShortDescriptionString(TimeSpanPart.Seconds, round, abbreviate);
             }
 
-            return timeSpan.ToShortDescriptionString(TimeSpanPart.Milliseconds, round);
+            if (show0SecondsWhenLessThan0)
+            {
+                return timeSpan.ToShortDescriptionString(TimeSpanPart.Seconds, round, abbreviate);
+            }
+            else
+            {
+                return timeSpan.ToShortDescriptionString(TimeSpanPart.Milliseconds, round, abbreviate);
+            }
         }
     }
 
