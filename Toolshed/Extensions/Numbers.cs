@@ -295,7 +295,7 @@ namespace Toolshed
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
-        public static string ToHtmlPercent(this int value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
+        public static string ToHtmlPercent(this int value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, string overrideValueFor1 = null, bool removeSpaces = true)
         {
             if (!format.StartsWith("p"))
             {
@@ -305,6 +305,11 @@ namespace Toolshed
             if (value == 0 && overrideValueForZeroResult != null)
             {
                 return overrideValueForZeroResult;
+            }
+
+            if(value == 1 && overrideValueFor1 != null)
+            {
+                return overrideValueFor1;
             }
 
             if ((double.IsNaN(value) || double.IsInfinity(value)) && defaultValueForNanOrInfinity != null)
@@ -330,14 +335,14 @@ namespace Toolshed
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
-        public static string ToHtmlPercent(this int? value, string format = "p1", string defaultValueForNanOrInfinityOrNull = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
+        public static string ToHtmlPercent(this int? value, string format = "p1", string defaultValueForNanOrInfinityOrNull = "", string overrideValueForZeroResult = null, string overrideValueFor1 = null, bool removeSpaces = true)
         {
             if (!value.HasValue)
             {
                 return defaultValueForNanOrInfinityOrNull;
             }
 
-            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinityOrNull, overrideValueForZeroResult, removeSpaces);
+            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinityOrNull, overrideValueForZeroResult, overrideValueFor1, removeSpaces);
         }
 
         /// <summary>
@@ -348,7 +353,7 @@ namespace Toolshed
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
-        public static string ToHtmlPercent(this double value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
+        public static string ToHtmlPercent(this double value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, string overrideValueFor1 = null, bool removeSpaces = true)
         {
             if (!format.StartsWith("p"))
             {
@@ -358,6 +363,11 @@ namespace Toolshed
             if (value == 0 && overrideValueForZeroResult != null)
             {
                 return overrideValueForZeroResult;
+            }
+
+            if (value == 1 && overrideValueFor1 != null)
+            {
+                return overrideValueFor1;
             }
 
             if ((double.IsNaN(value) || double.IsInfinity(value)) && defaultValueForNanOrInfinity != null)
@@ -383,14 +393,14 @@ namespace Toolshed
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
-        public static string ToHtmlPercent(this double? value, string format = "p1", string defaultValueForNanOrInfinityOrNull = "", string overrideValueForZeroResult = null, bool removeSpaces = true)
+        public static string ToHtmlPercent(this double? value, string format = "p1", string defaultValueForNanOrInfinityOrNull = "", string overrideValueForZeroResult = null, string overrideValueFor1 = null, bool removeSpaces = true)
         {
             if (!value.HasValue)
             {
                 return defaultValueForNanOrInfinityOrNull;
             }
 
-            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinityOrNull, overrideValueForZeroResult, removeSpaces);
+            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinityOrNull, overrideValueForZeroResult, overrideValueFor1, removeSpaces);
         }
 
         /// <summary>
