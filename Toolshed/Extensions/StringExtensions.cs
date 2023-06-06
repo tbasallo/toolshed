@@ -114,6 +114,12 @@ namespace Toolshed
 
             return s + "s";
         }
+        
+        /// <summary>
+        /// Returns the specified string with a prefix of a or an based on the English grammar rules (vowels get AN and the rets get A)
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static string PrefixA(this string s)
         {
             if (string.IsNullOrEmpty(s)) return string.Empty;
@@ -144,10 +150,11 @@ namespace Toolshed
 
             return "a " + s;
         }
+        
+        
         public static bool LengthIsOutOfIndex(this string s, int minimumLength, int maximumLength)
-        {
-            int length = s.Length;
-            return (length.IsInRange(minimumLength, maximumLength));
+        {            
+            return (s.Length.IsInRange(minimumLength, maximumLength));
         }
 
         public static string TrimSafely(this string s)
@@ -170,7 +177,21 @@ namespace Toolshed
             return s.ToUpper().Trim();
         }
 
+        /// <summary>
+        /// Returns the specified string up to the length provided if the string's length is greater than the provided length, other returns the original string
+        /// </summary>        
+        /// <param name="length">The maximum length  of the specified string you want returned</param>
+        /// <returns></returns>
+        public static string SubstringTo(this string s, int length)
+        {
+            if(!string.IsNullOrWhiteSpace(s) && s.Length > length)
+            {
+                return s[..length];
+            }
 
+            return s;
+
+        }
 
         public static string ToLowerInvariantTrimSafely(this string s)
         {
@@ -191,7 +212,11 @@ namespace Toolshed
             return s.ToLower();
         }
 
-
+        /// <summary>
+        /// returns a 10 digit number as (xxx) xxx-xxxx and a 7 digit number like xxx-xxxx and an 11 number that starts with 1 as 1 (xxxx) xxxx-xxxx otherwise returns the original string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static string ToTelephoneNumber(this string s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
@@ -202,12 +227,22 @@ namespace Toolshed
                     return string.Format("{0}-{1}", s.Substring(0, 3), s.Substring(3));
                 case 10:
                     return string.Format("({0}) {1}-{2}", s.Substring(0, 3), s.Substring(3, 3), s.Substring(6));
+                case 11:
+                    if(s.StartsWith("1"))
+                    {
+                        return string.Format("1 ({0}) {1}-{2}", s.Substring(0, 3), s.Substring(3, 3), s.Substring(6));
+                    }
+                    break;                    
             }
 
             return s;
         }
 
-
+        /// <summary>
+        /// Returns the string using the current culture's title case rules
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static string ToTitleCase(this string s)
         {
             if (string.IsNullOrEmpty(s)) return s;
