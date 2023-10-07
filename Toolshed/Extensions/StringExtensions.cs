@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -224,18 +225,40 @@ namespace Toolshed
             switch (s.Length)
             {
                 case 7:
-                    return string.Format("{0}-{1}", s.Substring(0, 3), s.Substring(3));
+                    return string.Format("{0}-{1}", s[0..3], s[^4..]);
                 case 10:
-                    return string.Format("({0}) {1}-{2}", s.Substring(0, 3), s.Substring(3, 3), s.Substring(6));
+                    return string.Format("({0}) {1}-{2}", s[0..3], s[3..6], s[^4..]);
                 case 11:
-                    if(s.StartsWith("1"))
+                    if (s.StartsWith("1"))
                     {
-                        return string.Format("1 ({0}) {1}-{2}", s.Substring(0, 3), s.Substring(3, 3), s.Substring(6));
+                        return string.Format("1 ({0}) {1}-{2}", s[1..4], s[4..7], s[^4..]);
                     }
-                    break;                    
+                    break;
             }
 
             return s;
+        }
+
+        /// <summary>
+        /// This cleans the specified string by removing any non number characters and then returning the last 10 digits. This eliminates the
+        /// leading 1 that some auto-fillers populate.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string GetFixedTelephoneNumber(this string s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+            
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (!(s[i] >= '0' && s[i] <= 9))
+                {
+                    s = s.RemoveNonNumbers();
+                    return s.Length >= 10 ? s[^10..] : s;
+                }
+            }
+
+            return s.Length >= 10 ? s[^10..] : s;
         }
 
         /// <summary>

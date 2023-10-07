@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
-    <Version>7.30.0</Version>
+    <Version>7.31.0</Version>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <RepositoryUrl>https://github.com/tbasallo/toolshed</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="FastMember" Version="1.5.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
   </ItemGroup>
 
 </Project>
