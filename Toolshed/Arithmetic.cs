@@ -27,6 +27,17 @@ namespace Toolshed
                 return dividend / divisor;
             }
         }
+        public static decimal Divide(decimal dividend, decimal divisor, int? decimals = null)
+        {
+            if (decimals.HasValue)
+            {
+                return Math.Round(dividend / divisor, decimals.Value);
+            }
+            else
+            {
+                return dividend / divisor;
+            }
+        }
 
         /// <summary>
         /// Divides the two numbers, returning a double with the specified number of decimal places. If either the dividend or divisor is null, the default value will be returned (defaults to 0).
