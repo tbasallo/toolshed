@@ -404,6 +404,59 @@ namespace Toolshed
         }
 
         /// <summary>
+        /// Converts a decimal value to an HTMl friendly version.
+        /// </summary>
+        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
+        /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
+        /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
+        public static string ToHtmlPercent(this decimal? value, string format = "p1", string defaultValueForNanOrInfinityOrNull = "", string overrideValueForZeroResult = null, string overrideValueFor1 = null, bool removeSpaces = true)
+        {
+            if (!value.HasValue)
+            {
+                return defaultValueForNanOrInfinityOrNull;
+            }
+
+            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinityOrNull, overrideValueForZeroResult, overrideValueFor1, removeSpaces);
+        }
+
+        /// <summary>
+        /// Converts a decimal value to an HTMl friendly version.
+        /// </summary>
+        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
+        /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
+        /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
+        public static string ToHtmlPercent(this decimal value, string format = "p1", string defaultValueForNanOrInfinityOrNull = "", string overrideValueForZeroResult = null, string overrideValueFor1 = null, bool removeSpaces = true)
+        {
+            if (!format.StartsWith("p"))
+            {
+                throw new ArgumentException("Format must start with p to represent a percentage, e.g., p1, p2, etc.", format);
+            }
+
+            if (value == 0 && overrideValueForZeroResult != null)
+            {
+                return overrideValueForZeroResult;
+            }
+
+            if (value == 1 && overrideValueFor1 != null)
+            {
+                return overrideValueFor1;
+            }
+
+            if (removeSpaces)
+            {
+                return value.ToString(format).RemoveSpaces();
+            }
+            else
+            {
+                return value.ToString(format);
+            }
+        }
+
+        /// <summary>
         /// Indicates whether this number is greater than the threshold provided
         /// </summary>
         public static bool IsGreaterThan(this int value, int threshold)
