@@ -48,6 +48,17 @@ namespace Toolshed
 
             return defaultValue;
         }
+        public static decimal Divide(decimal dividend, decimal divisor, int? decimals = null)
+        {
+            if (decimals.HasValue)
+            {
+                return Math.Round(dividend / divisor, decimals.Value);
+            }
+            else
+            {
+                return dividend / divisor;
+            }
+        }
 
 
         //DECIMALS
