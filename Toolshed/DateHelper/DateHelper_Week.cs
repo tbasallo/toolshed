@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Globalization;
 
 namespace Toolshed
@@ -12,7 +13,7 @@ namespace Toolshed
         /// <returns>A DateTime that represents the start of the current week.</returns>
         public static DateTime GetStartOfCurrentWeek(DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
         {
-            return GetStartOfWeek(DateTime.Today, firstDayOfWeek);
+            return  GetStartOfWeek(DateTime.Today, firstDayOfWeek);
         }
 
         /// <summary>
@@ -65,6 +66,9 @@ namespace Toolshed
             return GetEndOfWeek(DateTime.Today.AddDays(-7), firstDayOfWeek);
         }
 
+
+
+
         /// <summary>
         /// Returns the first day of the week that includes the date in the specified date
         /// </summary>
@@ -77,11 +81,14 @@ namespace Toolshed
             if (firstDayOfWeek > date.DayOfWeek)
             {
                 //since the week start is in the previous week, let's go to that week and then do the normal stuff
-                date = date.AddDays(-7);
+                date = date.AddDays(-7-(date.DayOfWeek - firstDayOfWeek));
+            }
+            else
+            {
+                date = date.AddDays(-(date.DayOfWeek - firstDayOfWeek));
             }
 
-            var date1 = date.AddDays(-(date.DayOfWeek - firstDayOfWeek));
-            return GetStartOfDay(date1);
+            return GetStartOfDay(date);
         }
 
         /// <summary>
