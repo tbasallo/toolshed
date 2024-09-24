@@ -48,7 +48,7 @@ namespace Toolshed
         /// </summary>
         public static DateTime StartOfNextWeek(this DateTime date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
         {
-            return DateHelper.GetStartOfWeek(date.AddDays(-((int)DateTime.Today.DayOfWeek + 1)), firstDayOfWeek);
+            return DateHelper.GetStartOfWeek(date.AddDays(7), firstDayOfWeek);
         }
 
         /// <summary>
