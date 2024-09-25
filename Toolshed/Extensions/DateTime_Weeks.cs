@@ -14,7 +14,23 @@ namespace Toolshed
         {
             return DateHelper.GetStartOfWeek(date, firstDayOfWeek);
         }
+        /// <summary>
+        /// Returns the start of the week
+        /// <para>The default start of week is used</para>
+        /// </summary>
+        public static DateOnly StartOfWeek(this DateOnly date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
+        {
+            return DateHelper.GetStartOfWeek(date, firstDayOfWeek);
+        }
 
+        /// <summary>
+        /// Returns the end of the week
+        /// <para>The default start of week is used</para>
+        /// </summary>
+        public static DateOnly EndOfWeek(this DateOnly date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
+        {
+            return DateHelper.GetEndOfWeek(date, firstDayOfWeek);
+        }
         /// <summary>
         /// Returns the end of the week with a time of 23:59:59:999
         /// <para>The default start of week is used</para>
@@ -23,14 +39,22 @@ namespace Toolshed
         {
             return DateHelper.GetEndOfWeek(date, firstDayOfWeek);
         }
-
+        
         /// <summary>
         /// Returns the start of the previous week with a time of 00:00:00:000
         /// <para>The default start of week is used</para>
         /// </summary>
         public static DateTime StartOfPreviousWeek(this DateTime date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
         {
-            return DateHelper.GetStartOfWeek(date.AddDays(-((int)DateTime.Today.DayOfWeek + 1)), firstDayOfWeek);
+            return DateHelper.GetStartOfWeek(date.AddDays(-7), firstDayOfWeek);
+        }
+        /// <summary>
+        /// Returns the start of the previous week
+        /// <para>The default start of week is used</para>
+        /// </summary>
+        public static DateOnly StartOfPreviousWeek(this DateOnly date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
+        {
+            return DateHelper.GetStartOfWeek(date.AddDays(-7), firstDayOfWeek);
         }
 
         /// <summary>
@@ -39,9 +63,25 @@ namespace Toolshed
         /// </summary>
         public static DateTime EndOfPreviousWeek(this DateTime date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
         {
-            return DateHelper.GetEndOfWeek(date.AddDays(-((int)DateTime.Today.DayOfWeek + 1)), firstDayOfWeek);
+            return DateHelper.GetEndOfWeek(date.AddDays(-7), firstDayOfWeek);
         }
-
+        /// <summary>
+        /// Returns the start of the previous week with a time of 00:00:00:000
+        /// <para>The default start of week is used</para>
+        /// </summary>
+        public static DateOnly EndOfPreviousWeek(this DateOnly date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
+        {
+            return DateHelper.GetEndOfWeek(date.AddDays(-7), firstDayOfWeek);
+        }
+        
+        /// <summary>
+        /// Returns the start of the previous week with a time of 00:00:00:000
+        /// <para>The default start of week is used</para>
+        /// </summary>
+        public static DateOnly StartOfNextWeek(this DateOnly date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
+        {
+            return DateHelper.GetStartOfWeek(date.AddDays(7), firstDayOfWeek);
+        }
         /// <summary>
         /// Returns the start of the previous week with a time of 00:00:00:000
         /// <para>The default start of week is used</para>
@@ -50,16 +90,23 @@ namespace Toolshed
         {
             return DateHelper.GetStartOfWeek(date.AddDays(7), firstDayOfWeek);
         }
-
+        
         /// <summary>
         /// Returns the start of the previous week with a time of 00:00:00:000
         /// <para>The default start of week is used</para>
         /// </summary>
         public static DateTime EndOfNextWeek(this DateTime date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
         {
-            return DateHelper.GetEndOfWeek(date.AddDays(7-(int)DateTime.Today.DayOfWeek), firstDayOfWeek);
+            return DateHelper.GetEndOfWeek(date.AddDays(7), firstDayOfWeek);
         }
-
+        /// <summary>
+        /// Returns the start of the previous week with a time of 00:00:00:000
+        /// <para>The default start of week is used</para>
+        /// </summary>
+        public static DateOnly EndOfNextWeek(this DateOnly date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
+        {
+            return DateHelper.GetEndOfWeek(date.AddDays(7), firstDayOfWeek);
+        }
 
         /// <summary>
         /// Returns the current week of the year using Sunday as the first day of the week and the FirstFourDayWeek as the calendar week rule

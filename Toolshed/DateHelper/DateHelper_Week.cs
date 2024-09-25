@@ -90,6 +90,27 @@ namespace Toolshed
 
             return GetStartOfDay(date);
         }
+        /// <summary>
+        /// Returns the first day of the week that includes the date in the specified date
+        /// </summary>
+        /// <param name="date">The DateTime for the week we want the start of.</param>
+        /// <param name="firstDayOfWeek">A System.DayOfWeek value that represents the first day of the week (i.e., Sunday, Monday, etc.).</param>
+        /// <returns>A DateTime that represents the start of the week that the date in the parameter is in.</returns>
+        public static DateOnly GetStartOfWeek(DateOnly date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
+        {
+            //it's in the previous week
+            if (firstDayOfWeek > date.DayOfWeek)
+            {
+                //since the week start is in the previous week, let's go to that week and then do the normal stuff
+                date = date.AddDays(-7 - (date.DayOfWeek - firstDayOfWeek));
+            }
+            else
+            {
+                date = date.AddDays(-(date.DayOfWeek - firstDayOfWeek));
+            }
+
+            return date;
+        }
 
         /// <summary>
         /// Returns the last day of the week that includes the date in the specified date
@@ -105,6 +126,21 @@ namespace Toolshed
             var daysToSubtract = 6 - (c1 - c2);
             var date1 = date.AddDays(daysToSubtract);
             return GetEndOfDay(date1);
+        }
+        /// <summary>
+        /// Returns the last day of the week that includes the date in the specified date
+        /// </summary>
+        /// <param name="date">The DateTime for the week we want the start of.</param>
+        /// <param name="firstDayOfWeek">A System.DayOfWeek value that represents the first day of the week (i.e., Sunday, Monday, etc.).</param>
+        /// <returns>A DateTime that represents the end of the week that the date in the parameter is in.</returns>
+        public static DateOnly GetEndOfWeek(DateOnly date, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday)
+        {
+            //TODO: refactored form the top of my head, needs testing
+            var c1 = (int)date.DayOfWeek;
+            var c2 = (int)firstDayOfWeek;
+            var daysToSubtract = 6 - (c1 - c2);
+            var date1 = date.AddDays(daysToSubtract);
+            return date1;
         }
 
         /// <summary>
