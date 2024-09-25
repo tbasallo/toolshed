@@ -6,6 +6,10 @@ namespace Toolshed
 {
     public static partial class DateHelperExtensions
     {
+
+
+
+
         /// <summary>
         /// Returns yesterday by subtracting one day
         /// <para>The default start of week is used</para>
@@ -41,8 +45,6 @@ namespace Toolshed
         {
             return date.AddDays(-7);
         }
-
-
 
 
         /// <summary>

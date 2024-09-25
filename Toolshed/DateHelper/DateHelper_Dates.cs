@@ -8,6 +8,32 @@ namespace Toolshed
     public static partial class DateHelper
     {
         /// <summary>
+        /// Returns a DateOnly representing Today (from DateTime.Today)
+        /// </summary>
+        /// <returns></returns>
+        public static DateOnly Today()
+        {
+            return DateOnly.FromDateTime(DateTime.Today);
+        }
+        /// <summary>
+        /// Returns a DateOnly representing Tomorrow (from DateTime.Today)
+        /// </summary>
+        /// <returns></returns>
+        public static DateOnly Tomorrow()
+        {
+            return DateOnly.FromDateTime(DateTime.Today.Tomorrow());
+        }
+        /// <summary>
+        /// Returns a DateOnly representing Yesterday (from DateTime.Today)
+        /// </summary>
+        /// <returns></returns>
+        public static DateOnly Yesterday()
+        {
+            return DateOnly.FromDateTime(DateTime.Today.Yesterday());
+        }
+
+
+        /// <summary>
         /// Returns the first date of the specified year at 00:00:00:000
         /// </summary>
         public static DateTime GetStartOfYear(int year)
