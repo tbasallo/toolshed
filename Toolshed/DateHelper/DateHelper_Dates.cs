@@ -192,6 +192,8 @@ namespace Toolshed
         {
             return new DateTime(date.Year, date.Month, date.Day, 23, 59, 59, date.Kind);
         }
+
+
         /// <summary>
         /// Returns a list of all the dates between two dates inclusive of the start date
         /// <para>The begin date must be before the end date</para>
@@ -204,15 +206,37 @@ namespace Toolshed
                 return list;
             }
 
-            int days = GetDaysBetweenDates(startDate, endDate);
-            for (int i = 0; i <= days; i++)
+            var date = startDate;
+            while (date <= endDate)
             {
-                DateTime currentDate = startDate.AddDays(i);
-                list.Add(currentDate);
+                list.Add(date);
+                date = date.AddDays(1);
             }
 
             return list;
         }
+        /// <summary>
+        /// Returns a list of all the dates between two dates inclusive of the start date
+        /// <para>The begin date must be before the end date</para>
+        /// </summary>
+        public static List<DateOnly> GetDatesBetweenDates(DateOnly startDate, DateOnly endDate)
+        {
+            var list = new List<DateOnly>();
+            if (endDate < startDate)
+            {
+                return list;
+            }
+
+            var date = startDate;
+            while (date <= endDate)
+            {
+                list.Add(date);
+                date = date.AddDays(1);
+            }
+
+            return list;
+        }
+
 
         /// <summary>
         /// Returns the number dates between two dates and of the specified day of the week
@@ -226,18 +250,43 @@ namespace Toolshed
                 return list;
             }
 
-            int days = GetDaysBetweenDates(startDate, endDate);
-            for (int i = 0; i < days; i++)
+            var date = startDate;
+            while (date <= endDate)
             {
-                DateTime currentDate = startDate.AddDays(i);
-                if (currentDate.DayOfWeek == dayOfWeek)
+                if (date.DayOfWeek == dayOfWeek)
                 {
-                    list.Add(currentDate);
+                    list.Add(date);
                 }
+                date = date.AddDays(1);
             }
 
             return list;
         }
+        /// <summary>
+        /// Returns the number dates between two dates and of the specified day of the week
+        /// <para>The begin date must be before the end date</para>
+        /// </summary>
+        public static List<DateOnly> GetDatesBetweenDates(DateOnly startDate, DateOnly endDate, DayOfWeek dayOfWeek)
+        {
+            List<DateOnly> list = new List<DateOnly>();
+            if (endDate < startDate)
+            {
+                return list;
+            }
+
+            var date = startDate;
+            while (date <= endDate)
+            {
+                if (date.DayOfWeek == dayOfWeek)
+                {
+                    list.Add(date);
+                }
+                date = date.AddDays(1);
+            }
+
+            return list;
+        }
+
 
         /// <summary>
         /// Returns a list of Saturdays between two dates
@@ -247,7 +296,22 @@ namespace Toolshed
         {
             return GetDatesBetweenDates(startDate, endDate, DayOfWeek.Saturday);
         }
-
+        /// <summary>
+        /// Returns a list of Saturdays between two dates
+        /// <para>The begin date must be before the end date</para>
+        /// </summary>
+        public static List<DateOnly> GetSaturdaysBetweenDates(DateOnly startDate, DateOnly endDate)
+        {
+            return GetDatesBetweenDates(startDate, endDate, DayOfWeek.Saturday);
+        }
+        /// <summary>
+        /// Returns a list of Sundays between two dates
+        /// <para>The begin date must be before the end date</para>
+        /// </summary>
+        public static List<DateOnly> GetSundaysBetweenDates(DateOnly startDate, DateOnly endDate)
+        {
+            return GetDatesBetweenDates(startDate, endDate, DayOfWeek.Sunday);
+        }
         /// <summary>
         /// Returns a list of Sundays between two dates
         /// <para>The begin date must be before the end date</para>
