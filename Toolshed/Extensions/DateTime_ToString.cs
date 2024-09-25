@@ -72,12 +72,35 @@ namespace Toolshed
         {
             return DateHelper.ToUrlFriendly(date, delimiter);
         }
-                /// <summary>
+        /// <summary>
         /// Returns a URL friendly string of the date using the specified delimiter or default.
         /// </summary>
         /// <param name="delimiter">The string to use to delimit the date parts</param>
         /// <returns>A string like 12-31-1977</returns>
         public static string ToUrlFriendly(this DateTime? date, string delimiter = "-")
+        {
+            if (date.HasValue)
+            {
+                return date.Value.ToUrlFriendly(delimiter);
+            }
+
+            return "";
+        }
+        /// <summary>
+        /// Returns a URL friendly string of the date using the specified delimiter or default.
+        /// </summary>
+        /// <param name="delimiter">The string to use to delimit the date parts</param>
+        /// <returns>A string like 12-31-1977</returns>
+        public static string ToUrlFriendly(this DateOnly date, string delimiter = "-")
+        {
+            return DateHelper.ToUrlFriendly(date, delimiter);
+        }
+        /// <summary>
+        /// Returns a URL friendly string of the date using the specified delimiter or default.
+        /// </summary>
+        /// <param name="delimiter">The string to use to delimit the date parts</param>
+        /// <returns>A string like 12-31-1977</returns>
+        public static string ToUrlFriendly(this DateOnly? date, string delimiter = "-")
         {
             if (date.HasValue)
             {
@@ -140,6 +163,18 @@ namespace Toolshed
         }
 
         /// <summary>
+        /// Returns the specified date in the format provided if the DateOnly? has a value,
+        /// otherwise returns the defaultValue provided or an empty string
+        /// </summary>
+        /// <param name="format">The format that the date should be returned in</param>
+        public static string ToValue(this DateOnly? date, string format, string defaultValue = "")
+        {
+            if (!date.HasValue) return defaultValue;
+
+            return date.Value.ToString(format);
+        }
+
+        /// <summary>
         /// Returns the specified date using the format string provided.
         /// Any string can be used to make a complete string so the {0: [format]} should be used.
         /// If only optionally formatting a string is desired, use ToValue().
@@ -161,6 +196,20 @@ namespace Toolshed
         /// </summary>
         /// <param name="format">The complete format to use (i.e., The date is {0:d})</param>
         public static string ToFormat(this DateTimeOffset? date, string format, string defaultValue = "")
+        {
+            if (!date.HasValue) return defaultValue;
+
+            return string.Format(format, date.Value);
+        }
+
+        /// <summary>
+        /// Returns the specified date using the format string provided.
+        /// Any string can be used to make a complete string so the {0: [format]} should be used.
+        /// If only optionally formatting a string is desired, use ToValue().
+        /// If the data does not have a value, the defaultValue will be returned, if provided, otherwise, an empty string
+        /// </summary>
+        /// <param name="format">The complete format to use (i.e., The date is {0:d})</param>
+        public static string ToFormat(this DateOnly? date, string format, string defaultValue = "")
         {
             if (!date.HasValue) return defaultValue;
 
