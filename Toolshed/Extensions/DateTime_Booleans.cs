@@ -40,13 +40,26 @@ namespace Toolshed
         {
             return DateHelper.IsMonthAndYearEqual(thisDate, date);
         }
-
+        /// <summary>
+        /// Indicates whether this date's month and year are equal to the specified date
+        /// </summary>
+        public static bool IsMonthAndYearEqual(this DateOnly thisDate, DateOnly date)
+        {
+            return DateHelper.IsMonthAndYearEqual(thisDate, date);
+        }
         /// <summary>
         /// Indicates whether the specified date is equal to DateTime.Today (no time component) (UTC)
         /// </summary>
         public static bool IsToday(this DateTime date)
         {
             return (date.Date == DateTime.Today.Date);
+        }
+        /// <summary>
+        /// Indicates whether the specified date is equal to DateTime.Today (no time component) (UTC)
+        /// </summary>
+        public static bool IsToday(this DateOnly date)
+        {
+            return (date == DateOnly.FromDateTime(DateTime.Today));
         }
 
         /// <summary>
@@ -56,6 +69,13 @@ namespace Toolshed
         {
             return (date.Date == DateTime.Today.AddDays(-1).Date);
         }
+        /// <summary>
+        /// Indicates whether the specified date is yesterday (.Date == DateTime.Today.AddDays(-1))
+        /// </summary>
+        public static bool IsYesterday(this DateOnly date)
+        {
+            return (date == DateOnly.FromDateTime(DateTime.Today).AddDays(-1));
+        }
 
         /// <summary>
         /// Indicates whether the specified date is tomorrow (.Date == DateTime.Today.AddDays(1))
@@ -63,6 +83,13 @@ namespace Toolshed
         public static bool IsTomorrow(this DateTime date)
         {
             return (date.Date == DateTime.Today.AddDays(1).Date);
+        }
+        /// <summary>
+        /// Indicates whether the specified date is tomorrow (.Date == DateTime.Today.AddDays(1))
+        /// </summary>
+        public static bool IsTomorrow(this DateOnly date)
+        {
+            return (date == DateOnly.FromDateTime(DateTime.Today).AddDays(1));
         }
 
         /// <summary>
@@ -85,6 +112,18 @@ namespace Toolshed
 
             return false;
         }
+        /// <summary>
+        /// Indicates whether the specified date is an actual date, not null, not year 9999 and not less than year 0002
+        /// </summary>
+        public static bool IsRealDate(this DateOnly? date)
+        {
+            if (date.HasValue)
+            {
+                return date.Value.IsRealDate();
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Indicates whether the specified date is an actual date, not year 9999 and not less than year 0002 and not min or max date
@@ -98,7 +137,18 @@ namespace Toolshed
 
             return true;
         }
+        /// <summary>
+        /// Indicates whether the specified date is an actual date, not year 9999 and not less than year 0002 and not min or max date
+        /// </summary>
+        public static bool IsRealDate(this DateOnly date)
+        {
+            if (date.Year == 9999 || date == DateOnly.MaxValue || date == DateOnly.MinValue || date.Year < 0002)
+            {
+                return false;
+            }
 
+            return true;
+        }
         /// <summary>
         /// Indicates whether this date is in range of the two specified dates, ONLY the date component (use IsInRange for complete date time) (>= Start, <= End). The Kind is not checked or converted
         /// </summary>

@@ -105,7 +105,23 @@ namespace Toolshed
 
             return false;
         }
+        /// <summary>
+        /// Returns a boolean indicating whether the specified dates are in the same year and the same month.
+        /// </summary>
+        /// <param name="date">A System.DateTime</param>
+        /// <returns>A boolean indicating whether the specified dates are in the same year and the same month.</returns>
+        public static bool IsMonthAndYearEqual(DateOnly dateOne, DateOnly dateTwo)
+        {
+            if (dateOne.Year == dateTwo.Year)
+            {
+                if (dateOne.Month == dateTwo.Month)
+                {
+                    return true;
+                }
+            }
 
+            return false;
+        }
         /// <summary>
         /// Indicates whether the specified date is equal to DateTime.Today (no time component) (UTC)
         /// </summary>

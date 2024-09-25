@@ -148,6 +148,56 @@ namespace Toolshed
 
             return string.Format("{0:d} - {1:d}", date, endOfDateRange.Value);
         }
+        /// <summary>
+        /// Compares two dates to determine how to display them, excludes times
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="endOfDateRange"></param>
+        /// <returns></returns>
+        public static string ToTitle(DateOnly date, DateOnly? endOfDateRange = null)
+        {
+            if (!endOfDateRange.HasValue)
+            {
+                if (date.Date == DateTime.Today.Date)
+                {
+                    return string.Format("Today, {0}", date.ToShortDateString());
+                }
+
+                if (date.Date == DateTime.Today.AddDays(-1).Date)
+                {
+                    return string.Format("Yesterday, {0}", date.ToShortDateString());
+                }
+
+                if (date.Date == DateTime.Today.AddDays(1).Date)
+                {
+                    return string.Format("Tomorrow, {0}", date.ToShortDateString());
+                }
+
+                return date.ToLongDateString();
+            }
+
+            if (date == endOfDateRange.Value)
+            {
+                return date.ToLongDateString();
+            }
+
+            if (date.Day == 1 && date.Month == 1 && date.Year == endOfDateRange.Value.Year && endOfDateRange.Value.Month == 12 && endOfDateRange.Value.Day == 31)
+            {
+                return string.Format("YTD {0}", date.Year);
+            }
+
+            if (date.Day == 1 && date.Month == 1 && endOfDateRange.Value.Month == 12 && endOfDateRange.Value.Day == 31)
+            {
+                return string.Format("YTD {0}-{1}", date.Year, endOfDateRange.Value.Year);
+            }
+
+            if (date.Day == 1 && endOfDateRange.Value.Day == DateTime.DaysInMonth(endOfDateRange.Value.Year, endOfDateRange.Value.Month))
+            {
+                return ToMonthTitle(date, endOfDateRange.Value);
+            }
+
+            return string.Format("{0:d} - {1:d}", date, endOfDateRange.Value);
+        }
 
         /// <summary>
         /// Returns the specified date as Month Year (e.g., January 2017) using the current culture
@@ -155,6 +205,16 @@ namespace Toolshed
         /// <param name="date">The date to convert</param>
         /// <returns>The date represented as Month Year</returns>
         public static string ToMonthTitle(DateTime date)
+        {
+            return string.Format("{0} {1}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date.Month), date.Year);
+        }
+
+        /// <summary>
+        /// Returns the specified date as Month Year (e.g., January 2017) using the current culture
+        /// </summary>
+        /// <param name="date">The date to convert</param>
+        /// <returns>The date represented as Month Year</returns>
+        public static string ToMonthTitle(DateOnly date)
         {
             return string.Format("{0} {1}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date.Month), date.Year);
         }
@@ -168,6 +228,24 @@ namespace Toolshed
         public static string ToMonthTitle(DateTime date1, DateTime date2)
         {
             if(date1.IsMonthAndYearEqual(date2))
+            {
+                return string.Format("{0} {1}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date1.Month), date1.Year);
+            }
+            else
+            {
+                return string.Format("{0} {1} - {2} {3}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date1.Month), date1.Year, DateTimeFormatInfo.CurrentInfo.GetMonthName(date2.Month), date2.Year);
+            }
+        }
+
+        /// <summary>
+        /// Returns the specified date as Month Year - Month Year (e.g., January 2017) using the current culture. If the month and years are the same, then only one month year is displayed.
+        /// </summary>
+        /// <param name="date1"></param>
+        /// <param name="date2"></param>
+        /// <returns></returns>
+        public static string ToMonthTitle(DateOnly date1, DateOnly date2)
+        {
+            if (date1.IsMonthAndYearEqual(date2))
             {
                 return string.Format("{0} {1}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date1.Month), date1.Year);
             }
