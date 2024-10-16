@@ -55,9 +55,29 @@ namespace Toolshed
 
             return defaultValue;
         }
-        public static bool ToBool(string value, bool defaultValue)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="acceptCanonicalValues">Determines whther the values of 1/0 and Y/N should be accepted as bools</param>
+        /// <returns></returns>
+        public static bool ToBool(string value, bool defaultValue, bool acceptCanonicalValues = true)
         {
             if (string.IsNullOrEmpty(value)) return defaultValue;
+
+            if (acceptCanonicalValues)
+            {
+                if (value == "Y" || value == "y" || value == "1")
+                {
+                    return true;
+                }
+                if (value == "N" || value == "n" || value == "0")
+                {
+                    return false;
+                }
+            }
 
             if (bool.TryParse(value, out bool b))
             {
@@ -66,9 +86,29 @@ namespace Toolshed
 
             return defaultValue;
         }
-        public static bool? ToBool(string value, bool? defaultValue)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="acceptCanonicalValues">Determines whther the values of 1/0 and Y/N should be accepted as bools</param>
+        /// <returns></returns>
+
+        public static bool? ToBool(string value, bool? defaultValue, bool acceptCanonicalValues = true)
         {
             if (string.IsNullOrEmpty(value)) return defaultValue;
+
+            if (acceptCanonicalValues)
+            {
+                if (value == "Y" || value == "y" || value == "1")
+                {
+                    return true;
+                }
+                if (value == "N" || value == "n" || value == "0")
+                {
+                    return false;
+                }
+            }
 
             if (bool.TryParse(value, out bool b))
             {
