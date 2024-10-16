@@ -158,17 +158,17 @@ namespace Toolshed
         {
             if (!endOfDateRange.HasValue)
             {
-                if (date.Date == DateTime.Today.Date)
+                if (date == DateTime.Today.AsDateOnly())
                 {
                     return string.Format("Today, {0}", date.ToShortDateString());
                 }
 
-                if (date.Date == DateTime.Today.AddDays(-1).Date)
+                if (date == DateTime.Today.AddDays(-1).AsDateOnly())
                 {
                     return string.Format("Yesterday, {0}", date.ToShortDateString());
                 }
 
-                if (date.Date == DateTime.Today.AddDays(1).Date)
+                if (date == DateTime.Today.AddDays(1).AsDateOnly())
                 {
                     return string.Format("Tomorrow, {0}", date.ToShortDateString());
                 }
@@ -227,7 +227,7 @@ namespace Toolshed
         /// <returns></returns>
         public static string ToMonthTitle(DateTime date1, DateTime date2)
         {
-            if(date1.IsMonthAndYearEqual(date2))
+            if (date1.IsMonthAndYearEqual(date2))
             {
                 return string.Format("{0} {1}", DateTimeFormatInfo.CurrentInfo.GetMonthName(date1.Month), date1.Year);
             }

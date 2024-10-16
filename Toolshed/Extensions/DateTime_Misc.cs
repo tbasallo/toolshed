@@ -7,6 +7,16 @@ namespace Toolshed
     public static partial class DateHelperExtensions
     {
         /// <summary>
+        /// Returns a DateOnly instance from the DateTime 
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static DateOnly AsDateOnly(this DateTime date)
+        {
+            return DateOnly.FromDateTime(date);
+        }
+
+        /// <summary>
         /// Rounds the datetime based on the specified DateTimeRoundTo
         /// </summary>
         public static DateTime Round(this DateTime d, DateTimeRoundTo dateTimeRoundTo)
