@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Toolshed
 {
@@ -98,5 +99,53 @@ namespace Toolshed
 
 
 
+        /// <summary>
+        /// Returns the DateTime in the state's MAIN (majority) time zone.
+        /// </summary>
+        /// <param name="state">The 2 letter state that the time zone is for</param>
+        /// <returns></returns>
+        public static DateTime ToUsaStateTimeZone(DateTime date, string state, bool throwExceptionForBadArgument = false)
+        {
+            if (string.IsNullOrWhiteSpace(state))
+            {
+                if (throwExceptionForBadArgument)
+                {
+                    throw new ArgumentException(nameof(state), "State must be provided and is must be two characters");
+                }
+                return date;
+            }
+
+            if (state.Length != 2)
+            {
+                if (throwExceptionForBadArgument)
+                {
+                    throw new ArgumentException(nameof(state), "State must be two characters");
+                }
+                return date;
+            }
+
+            var s = UnitedStates.Get50States().Where(d => d.Abbreviation.IsEqualTo(state)).FirstOrDefault();
+            if (s == null)
+            {
+                if (throwExceptionForBadArgument)
+                {
+                    throw new ArgumentException(nameof(state), "Unknown state");
+                }
+                return date;
+            }
+
+            return date.ToTimeZone(DateHelper.GetTimeZoneName(s.TimeZone));
+        }
+
+        /// <summary>
+        /// Converts the current DateTime into UTC based on the state's time zone
+        /// </summary>
+        /// <param name="state">The USA state  for the DateTime</param>
+        /// <returns>A DateTime converted to UTC</returns>
+        public static DateTime FromUsaTimeZone(DateTime date, string state)
+        {
+            var s = UnitedStates.Get50States().Where(d => d.Abbreviation.IsEqualTo(state)).FirstOrDefault();
+            return date.FromTimeZoneToUtc(s.TimeZone);
+        }
     }
 }

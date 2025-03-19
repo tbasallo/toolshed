@@ -51,35 +51,7 @@ namespace Toolshed
         /// <returns></returns>
         public static DateTime ToUsaStateTimeZone(this DateTime date, string state, bool throwExceptionForBadArgument = false)
         {
-            if (string.IsNullOrWhiteSpace(state))
-            {
-                if (throwExceptionForBadArgument)
-                {
-                    throw new ArgumentException(nameof(state), "State must be provided and is must be two characters");
-                }
-                return date;
-            }
-
-            if (state.Length != 2)
-            {
-                if (throwExceptionForBadArgument)
-                {
-                    throw new ArgumentException(nameof(state), "State must be two characters");
-                }
-                return date;
-            }
-
-            var s = UnitedStates.Get50States().Where(d => d.Abbreviation.IsEqualTo(state)).FirstOrDefault();
-            if (s == null)
-            {
-                if (throwExceptionForBadArgument)
-                {
-                    throw new ArgumentException(nameof(state), "Unknown state");
-                }
-                return date;
-            }
-
-            return date.ToTimeZone(DateHelper.GetTimeZoneName(s.TimeZone));
+            return DateHelper.ToUsaStateTimeZone(date, state, throwExceptionForBadArgument);
         }
 
         /// <summary>
@@ -89,8 +61,7 @@ namespace Toolshed
         /// <returns>A DateTime converted to UTC</returns>
         public static DateTime FromUsaTimeZone(this DateTime date, string state)
         {
-            var s = UnitedStates.Get50States().Where(d => d.Abbreviation.IsEqualTo(state)).FirstOrDefault();
-            return date.FromTimeZoneToUtc(s.TimeZone);
+            return DateHelper.FromUsaTimeZone(date, state);            
         }
 
         /// <summary>
