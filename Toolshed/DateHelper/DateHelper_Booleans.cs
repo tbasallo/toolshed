@@ -129,5 +129,35 @@ namespace Toolshed
         {
             return DateHelper.GetStartOfDay(date) == DateTime.Today;
         }
+
+        /// <summary>
+        /// Indicates whether the dates provided for 1 and 2 overlap, the times are considered.
+        /// <param name="startDate1">The start date of the first range</param>
+        /// <param name="endDate1">The end date of the first range</param>
+        /// <param name="startDate2">The start date of the second range</param>
+        /// <param name="endDate2">The end date of the second range</param>
+        /// <param name="ignoreTime">Indicates whether the time component should be ignored</param>
+        /// <returns></returns>
+        public static bool IsOverlappingDates(DateTime startDate1, DateTime endDate1, DateTime startDate2, DateTime endDate2, bool ignoreTime)
+        {
+            if(ignoreTime)
+            {
+                return startDate1.Date <= endDate2.Date && endDate1.Date >= startDate2.Date;
+            }
+
+            return startDate1 <= endDate2 && endDate1 >= startDate2;
+        }
+
+        /// <summary>
+        /// Indicates whether the dates provided for 1 and 2 overlap        
+        /// <param name="startDate1">The start date of the first range</param>
+        /// <param name="endDate1">The end date of the first range</param>
+        /// <param name="startDate2">The start date of the second range</param>
+        /// <param name="endDate2">The end date of the second range</param>
+        /// <returns></returns>
+        public static bool IsOverlappingDates(DateOnly startDate1, DateOnly endDate1, DateOnly startDate2, DateOnly endDate2)
+        {
+            return startDate1 <= endDate2 && endDate1 >= startDate2;
+        }
     }
 }

@@ -167,5 +167,20 @@ namespace Toolshed
         {
             return date >= startDate && date <= endDate;
         }
+
+        /// <summary>
+        /// Indicates whether the specified date is an acceptable SQL Server date, which is greater than the year 1753
+        /// </summary>
+        public static bool IsValidSqlDate(this DateTime date)
+        {
+            return date.Year >= 1753;
+        }
+        /// Indicates whether the specified date is an acceptable SQL Server date, which is greater than the year 1753
+        /// Indicates whether the specified date is an actual date, not year 9999 and not less than year 0002 and not min or max date
+        /// </summary>
+        public static bool IsValidSqlDate(this DateOnly date)
+        {
+            return date.Year >= 1753;
+        }
     }
 }

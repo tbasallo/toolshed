@@ -378,5 +378,41 @@ namespace Toolshed
         {
             return GetDatesBetweenDates(GetStartOfCurrentYear(), DateTime.Today, DayOfWeek.Sunday);
         }
+
+
+
+        /// <summary>
+        /// Returns a list of all the dates that overlap between two date ranges
+        /// <param name="startDate1">The start date of the first range</param>
+        /// <param name="endDate1">The end date of the first range</param>
+        /// <param name="startDate2">The start date of the second range</param>
+        /// <param name="endDate2">The end date of the second range</param>
+        /// <param name="ignoreTime">Indicates whether the time component should be ignored</param>
+        /// <returns></returns>
+        public static List<DateTime> GetOverlappingDates(DateTime startDate1, DateTime endDate1, DateTime startDate2, DateTime endDate2, bool ignoreTime)
+        {
+            if (ignoreTime)
+            {
+                startDate1 = startDate1.Date;
+                endDate1 = endDate1.Date;
+                startDate2 = startDate2.Date;
+                endDate2 = endDate2.Date;
+            }
+
+            var overlapStart = startDate1 > startDate2 ? startDate1 : startDate2;
+            var overlapEnd = endDate1 < endDate2 ? endDate1 : endDate2;
+
+            List<DateTime> overlappingDates = new List<DateTime>();
+            if (overlapStart <= overlapEnd)
+            {
+                for (var date = overlapStart; date <= overlapEnd; date = date.AddDays(1))
+                {
+                    overlappingDates.Add(date);
+                }
+            }
+
+            return overlappingDates;
+        }
+
     }
 }
