@@ -12,10 +12,10 @@ namespace Toolshed
         {
             return Divide(Convert.ToDouble(dividend), divisor, decimals);
         }
-        
-        
+
+
         //DOUBLE
-        
+
         public static double Divide(double dividend, int divisor, int? decimals = null)
         {
             return Divide(dividend, Convert.ToDouble(divisor), decimals);

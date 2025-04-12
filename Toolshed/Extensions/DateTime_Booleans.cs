@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace Toolshed
 {
@@ -149,7 +147,7 @@ namespace Toolshed
 
             return true;
         }
-        
+
         /// <summary>
         /// Indicates whether this date is in range of the two specified dates, ONLY the date component (use IsInRange for complete date time) (>= Start, <= End). The Kind is not checked or converted
         /// </summary>

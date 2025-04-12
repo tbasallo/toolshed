@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 
 namespace Toolshed
 {
@@ -61,7 +58,7 @@ namespace Toolshed
         /// <returns>A DateTime converted to UTC</returns>
         public static DateTime FromUsaTimeZone(this DateTime date, string state)
         {
-            return DateHelper.FromUsaTimeZone(date, state);            
+            return DateHelper.FromUsaTimeZone(date, state);
         }
 
         /// <summary>

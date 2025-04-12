@@ -11,9 +11,6 @@
 namespace Toolshed
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public partial class DateHelper
     {
@@ -140,7 +137,7 @@ namespace Toolshed
         /// <returns></returns>
         public static bool IsOverlappingDates(DateTime startDate1, DateTime endDate1, DateTime startDate2, DateTime endDate2, bool ignoreTime)
         {
-            if(ignoreTime)
+            if (ignoreTime)
             {
                 return startDate1.Date <= endDate2.Date && endDate1.Date >= startDate2.Date;
             }

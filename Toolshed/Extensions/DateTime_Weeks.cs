@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 
 namespace Toolshed
@@ -39,7 +38,7 @@ namespace Toolshed
         {
             return DateHelper.GetEndOfWeek(date, firstDayOfWeek);
         }
-        
+
         /// <summary>
         /// Returns the start of the previous week with a time of 00:00:00:000
         /// <para>The default start of week is used</para>
@@ -73,7 +72,7 @@ namespace Toolshed
         {
             return DateHelper.GetEndOfWeek(date.AddDays(-7), firstDayOfWeek);
         }
-        
+
         /// <summary>
         /// Returns the start of the previous week with a time of 00:00:00:000
         /// <para>The default start of week is used</para>
@@ -90,7 +89,7 @@ namespace Toolshed
         {
             return DateHelper.GetStartOfWeek(date.AddDays(7), firstDayOfWeek);
         }
-        
+
         /// <summary>
         /// Returns the start of the previous week with a time of 00:00:00:000
         /// <para>The default start of week is used</para>

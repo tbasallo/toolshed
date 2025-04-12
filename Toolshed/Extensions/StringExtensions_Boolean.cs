@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Toolshed
@@ -182,7 +177,7 @@ namespace Toolshed
             return string.IsNullOrWhiteSpace(s);
         }
 
-/// <summary>
+        /// <summary>
         /// Indicates if there are numbers in this string
         /// </summary>
         /// <returns>Boolean indicating if the specified value has a number</returns>

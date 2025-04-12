@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Toolshed
 {
@@ -145,7 +144,7 @@ namespace Toolshed
             }
 
             string filesize = "MB";
-            int divisor;;
+            int divisor; ;
 
             if (bytes >= 1073741824)
             {
@@ -307,7 +306,7 @@ namespace Toolshed
                 return overrideValueForZeroResult;
             }
 
-            if(value == 1 && overrideValueFor1 != null)
+            if (value == 1 && overrideValueFor1 != null)
             {
                 return overrideValueFor1;
             }

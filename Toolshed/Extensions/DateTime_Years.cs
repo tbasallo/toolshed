@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace Toolshed
 {
@@ -62,7 +61,7 @@ namespace Toolshed
         {
             return DateHelper.GetYearsBetweenDates(thisdate, date);
         }
-        
+
         /// <summary>
         /// Returns a list of the remaining dates of from this date
         /// </summary>

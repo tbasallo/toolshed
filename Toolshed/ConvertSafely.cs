@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Toolshed
 {
@@ -235,7 +233,7 @@ namespace Toolshed
         {
             if (string.IsNullOrEmpty(value)) return defaultValue;
 
-            if(value.IndexOf(",") >= 0)
+            if (value.IndexOf(",") >= 0)
             {
                 value = value.Replace(",", string.Empty);
             }
@@ -276,12 +274,12 @@ namespace Toolshed
                 return defaultValue;
             }
         }
-        
+
 
         public static long ToLong(string value, long defaultValue)
         {
             if (string.IsNullOrEmpty(value)) return defaultValue;
-            
+
             if (long.TryParse(value, out long l))
             {
                 return l;

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -115,7 +114,7 @@ namespace Toolshed
 
             return s + "s";
         }
-        
+
         /// <summary>
         /// Returns the specified string with a prefix of a or an based on the English grammar rules (vowels get AN and the rets get A)
         /// </summary>
@@ -151,10 +150,10 @@ namespace Toolshed
 
             return "a " + s;
         }
-        
-        
+
+
         public static bool LengthIsOutOfIndex(this string s, int minimumLength, int maximumLength)
-        {            
+        {
             return (s.Length.IsInRange(minimumLength, maximumLength));
         }
 
@@ -185,7 +184,7 @@ namespace Toolshed
         /// <returns></returns>
         public static string SubstringTo(this string s, int length)
         {
-            if(!string.IsNullOrWhiteSpace(s) && s.Length > length)
+            if (!string.IsNullOrWhiteSpace(s) && s.Length > length)
             {
                 return s[..length];
             }
@@ -248,7 +247,7 @@ namespace Toolshed
         public static string GetFixedTelephoneNumber(this string s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
-            
+
             for (int i = 0; i < s.Length; i++)
             {
                 if (!(s[i] >= '0' && s[i] <= 9))
@@ -392,7 +391,7 @@ namespace Toolshed
         {
             if (string.IsNullOrEmpty(s)) yield break;
 
-            if(s.Length <= lengthGroupSize)
+            if (s.Length <= lengthGroupSize)
             {
                 yield return s;
             }

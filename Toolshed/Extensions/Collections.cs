@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -37,7 +35,7 @@ namespace Toolshed
         /// </summary>
         public static T GetRandom<T>(this ICollection<T> collection)
         {
-            if(collection.IsNullOrEmpty())
+            if (collection.IsNullOrEmpty())
             {
                 return default(T);
             }
@@ -69,7 +67,7 @@ namespace Toolshed
 
             if (collection.Count == 1)
             {
-                if(string.IsNullOrWhiteSpace(format)) { return collection.ElementAt(0).ToString(); }
+                if (string.IsNullOrWhiteSpace(format)) { return collection.ElementAt(0).ToString(); }
                 return string.Format(format, collection.ElementAt(0).ToString());
             }
 
@@ -190,7 +188,7 @@ namespace Toolshed
 
             return sb.ToString();
         }
-        
+
         /// <summary>
         /// Returns the specified list as an IEnumerable of the same list type of sizes no more than the specified group size.
         /// </summary>
