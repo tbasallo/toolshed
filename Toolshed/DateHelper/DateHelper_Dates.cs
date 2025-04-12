@@ -97,7 +97,7 @@ namespace Toolshed
 
         /// <summary>
         /// Returns the number of whole years between two dates
-        /// <para>The substracts two dates' years (i.e (2009 - 2007) = 2)</para>
+        /// <para>The subtracts two dates' years (i.e (2009 - 2007) = 2)</para>
         /// </summary>
         /// <param name="startDate">The later of the two dates</param>
         /// <param name="endDate">The earlier of the two dates</param>
@@ -114,6 +114,7 @@ namespace Toolshed
         {
             return new DateTime(year, month, 1, 0, 0, 0, 0);
         }
+        
 
         /// <summary>
         /// Returns the last date of the month and year at 23:59:59
@@ -184,7 +185,7 @@ namespace Toolshed
         /// <returns>The number of months (rounded) of month between the two dates</returns>
         public static int GetMonthsBetweenDates(DateTime startDate, DateTime endDate)
         {
-            //TODO: need to blog about this particular connundrum
+            //TODO: need to blog about this particular conundrum
             int days = GetDaysBetweenDates(endDate, startDate);
             double months = days / 30;
             return (int)months;
@@ -196,7 +197,7 @@ namespace Toolshed
         /// </summary>
         public static double GetTotalMonthsBetweenDates(DateTime oldDate, DateTime newDate)
         {
-            //TODO: need to blog about this particular connundrum
+            //TODO: need to blog about this particular conundrum
             int days = GetDaysBetweenDates(oldDate, newDate);
             return days / 30;
         }
@@ -224,7 +225,7 @@ namespace Toolshed
         /// </summary>
         public static List<DateTime> GetDatesBetweenDates(DateTime startDate, DateTime endDate)
         {
-            List<DateTime> list = new List<DateTime>();
+            List<DateTime> list = [];
             if (endDate < startDate)
             {
                 return list;

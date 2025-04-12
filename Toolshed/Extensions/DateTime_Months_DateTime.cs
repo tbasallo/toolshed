@@ -78,15 +78,15 @@ namespace Toolshed
         /// Returns total months between the current and specified date
         /// <para>The current date is subtracted form teh specified date and the difference returned</para>
         /// </summary>
-        public static int GetMonthsBetweenDates(this DateTime thisdate, DateTime date)
+        public static int GetMonthsBetweenDates(this DateTime date, DateTime endDate)
         {
-            if (thisdate > date)
+            if (date > endDate)
             {
-                return DateHelper.GetMonthsBetweenDates(date, thisdate);
+                return DateHelper.GetMonthsBetweenDates(endDate, date);
             }
             else
             {
-                return DateHelper.GetMonthsBetweenDates(thisdate, date);
+                return DateHelper.GetMonthsBetweenDates(date, endDate);
             }
         }
     }
