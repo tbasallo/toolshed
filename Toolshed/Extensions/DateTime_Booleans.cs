@@ -160,6 +160,33 @@ namespace Toolshed
         }
 
         /// <summary>
+        /// Indicates whether this date is in range of the two specified dates, ONLY the date component (use IsInRange for complete date time) (>= Start, <= End). The Kind is not checked or converted
+        /// </summary>
+        /// <returns>Bool</returns>
+        public static bool IsDateInRange(this DateOnly date, DateOnly startDate, DateOnly endDate)
+        {
+            return date >= startDate && date <= endDate;
+        }
+
+        /// <summary>
+        /// Indicates whether this date is in range of the two specified dates, ONLY the date component (use IsInRange for complete date time) (>= Start, <= End). The Kind is not checked or converted
+        /// </summary>
+        /// <returns>Bool</returns>
+        public static bool IsInRange(this DateOnly date, DateOnly startDate, DateOnly endDate)
+        {
+            return date >= startDate && date <= endDate;
+        }
+
+        /// <summary>
+        /// Indicates whether this date is in range of the two specified dates, ONLY the date component (use IsInRange for complete date time) (>= Start, <= End). The Kind is not checked or converted
+        /// </summary>
+        /// <returns>Bool</returns>
+        public static bool IsInRange(this DateOnly date, DateTime startDate, DateTime endDate)
+        {
+            return date >= startDate.AsDateOnly() && date <= endDate.AsDateOnly();
+        }
+
+        /// <summary>
         /// Indicates whether this date is in range of the two specified dates, including the time (>= Start, <= End). The Kind is not checked or converted
         /// </summary>
         /// <returns>Bool</returns>
