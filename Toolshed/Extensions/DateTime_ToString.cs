@@ -110,12 +110,42 @@ namespace Toolshed
             return "";
         }
 
+
+        /// <summary>
+        /// Compares two dates to determine how to display them
+        /// </summary>
+        public static string ToTitle(this DateOnly date, DateOnly? endDate = null)
+        {
+            return DateHelper.ToTitle(date, endDate);
+        }
+
         /// <summary>
         /// Compares two dates to determine how to display them
         /// </summary>
         public static string ToTitle(this DateTime date, DateTime? endDate = null)
         {
             return DateHelper.ToTitle(date, endDate);
+        }
+
+
+        /// <summary>
+        /// Returns the specified date as Month Year (e.g., January 2017)
+        /// </summary>
+        /// <param name="date">The date to convert</param>
+        /// <returns>The date represented as Month Year</returns>
+        public static string ToMonthTitle(this DateOnly date)
+        {
+            return DateHelper.ToMonthTitle(date);
+        }
+
+        /// <summary>
+        /// Returns the specified date as Month Year (e.g., January 2017)
+        /// </summary>
+        /// <param name="date">The date to convert</param>
+        /// <returns>The date represented as Month Year</returns>
+        public static string ToMonthTitle(this DateOnly date, DateOnly date2)
+        {
+            return DateHelper.ToMonthTitle(date, date2);
         }
 
         /// <summary>
