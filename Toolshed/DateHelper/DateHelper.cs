@@ -11,6 +11,16 @@ namespace Toolshed
         /// Returns the whole number of days between two dates
         /// <para>The oldDate is subtracted from the new date and the difference returned</para>
         /// </summary>
+        public static int GetDaysBetweenDates(DateOnly oldDate, DateOnly newDate)
+        {
+            return newDate.DayNumber - oldDate.DayNumber;
+        }
+
+
+        /// <summary>
+        /// Returns the whole number of days between two dates
+        /// <para>The oldDate is subtracted from the new date and the difference returned</para>
+        /// </summary>
         public static int GetDaysBetweenDates(DateTime oldDate, DateTime newDate)
         {
             return (newDate - oldDate).Days;
