@@ -30,7 +30,7 @@ public static partial class DateHelperExtensions
     /// </summary>
     public static DateOnly StartOfMonth(this DateOnly date)
     {
-        return new DateOnly(date.Month, date.Year, 1);
+        return new DateOnly(date.Year, date.Month, 1);
     }
 
     /// <summary>
