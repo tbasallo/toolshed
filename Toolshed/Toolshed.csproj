@@ -1,13 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net9.0</TargetFrameworks>
-    <Version>9.2.6</Version>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-    <RepositoryUrl>https://github.com/tbasallo/toolshed</RepositoryUrl>
-    <RepositoryType>GIT</RepositoryType>
-    <Description>A toolshed worth of tools, extensions and shortcuts</Description>
-    <Authors>Tony Basallo</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net9.0</TargetFrameworks>
+		<Version>9.2.7</Version>
+		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+		<RepositoryUrl>https://github.com/tbasallo/toolshed</RepositoryUrl>
+		<RepositoryType>GIT</RepositoryType>
+		<Description>A toolshed worth of tools, extensions and shortcuts</Description>
+		<Authors>Tony Basallo</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<ImplicitUsings>true</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 </Project>
