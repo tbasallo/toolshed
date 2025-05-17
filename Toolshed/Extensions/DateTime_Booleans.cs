@@ -91,6 +91,84 @@ namespace Toolshed
         }
 
         /// <summary>
+        /// Indicates whether the specified date is in the future
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="ignoreTime">Indicates that the time should be ignored or not</param>
+        /// <returns></returns>
+        public static bool IsFuture(this DateTime date, bool ignoreTime = true)
+        {
+            if (ignoreTime)
+            {
+                if (date.Kind != DateTimeKind.Local)
+                {
+                    return (date.Date > DateTime.UtcNow.Date);
+                }
+                else
+                {
+                    return (date.Date > DateTime.Today.Date);
+                }
+            }
+            else
+            {
+                if (date.Kind != DateTimeKind.Local)
+                {
+                    return (date > DateTime.UtcNow);
+                }
+                else
+                {
+                    return (date > DateTime.Now);
+                }
+            }
+        }
+        /// <summary>
+        /// Indicates whether the specified date is in the future
+        /// </summary>
+        public static bool IsFuture(this DateOnly date)
+        {
+            return (date > DateOnly.FromDateTime(DateTime.Today));
+        }
+
+        /// <summary>
+        /// Indicates whether the specified date is in the past
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="ignoreTime">Indicates that the time should be ignored or not</param>
+        /// <returns></returns>
+        public static bool IsPast(this DateTime date, bool ignoreTime = true)
+        {
+            if (ignoreTime)
+            {
+                if (date.Kind != DateTimeKind.Local)
+                {
+                    return (date.Date < DateTime.UtcNow.Date);
+                }
+                else
+                {
+                    return (date.Date < DateTime.Today.Date);
+                }
+            }
+            else
+            {
+                if (date.Kind != DateTimeKind.Local)
+                {
+                    return (date < DateTime.UtcNow);
+                }
+                else
+                {
+                    return (date < DateTime.Now);
+                }
+            }
+        }
+        /// <summary>
+        /// Indicates whether the specified date is in the past
+        /// </summary>
+        public static bool IsPast(this DateOnly date)
+        {
+            return (date < DateOnly.FromDateTime(DateTime.Today));
+        }
+
+        /// <summary>
         /// Indicates whether the specified dates are equal (no time component) (UTC)
         /// </summary>
         public static bool IsDateEqualTo(this DateTime date, DateTime dateTwo)
