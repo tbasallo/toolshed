@@ -242,41 +242,6 @@ namespace Toolshed
 
             return date.DateTime;
         }
-
-
-        public static string GetSystemTimeZone(string timeZone)
-        {
-            if (OsHelper.IsWindows)
-            {
-                return timeZone switch
-                {
-                    "Eastern" => WindowsTimeZones.Eastern,
-                    "Central" => WindowsTimeZones.Central,
-                    "Pacific" => WindowsTimeZones.Pacific,
-                    "Mountain" => WindowsTimeZones.Mountain,
-                    "US Mountain" => WindowsTimeZones.USMountain,
-                    "Alaska" => WindowsTimeZones.Alaska,
-                    "Hawaii" => WindowsTimeZones.Hawaii,
-                    _ => timeZone
-                };
-            }
-            if (OsHelper.IsLinux)
-            {
-                return timeZone switch
-                {
-                    "Eastern" => LinuxTimeZones.Eastern,
-                    "Central" => LinuxTimeZones.Central,
-                    "Pacific" => LinuxTimeZones.Pacific,
-                    "Mountain" => LinuxTimeZones.Mountain,
-                    "US Mountain" => LinuxTimeZones.USMountain,
-                    "Alaska" => LinuxTimeZones.Alaska,
-                    "Hawaii" => LinuxTimeZones.Hawaii,
-                    _ => timeZone
-                };
-            }
-
-            return timeZone;
-        }
     }
 
 
