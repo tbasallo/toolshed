@@ -12,6 +12,13 @@ namespace Toolshed
         {
             return DateHelper.IsWeekend(date);
         }
+        /// <summary>
+        /// Indicates whether this is a Saturday or Sunday
+        /// </summary>
+        public static bool IsWeekend(this DateOnly date)
+        {
+            return DateHelper.IsWeekend(date);
+        }
 
         /// <summary>
         /// Indicates whether this is the current month and year
