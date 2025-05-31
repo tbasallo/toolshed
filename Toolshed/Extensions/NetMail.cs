@@ -54,7 +54,8 @@ namespace Toolshed
 
             StringBuilder sb = new StringBuilder();
             AddCollectionAsDelimitedList(mailAddressCollection, sb, ",");
-            return sb.ToString().Substring(0, sb.Length - 1);
+            sb.Length--;
+            return sb.ToString();
         }
 
         /// <summary>

@@ -127,19 +127,6 @@ namespace Toolshed
 
             return defaultValue;
         }
-        public static byte ToShort(object value, byte defaultValue)
-        {
-            if (value == null) return defaultValue;
-
-            try
-            {
-                return Convert.ToByte(value);
-            }
-            catch
-            {
-                return defaultValue;
-            }
-        }
 
         public static short ToShort(string value, short defaultValue)
         {
@@ -177,14 +164,11 @@ namespace Toolshed
         {
             if (value == null) return defaultValue;
 
-            try
+            if (short.TryParse(value.ToString(), out short v))
             {
-                return Convert.ToInt16(value);
+                return v;
             }
-            catch
-            {
-                return defaultValue;
-            }
+            return defaultValue;
         }
 
         public static int ToInt(string value, int defaultValue)
