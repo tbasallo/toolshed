@@ -16,8 +16,10 @@ namespace Toolshed
         /// <param name="s"></param>
         /// <param name="useLinq"></param>
         /// <returns></returns>
-        public static string SeparateOnPascal(this string s, bool useLinq = true)
+        public static string SeparateOnPascal(this string? s, bool useLinq = true)
         {
+            if (string.IsNullOrEmpty(s)) return string.Empty;
+
             if (useLinq)
             {
                 var result = s.SelectMany((c, i) => i != 0 && char.IsUpper(c) && !char.IsUpper(s[i - 1]) ? new char[] { ' ', c } : new char[] { c });
@@ -39,22 +41,24 @@ namespace Toolshed
         /// <param name="delimiter">The string that is delimited on</param>
         /// <param name="options">A StringSplitOptions that determines whether to return empty array elements (defaults to RemoveEmptyEntries)</param>
         /// <returns>A string array string[]</returns>
-        public static string[] Split(this string s, string delimiter, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
+        public static string[] Split(this string? s, string delimiter, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
         {
+            if (string.IsNullOrEmpty(s)) return [];
+
             return s.Split(new string[] { delimiter }, options);
         }
 
         /// <summary>
         /// Returns a string that contains only alpha numeric characters and replaces others with a dash (single dashes)
         /// </summary>
-        public static string ToUrlFriendly(this string s)
+        public static string ToUrlFriendly(this string? s)
         {
             return s.ToUrlFriendly('-');
         }
         /// <summary>
         /// Returns a string that contains only alpha numeric characters and replaces others with the specified character
         /// </summary>
-        public static string ToUrlFriendly(this string s, char delimiter)
+        public static string ToUrlFriendly(this string? s, char delimiter)
         {
             if (string.IsNullOrEmpty(s)) return string.Empty;
             s = s.Trim();
@@ -72,14 +76,16 @@ namespace Toolshed
         /// <summary>
         /// Returns a string that contains only alpha numeric characters and the forward slash (/) with a dash (-)
         /// </summary>
-        public static string ToUrlPathFriendly(this string s)
+        public static string ToUrlPathFriendly(this string? s)
         {
+            if (string.IsNullOrEmpty(s)) return string.Empty;
+
             return s.ToUrlPathFriendly('-');
         }
         /// <summary>
         /// Returns a string that contains only alpha numeric characters and the forward slash (/) and replaces others with the specified character
         /// </summary>
-        public static string ToUrlPathFriendly(this string s, char delimiter)
+        public static string ToUrlPathFriendly(this string? s, char delimiter)
         {
             if (string.IsNullOrEmpty(s)) return string.Empty;
             s = s.Trim();
@@ -96,8 +102,10 @@ namespace Toolshed
 
 
 
-        public static string MakePlural(this string s, int value)
+        public static string MakePlural(this string? s, int value)
         {
+            if (string.IsNullOrEmpty(s)) return string.Empty;
+
             if (value == 1)
             {
                 return s;
@@ -105,8 +113,10 @@ namespace Toolshed
 
             return s + "s";
         }
-        public static string MakePlural(this string s, double value)
+        public static string MakePlural(this string? s, double value)
         {
+            if (string.IsNullOrEmpty(s)) return string.Empty;
+
             if (value == 1)
             {
                 return s;
@@ -120,7 +130,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static string PrefixA(this string s)
+        public static string PrefixA(this string? s)
         {
             if (string.IsNullOrEmpty(s)) return string.Empty;
             if (s.StartsWith("a", StringComparison.OrdinalIgnoreCase))
@@ -152,39 +162,43 @@ namespace Toolshed
         }
 
 
-        public static bool LengthIsOutOfIndex(this string s, int minimumLength, int maximumLength)
+        public static bool LengthIsOutOfIndex(this string? s, int minimumLength, int maximumLength)
         {
+            if (string.IsNullOrEmpty(s)) return true;
+
             return (s.Length.IsInRange(minimumLength, maximumLength));
         }
 
-        public static string TrimSafely(this string s)
+        public static string TrimSafely(this string? s)
         {
-            if (string.IsNullOrEmpty(s)) return s;
+            if (string.IsNullOrEmpty(s)) return string.Empty;
 
             return s.Trim();
         }
 
-        public static string ToUpperSafely(this string s)
+        public static string ToUpperSafely(this string? s)
         {
-            if (string.IsNullOrEmpty(s)) return s;
+            if (string.IsNullOrEmpty(s)) return string.Empty;
 
             return s.ToUpper();
         }
-        public static string ToUpperTrimSafely(this string s)
+        public static string ToUpperTrimSafely(this string? s)
         {
-            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+            if (string.IsNullOrEmpty(s)) return string.Empty;
 
             return s.ToUpper().Trim();
         }
 
         /// <summary>
         /// Returns the specified string up to the length provided if the string's length is greater than the provided length, other returns the original string
-        /// </summary>        
+        /// </summary>
         /// <param name="length">The maximum length  of the specified string you want returned</param>
         /// <returns></returns>
-        public static string SubstringTo(this string s, int length)
+        public static string SubstringTo(this string? s, int length)
         {
-            if (!string.IsNullOrWhiteSpace(s) && s.Length > length)
+            if (string.IsNullOrEmpty(s)) return string.Empty;
+
+            if (s.Length > length)
             {
                 return s[..length];
             }
@@ -193,19 +207,19 @@ namespace Toolshed
 
         }
 
-        public static string ToLowerInvariantTrimSafely(this string s)
+        public static string ToLowerInvariantTrimSafely(this string? s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
 
             return s.ToLowerInvariant().Trim();
         }
-        public static string ToLowerInvariant(this string s)
+        public static string ToLowerInvariant(this string? s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
 
             return s.ToLower();
         }
-        public static string ToLowerInvariantSafely(this string s)
+        public static string ToLowerInvariantSafely(this string? s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
 
@@ -217,7 +231,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static string ToTelephoneNumber(this string s)
+        public static string ToTelephoneNumber(this string? s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
 
@@ -244,7 +258,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static string GetFixedTelephoneNumber(this string s)
+        public static string GetFixedTelephoneNumber(this string? s)
         {
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
 
@@ -265,9 +279,9 @@ namespace Toolshed
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static string ToTitleCase(this string s)
+        public static string ToTitleCase(this string? s)
         {
-            if (string.IsNullOrEmpty(s)) return s;
+            if (string.IsNullOrEmpty(s)) return string.Empty;
 
             //you have to lowercase it first, otherwise it will not change "case it"
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s.ToLowerInvariant()).TrimSafely();
@@ -275,10 +289,10 @@ namespace Toolshed
 
         /// <summary>
         /// Returns NULL for string that are null, empty or whitespace. Additionally, if an array of strings is provided, a match will also return NULL (case sensitive)
-        /// </summary>		
+        /// </summary>
         /// <param name="nullQualifyingString">An option list of strings that are checked to return null </param>
         /// <returns></returns>
-        public static string ToNullIfEmpty(this string s, bool trimString = false, bool toUpper = false, string[] nullQualifyingString = null)
+        public static string? ToNullIfEmpty(this string? s, bool trimString = false, bool toUpper = false, string[]? nullQualifyingString = null)
         {
             if (s == null)
             {
@@ -318,12 +332,12 @@ namespace Toolshed
         }
 
         /// <summary>
-        /// Returns the string using the fromat provided if the string passes string.IsNullOrWhiteSpace otherwise return an empty string
+        /// Returns the string using the format provided if the string passes string.IsNullOrWhiteSpace otherwise return an empty string
         /// </summary>
         /// <param name="s"></param>
         /// <param name="format">The format to apply to the string of the string is valid</param>
         /// <returns>A formatted string using the provided format</returns>
-        public static string ToFormat(this string s, string format)
+        public static string ToFormat(this string? s, string format)
         {
             return !string.IsNullOrWhiteSpace(s) ? string.Format(format, s) : string.Empty;
         }
@@ -333,7 +347,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="defaultValue">The value to return if the string is null, empty or white space</param>
         /// <returns></returns>
-        public static string ToValue(this string s, string defaultValue)
+        public static string ToValue(this string? s, string defaultValue)
         {
             return string.IsNullOrWhiteSpace(s) ? defaultValue : s;
         }
@@ -343,9 +357,9 @@ namespace Toolshed
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static byte[] ToByteArray(this string s)
+        public static byte[] ToByteArray(this string? s)
         {
-            if (string.IsNullOrEmpty(s)) return null;
+            if (string.IsNullOrEmpty(s)) return [];
 
             return Encoding.UTF8.GetBytes(s);
         }
@@ -355,9 +369,9 @@ namespace Toolshed
         /// </summary>
         /// <param name="s"></param>
         /// <returns>A base64 string</returns>
-        public static string ToBase64(this string s)
+        public static string ToBase64(this string? s)
         {
-            if (string.IsNullOrEmpty(s)) return null;
+            if (string.IsNullOrEmpty(s)) return string.Empty;
 
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(s));
         }
@@ -366,16 +380,23 @@ namespace Toolshed
         /// Returns the current UTF8 BASE64 string as the original string
         /// </summary>
         /// <returns>A string from base 64</returns>
-        public static string FromBase64(this string s)
+        public static string FromBase64(this string? s)
         {
-            if (string.IsNullOrEmpty(s)) return null;
+            if (string.IsNullOrEmpty(s)) return string.Empty;
 
             return Encoding.UTF8.GetString(Convert.FromBase64String(s));
         }
 
-        public static string ToJavascriptSafeString(this string s)
+        /// <summary>
+        /// Converts the specified string to a JavaScript-safe format by escaping single quotes.
+        /// </summary>
+        /// <param name="s">The input string to be converted. If <paramref name="s"/> is <see langword="null"/> or empty, the original
+        /// value is returned.</param>
+        /// <returns>A string with single quotes escaped for safe use in JavaScript contexts.</returns>
+        public static string ToJavaScriptSafeString(this string? s)
         {
-            if (string.IsNullOrEmpty(s)) return s;
+            if (string.IsNullOrEmpty(s)) return string.Empty;
+            if( s.Length == 0) return string.Empty;
 
             return s.Replace("'", "\'");
         }
@@ -387,7 +408,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="lengthGroupSize">The maximum length of each string returned</param>
         /// <returns></returns>
-        public static IEnumerable<string> SplitBy(this string s, int lengthGroupSize)
+        public static IEnumerable<string> SplitBy(this string? s, int lengthGroupSize)
         {
             if (string.IsNullOrEmpty(s)) yield break;
 

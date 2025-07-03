@@ -22,7 +22,7 @@ namespace Toolshed
         /// <param name="defaultValue">The default value to use if the string is not valid, TResult is not an enum or an exception is thrown and the throwErrorOnException parameter is false</param>
         /// <param name="throwErrorOnException">Indicates whther an exception should be swallowed and the default value returned or thrown</param>
         /// <returns>An enum parsed from the provided string</returns>
-        public static T ConvertToEnum<T>(this string source, T defaultValue, bool throwErrorOnException = false)
+        public static T ConvertToEnum<T>(this string? source, T defaultValue, bool throwErrorOnException = false)
         {
             if (!typeof(T).IsEnum || string.IsNullOrWhiteSpace(source))
             {

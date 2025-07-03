@@ -5,7 +5,7 @@ namespace Toolshed
 {
     public static partial class StringExtensions
     {
-        public static bool ToBoolean(this string value, string trueValue, bool? defaultValue = null, bool isCaseSensitive = false)
+        public static bool ToBoolean(this string? value, string trueValue, bool? defaultValue = null, bool isCaseSensitive = false)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -23,7 +23,7 @@ namespace Toolshed
         /// Returns a boolean indicating whether this string is an email. This does not chekc for valid TLDs, only that the tld is more than 1 character long
         /// Trailing spaces will result in FALSE, so trim your strings
         /// </summary>
-        public static bool IsEmail(this string email)
+        public static bool IsEmail(this string? email)
         {
             if (string.IsNullOrEmpty(email))
                 return false;
@@ -110,7 +110,7 @@ namespace Toolshed
 
 
 
-        public static bool IsAbsoluteUrl(this string url)
+        public static bool IsAbsoluteUrl(this string? url)
         {
             if (string.IsNullOrEmpty(url))
                 return false;
@@ -118,7 +118,7 @@ namespace Toolshed
             Regex regex = new Regex(RegexPatterns.Url);
             return regex.IsMatch(url);
         }
-        public static bool IsGuid(this string value)
+        public static bool IsGuid(this string? value)
         {
             return Guid.TryParse(value, out var _);
         }
@@ -129,7 +129,7 @@ namespace Toolshed
         /// <param name="minimumLength"></param>
         /// <param name="maximumLength"></param>
         /// <returns></returns>
-        public static bool IsLengthWithinRange(this string s, int minimumLength, int maximumLength)
+        public static bool IsLengthWithinRange(this string? s, int minimumLength, int maximumLength)
         {
             if (s == null) return false;
             return (s.Length.IsInRange(minimumLength, maximumLength));
@@ -140,7 +140,7 @@ namespace Toolshed
         /// Indicates if the string is equal to the specified value using the selected StringComparison type (defaults to OrdinalIgnoreCase)
         /// </summary>
         /// <returns>Boolean indicating if the values are equal</returns>
-        public static bool IsEqualTo(this string s, string value, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        public static bool IsEqualTo(this string? s, string value, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
         {
             if (s == null) return false;
             if (value == null) return false;
@@ -154,7 +154,7 @@ namespace Toolshed
         /// <param name="value"></param>
         /// <param name="comparisonType"></param>
         /// <returns>Boolean indicating if the specified value is in this string. Should this be called HasValue, IsWithin, ....</returns>
-        public static bool IsContained(this string s, string value, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        public static bool IsContained(this string? s, string value, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
         {
             if (s == null) return false;
             if (value == null) return false;
@@ -172,7 +172,7 @@ namespace Toolshed
         // Returns:
         //     true if the value parameter is null or System.String.Empty, or if value consists
         //     exclusively of white-space characters.
-        public static bool IsNullOrWhiteSpace(this string s)
+        public static bool IsNullOrWhiteSpace(this string? s)
         {
             return string.IsNullOrWhiteSpace(s);
         }
@@ -181,7 +181,7 @@ namespace Toolshed
         /// Indicates if there are numbers in this string
         /// </summary>
         /// <returns>Boolean indicating if the specified value has a number</returns>
-        public static bool HasNumbers(this string s)
+        public static bool HasNumbers(this string? s)
         {
             if (string.IsNullOrWhiteSpace(s)) return false;
 

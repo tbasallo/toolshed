@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
@@ -10,16 +11,16 @@ namespace Toolshed
         /// <summary>
         /// Indicates whether the collection is null or empty
         /// </summary>
-        public static bool IsNullOrEmpty<T>(this ICollection<T> list)
+        public static bool IsNullOrEmpty<T>([NotNullWhen(false),] this ICollection<T>? list)
         {
             return list == null || list.Count == 0;
         }
 
         /// <summary>
-        /// Indicates whether the collection has items
+        /// Indicates whether the collection is not null and has items
         /// <para>Uses the count property in the ICollection interface</para>
         /// </summary>
-        public static bool HasItems<T>(this ICollection<T> collection)
+        public static bool HasItems<T>([NotNullWhen(true)] this ICollection<T>? collection)
         {
             if (collection == null)
             {
@@ -31,13 +32,13 @@ namespace Toolshed
 
         /// <summary>
         /// Returns a random object from the collection.
-        /// <para>Will return null if the collection is null or has 0 items</para>
+        /// <para>Will return the default value if the collection is null or has 0 items</para>
         /// </summary>
-        public static T GetRandom<T>(this ICollection<T> collection)
-        {
-            if (collection.IsNullOrEmpty())
+        public static T GetRandom<T>(this ICollection<T>? collection, T defaultValue = default)
+        {            
+            if (!collection.HasItems())
             {
-                return default(T);
+                return defaultValue!;
             }
 
             if (collection.Count == 1)
@@ -58,8 +59,13 @@ namespace Toolshed
         /// <param name="spaceBetweenDelimiter">Indicates whether a space should be inserted between the end of one delimiter and the start of the next item: "a,b,c" vs. "a, b, c"</param>
         /// <param name="ignoreNullValues">If true, removes null values from the returned string. Defaults to false (i.e will return a,c)</param>
         /// <returns>A string where the collection items are delimited using the specified delimiter</returns>
-        public static string ToDelimitedString<T>(this ICollection<T> collection, string delimiter = ",", string format = null, bool spaceBetweenDelimiter = true, bool ignoreNullValues = false) where T : IComparable
+        public static string ToDelimitedString<T>(this ICollection<T>? collection, string delimiter = ",", string format = null, bool spaceBetweenDelimiter = true, bool ignoreNullValues = false) where T : IComparable
         {
+            if (collection is null)
+            {
+                return string.Empty;
+            }
+
             if (collection.Count < 1)
             {
                 return string.Empty;
@@ -116,8 +122,13 @@ namespace Toolshed
         /// <param name="spaceBetweenDelimiter">Indicates whether a space should be inserted between the end of one delimiter and the start of the next item: "a,b,c" vs. "a, b, c"</param>
         /// <param name="ignoreNullValues">If true, removes null values from the returned string. Defaults to false (i.e will return a,c)</param>
         /// <returns>A string where the collection items are delimited using the specified delimiter</returns>
-        public static string ToDelimitedString(this ICollection<string> collection, string delimiter = ",", string format = null, bool spaceBetweenDelimiter = true, bool ignoreNullValues = false)
+        public static string ToDelimitedString(this ICollection<string>? collection, string delimiter = ",", string format = null, bool spaceBetweenDelimiter = true, bool ignoreNullValues = false)
         {
+            if(collection is null)
+            {
+                return string.Empty;
+            }
+
             if (collection.Count < 1)
             {
                 return string.Empty;
@@ -168,8 +179,12 @@ namespace Toolshed
         /// <summary>
         /// Returns the collection as a JavaScript array (e.g., ["val1","val2","val3"])
         /// </summary>
-        public static string ToJavascriptArray<T>(this ICollection<T> collection)
+        public static string ToJavaScriptArray<T>(this ICollection<T>? collection)
         {
+            if(collection is null)
+            {
+                return "[]";
+            }
             if (collection.Count < 1)
             {
                 return "[]";
@@ -219,8 +234,12 @@ namespace Toolshed
         /// <param name="defaultBefore">What to return if no value smaller than the specified value is found (defaults to double.MinValue)</param>
         /// <param name="defaultAfter">What to return if no value larger than the specified value is found (defaults to double.MaxValue)</param>
         /// <returns></returns>
-        public static (double beforeValue, double afterValue) GetBeforeAndAfterValues(this IEnumerable<double> source, double value, double defaultBefore = double.MinValue, double defaultAfter = double.MaxValue)
+        public static (double beforeValue, double afterValue) GetBeforeAndAfterValues(this IEnumerable<double>? source, double value, double defaultBefore = double.MinValue, double defaultAfter = double.MaxValue)
         {
+            if (source is null)
+            {
+                return (defaultBefore, defaultAfter);
+            }
             double before = defaultBefore;
             double after = defaultAfter;
             foreach (var x in source)
@@ -246,8 +265,13 @@ namespace Toolshed
         /// <param name="defaultBefore">What to return if no value smaller than the specified value is found (defaults to double.MinValue)</param>
         /// <param name="defaultAfter">What to return if no value larger than the specified value is found (defaults to double.MaxValue)</param>
         /// <returns></returns>
-        public static (int beforeValue, int afterValue) GetBeforeAndAfterValues(this IEnumerable<int> source, double value, int defaultBefore = int.MinValue, int defaultAfter = int.MaxValue)
+        public static (int beforeValue, int afterValue) GetBeforeAndAfterValues(this IEnumerable<int>? source, double value, int defaultBefore = int.MinValue, int defaultAfter = int.MaxValue)
         {
+            if(source is null)
+            {
+                return (defaultBefore, defaultAfter);
+            }
+
             int before = defaultBefore;
             int after = defaultAfter;
             foreach (var x in source)

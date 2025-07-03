@@ -102,7 +102,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="state">The 2 letter state that the time zone is for</param>
         /// <returns></returns>
-        public static DateTime ToUsaStateTimeZone(DateTime date, string state, bool throwExceptionForBadArgument = false)
+        public static DateTime ToUsaStateTimeZone(DateTime date, string? state, bool throwExceptionForBadArgument = false)
         {
             if (string.IsNullOrWhiteSpace(state))
             {
@@ -140,8 +140,13 @@ namespace Toolshed
         /// </summary>
         /// <param name="state">The USA state  for the DateTime</param>
         /// <returns>A DateTime converted to UTC</returns>
-        public static DateTime FromUsaTimeZone(DateTime date, string state)
+        public static DateTime FromUsaTimeZone(DateTime date, string? state)
         {
+            if(string.IsNullOrWhiteSpace(state))
+            {
+                return date;
+            }
+
             var s = UnitedStates.Get50States().Where(d => d.Abbreviation.IsEqualTo(state)).FirstOrDefault();
             return date.FromTimeZoneToUtc(s.TimeZone);
         }

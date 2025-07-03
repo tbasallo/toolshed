@@ -46,7 +46,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="state">The 2 letter state that the time zone is for</param>
         /// <returns></returns>
-        public static DateTime ToUsaStateTimeZone(this DateTime date, string state, bool throwExceptionForBadArgument = false)
+        public static DateTime ToUsaStateTimeZone(this DateTime date, string? state, bool throwExceptionForBadArgument = false)
         {
             return DateHelper.ToUsaStateTimeZone(date, state, throwExceptionForBadArgument);
         }
@@ -56,7 +56,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="state">The USA state  for the DateTime</param>
         /// <returns>A DateTime converted to UTC</returns>
-        public static DateTime FromUsaTimeZone(this DateTime date, string state)
+        public static DateTime FromUsaTimeZone(this DateTime date, string? state)
         {
             return DateHelper.FromUsaTimeZone(date, state);
         }
