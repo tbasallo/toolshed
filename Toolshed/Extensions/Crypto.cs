@@ -11,26 +11,44 @@ public static class Crypto
 {
 
     /// <summary>
-    /// Generates a one-way hash for the given string using the SHA256 algorithm.
+    /// Returns a one-way hash for the given string using the SHA256 algorithm.
     /// The result is encoded using Base64 encoding (not the Base64Url) which may result in some differences in the output.
-    /// Meta requires non-Base64Url encoding for some of its APIs.
     /// </summary>
     /// <param name="input">The input string to hash.</param>
     /// <returns>The one-way hash as a Base64Url-encoded string.</returns>
-    public static string ToOneWayHash(this string s)
+    public static string ToOneWayHashBase64(this string s)
     {
         return Convert.ToBase64String(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(s)));
     }
 
+
+
     /// <summary>
-    /// Generates a one-way hash for the given string using the SHA256 algorithm
+    /// Returns a one-way hash for the given string using the SHA256 algorithm
     /// The result is encoded using Base64Url encoding.
     /// </summary>
     /// <param name="input">The input string to hash.</param>
     /// <returns>The one-way hash as a Base64Url-encoded string.</returns>
-    public static string ToOneWayHashUrlSafe(this string s)
+    public static string ToOneWayHashBase64Url(this string s)
     {
         return Base64Url.EncodeToString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(s)));
+    }
+
+    /// <summary>
+    /// Returns a one-way hash for the given string using the SHA256 algorithm
+    /// The result is a hexadecimal string.
+    /// </summary>
+    /// <param name="s"></param>
+    /// <returns></returns>
+    public static string ToOneWayHashAsHex(this string s)
+    {
+        if (string.IsNullOrWhiteSpace(s))
+        {
+            return string.Empty;
+        }
+
+        // Convert to hexadecimal format
+        return Convert.ToHexStringLower(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(s.ToLowerInvariantTrimSafely())));
     }
 
 
