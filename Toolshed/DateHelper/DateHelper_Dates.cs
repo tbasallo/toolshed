@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Toolshed
+﻿namespace Toolshed
 {
     public static partial class DateHelper
     {
@@ -114,7 +111,7 @@ namespace Toolshed
         {
             return new DateTime(year, month, 1, 0, 0, 0, 0);
         }
-        
+
 
         /// <summary>
         /// Returns the last date of the month and year at 23:59:59

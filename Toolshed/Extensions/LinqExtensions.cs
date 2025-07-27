@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Toolshed
+﻿namespace Toolshed
 {
     public static class LinqExtensions
     {

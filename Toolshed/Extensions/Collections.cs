@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Toolshed
@@ -35,7 +32,7 @@ namespace Toolshed
         /// <para>Will return the default value if the collection is null or has 0 items</para>
         /// </summary>
         public static T GetRandom<T>(this ICollection<T>? collection, T defaultValue = default)
-        {            
+        {
             if (!collection.HasItems())
             {
                 return defaultValue!;
@@ -124,7 +121,7 @@ namespace Toolshed
         /// <returns>A string where the collection items are delimited using the specified delimiter</returns>
         public static string ToDelimitedString(this ICollection<string>? collection, string delimiter = ",", string format = null, bool spaceBetweenDelimiter = true, bool ignoreNullValues = false)
         {
-            if(collection is null)
+            if (collection is null)
             {
                 return string.Empty;
             }
@@ -181,7 +178,7 @@ namespace Toolshed
         /// </summary>
         public static string ToJavaScriptArray<T>(this ICollection<T>? collection)
         {
-            if(collection is null)
+            if (collection is null)
             {
                 return "[]";
             }
@@ -267,7 +264,7 @@ namespace Toolshed
         /// <returns></returns>
         public static (int beforeValue, int afterValue) GetBeforeAndAfterValues(this IEnumerable<int>? source, double value, int defaultBefore = int.MinValue, int defaultAfter = int.MaxValue)
         {
-            if(source is null)
+            if (source is null)
             {
                 return (defaultBefore, defaultAfter);
             }

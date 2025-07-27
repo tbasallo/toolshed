@@ -38,7 +38,7 @@ public static class Geo
 
         // Return distance in the specified unit
         return unit == "M" ? RADIUS_EARTH_MI * c : RADIUS_EARTH_KM * c;
-    }        
+    }
     private static double ToRadians(double degrees)
     {
         return degrees * (Math.PI / 180);

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Toolshed
+﻿namespace Toolshed
 {
     public static class Classes
     {

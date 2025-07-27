@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Toolshed
+﻿namespace Toolshed
 {
     public static partial class DateHelperExtensions
     {

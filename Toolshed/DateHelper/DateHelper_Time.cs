@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Toolshed
+﻿namespace Toolshed
 {
     public static partial class DateHelper
     {

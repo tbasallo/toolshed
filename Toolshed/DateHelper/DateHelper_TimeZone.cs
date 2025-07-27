@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-
 namespace Toolshed
 {
     /// <summary>
@@ -142,7 +139,7 @@ namespace Toolshed
         /// <returns>A DateTime converted to UTC</returns>
         public static DateTime FromUsaTimeZone(DateTime date, string? state)
         {
-            if(string.IsNullOrWhiteSpace(state))
+            if (string.IsNullOrWhiteSpace(state))
             {
                 return date;
             }

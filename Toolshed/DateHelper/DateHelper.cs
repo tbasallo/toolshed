@@ -1,5 +1,3 @@
-using System;
-
 namespace Toolshed
 {
     /// <summary>

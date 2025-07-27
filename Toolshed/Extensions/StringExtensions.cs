@@ -1,8 +1,5 @@
-﻿using System;
-using System.Buffers.Text;
-using System.Collections.Generic;
+﻿using System.Buffers.Text;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -409,7 +406,7 @@ namespace Toolshed
         {
             if (string.IsNullOrEmpty(s))
                 return string.Empty;
-            
+
             return Encoding.UTF8.GetString(Base64Url.DecodeFromChars(s));
         }
 
@@ -422,7 +419,7 @@ namespace Toolshed
         public static string ToJavaScriptSafeString(this string? s)
         {
             if (string.IsNullOrEmpty(s)) return string.Empty;
-            if( s.Length == 0) return string.Empty;
+            if (s.Length == 0) return string.Empty;
 
             return s.Replace("'", "\'");
         }

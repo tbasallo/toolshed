@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Toolshed
+﻿namespace Toolshed
 {
     /// <summary>
     /// Converts values to expected type with no exceptions or returns the specified default value

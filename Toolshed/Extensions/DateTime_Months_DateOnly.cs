@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-
-using static System.Net.Mime.MediaTypeNames;
+﻿using System.Globalization;
 
 namespace Toolshed;
 
@@ -56,7 +52,7 @@ public static partial class DateHelperExtensions
     /// </summary>
     public static DateOnly EndOfMonth(this DateOnly date)
     {
-        return new DateOnly(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));            
+        return new DateOnly(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
     }
 
     /// <summary>
@@ -88,7 +84,7 @@ public static partial class DateHelperExtensions
         endDate = endDate.EndOfMonth();
         while (currDate < endDate)
         {
-            many++;                
+            many++;
         }
 
         return many;
