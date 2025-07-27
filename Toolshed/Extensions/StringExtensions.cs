@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -385,6 +386,31 @@ namespace Toolshed
             if (string.IsNullOrEmpty(s)) return string.Empty;
 
             return Encoding.UTF8.GetString(Convert.FromBase64String(s));
+        }
+
+
+        /// <summary>
+        /// Returns a UTF8 Base64 string from the current string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns>A base64 string</returns>
+        public static string ToBase64Url(this string? s)
+        {
+            if (string.IsNullOrEmpty(s)) return string.Empty;
+
+            return Base64Url.EncodeToString(Encoding.UTF8.GetBytes(s));
+        }
+
+        /// <summary>
+        /// Returns the current UTF8 BASE64 string as the original string
+        /// </summary>
+        /// <returns>A string from base 64</returns>
+        public static string FromBase64Url(this string? s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return string.Empty;
+            
+            return Encoding.UTF8.GetString(Base64Url.DecodeFromChars(s));
         }
 
         /// <summary>
