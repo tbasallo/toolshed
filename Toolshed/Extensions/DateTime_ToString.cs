@@ -43,11 +43,11 @@ namespace Toolshed
 
                 if (includeSpaceBetween)
                 {
-                    return string.Format("h:mm tt");
+                    return date.ToString("h:mm tt");
                 }
                 else
                 {
-                    return string.Format("h:mmtt");
+                    return date.ToString("h:mmtt");
                 }
             }
 
