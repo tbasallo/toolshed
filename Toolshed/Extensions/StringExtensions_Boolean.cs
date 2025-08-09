@@ -27,84 +27,20 @@ namespace Toolshed
             if (string.IsNullOrEmpty(email))
                 return false;
 
-            if (email.StartsWith(" ")) return false;
-            if (email.EndsWith(" ")) return false;
+            if (email.StartsWith(' ')) return false;
+            if (email.EndsWith(' ')) return false;
 
-            var wharesAt = email.IndexOf("@");
+            var wharesAt = email.IndexOf('@');
             if (wharesAt < 0) return false;
-            if (email.IndexOf("@", wharesAt + 1) > 1) return false;
-            if (email.IndexOf(" ", wharesAt) > 0) return false;
-            if (email.IndexOf(".", wharesAt) < 0) return false;
+            if (email.IndexOf('@', wharesAt + 1) > 1) return false;
+            if (email.IndexOf(' ', wharesAt) > 0) return false;
+            if (email.IndexOf('.', wharesAt) < 0) return false;
 
             if (email.IndexOf("@-") > 0) return false;
             if (email.IndexOf("@.") > 0) return false;
+            if (email.IndexOf(".@") > 0) return false;
 
-            if (email.Length - email.LastIndexOf(".") < 3) return false;
-
-            var dots = 0;
-            var ats = 0;
-            var plus = 0;
-            var emailSpan = email.AsSpan();
-            for (int i = 0; i < email.Length; i++)
-            {
-                if (emailSpan[i] == '.')
-                {
-                    dots++;
-                }
-                else
-                {
-                    dots = 0;
-                }
-                if (dots > 1)
-                {
-                    return false;
-                }
-                if (emailSpan[i] == '@')
-                {
-                    ats++;
-                }
-                else
-                {
-                    ats = 0;
-                }
-                if (ats > 1)
-                {
-                    return false;
-                }
-                if (emailSpan[i] == '+')
-                {
-                    plus++;
-                }
-                else
-                {
-                    plus = 0;
-                }
-                if (plus > 1)
-                {
-                    return false;
-                }
-            }
-
-
-            //no specials except the ones listed
-            for (int i = 0; i < email.Length; i++)
-            {
-                if (!((emailSpan[i] >= 'a' && emailSpan[i] <= 'z') || (emailSpan[i] >= 'A' && emailSpan[i] <= 'Z') || (emailSpan[i] >= '0' && emailSpan[i] <= '9')))
-                {
-                    if (i == 0) return false;
-                    if (i == (email.Length - 1)) return false;
-                    if (emailSpan[i] == '+' && i < wharesAt)
-                    {
-                        continue;
-                    }
-                    if (!(emailSpan[i] == '-' || emailSpan[i] == '.' || emailSpan[i] == '@' || emailSpan[i] == '_'))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
+            return RegexPatterns.EmailMatch().IsMatch(email);
         }
 
 
@@ -187,5 +123,8 @@ namespace Toolshed
             return Regex.IsMatch(s, @"\d", RegexOptions.None);
         }
 
+
     }
+
+
 }
