@@ -25,13 +25,15 @@ namespace Toolshed
         /// <summary>
         /// Returns the shortest time possible using only actual values. E.G, for a time of 6:00 6 PM is returned.
         /// </summary>
-        public static string ToShortestTimeString(this DateTime date, bool includeSpaceBetween = true)
+        public static string ToShortestTimeString(this DateTime date, bool? includeSpaceBetween = null)
         {
+            includeSpaceBetween ??= DateTimeSettings.SpaceBetweenTimeOfDay;
+
             if (date.Second == 0)
             {
                 if (date.Minute == 0)
                 {
-                    if (includeSpaceBetween)
+                    if (includeSpaceBetween.GetValueOrDefault())
                     {
                         return date.ToString("h tt");
                     }
@@ -41,7 +43,7 @@ namespace Toolshed
                     }
                 }
 
-                if (includeSpaceBetween)
+                if (includeSpaceBetween.GetValueOrDefault())
                 {
                     return date.ToString("h:mm tt");
                 }
@@ -53,6 +55,45 @@ namespace Toolshed
 
             return date.ToShortTimeString();
         }
+
+        /// <summary>
+        /// Returns the shortest time possible using only actual values. E.G, for a time of 6:00 6 PM is returned.
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="includeSpaceBetween">Determines whether to include a space between the time and time of day, i.e. 9AM vs 9 AM.
+        /// You can set the default values using DateTimeSettings.SpaceBetweenTimeOfDay </param>
+        /// <returns></returns>
+        public static string ToShortestTimeString(this TimeOnly time, bool? includeSpaceBetween = null)
+        {
+            includeSpaceBetween ??= DateTimeSettings.SpaceBetweenTimeOfDay;
+
+            if (time.Second == 0)
+            {
+                if (time.Minute == 0)
+                {
+                    if (includeSpaceBetween.GetValueOrDefault())
+                    {
+                        return time.ToString("h tt");
+                    }
+                    else
+                    {
+                        return time.ToString("htt");
+                    }
+                }
+
+                if (includeSpaceBetween.GetValueOrDefault())
+                {
+                    return time.ToString("h:mm tt");
+                }
+                else
+                {
+                    return time.ToString("h:mmtt");
+                }
+            }
+
+            return time.ToShortTimeString();
+        }
+
 
         /// <summary>
         /// Returns the day name using the current culture
@@ -67,7 +108,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="delimiter">The string to use to delimit the date parts</param>
         /// <returns>A string like 12-31-1977</returns>
-        public static string ToUrlFriendly(this DateTime date, string delimiter = "-")
+        public static string ToUrlFriendly(this DateTime date, string? delimiter = null)
         {
             return DateHelper.ToUrlFriendly(date, delimiter);
         }
@@ -76,7 +117,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="delimiter">The string to use to delimit the date parts</param>
         /// <returns>A string like 12-31-1977</returns>
-        public static string ToUrlFriendly(this DateTime? date, string delimiter = "-")
+        public static string ToUrlFriendly(this DateTime? date, string? delimiter = null)
         {
             if (date.HasValue)
             {
@@ -90,7 +131,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="delimiter">The string to use to delimit the date parts</param>
         /// <returns>A string like 12-31-1977</returns>
-        public static string ToUrlFriendly(this DateOnly date, string delimiter = "-")
+        public static string ToUrlFriendly(this DateOnly date, string? delimiter = null)
         {
             return DateHelper.ToUrlFriendly(date, delimiter);
         }
@@ -99,7 +140,7 @@ namespace Toolshed
         /// </summary>
         /// <param name="delimiter">The string to use to delimit the date parts</param>
         /// <returns>A string like 12-31-1977</returns>
-        public static string ToUrlFriendly(this DateOnly? date, string delimiter = "-")
+        public static string ToUrlFriendly(this DateOnly? date, string? delimiter = null)
         {
             if (date.HasValue)
             {

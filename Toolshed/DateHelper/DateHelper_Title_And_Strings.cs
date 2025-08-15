@@ -46,9 +46,9 @@ namespace Toolshed
         /// <param name="date">The date to convert</param>
         /// <param name="delimiter">the delimiter between the month, day and year</param>
         /// <returns>a string that can be used in a URL</returns>
-        public static string ToUrlFriendly(DateTime date, string delimiter = "-")
+        public static string ToUrlFriendly(DateTime date, string? delimiter = null)
         {
-            return string.Format("{1}{0}{2}{0}{3}", delimiter, date.Month, date.Day, date.Year);
+            return string.Format("{1}{0}{2}{0}{3}", delimiter ?? DateTimeSettings.UrlFriendlyDelimiter, date.Month, date.Day, date.Year);
         }
         /// <summary>
         /// Returns a date in a URL address friendly format. The default delimiter is a dash (-) but can be changed.
@@ -57,9 +57,9 @@ namespace Toolshed
         /// <param name="date">The date to convert</param>
         /// <param name="delimiter">the delimiter between the month, day and year</param>
         /// <returns>a string that can be used in a URL</returns>
-        public static string ToUrlFriendly(DateOnly date, string delimiter = "-")
+        public static string ToUrlFriendly(DateOnly date, string? delimiter = null)
         {
-            return string.Format("{1}{0}{2}{0}{3}", delimiter, date.Month, date.Day, date.Year);
+            return string.Format("{1}{0}{2}{0}{3}", delimiter ?? DateTimeSettings.UrlFriendlyDelimiter, date.Month, date.Day, date.Year);
         }
 
         //international
