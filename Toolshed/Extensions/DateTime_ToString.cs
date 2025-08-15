@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Toolshed
 {
@@ -29,32 +30,42 @@ namespace Toolshed
         {
             includeSpaceBetween ??= DateTimeSettings.SpaceBetweenTimeOfDay;
 
-            if (date.Second == 0)
+            if (date.Minute == 0)
             {
-                if (date.Minute == 0)
-                {
-                    if (includeSpaceBetween.GetValueOrDefault())
-                    {
-                        return date.ToString("h tt");
-                    }
-                    else
-                    {
-                        return date.ToString("htt");
-                    }
-                }
-
                 if (includeSpaceBetween.GetValueOrDefault())
                 {
-                    return date.ToString("h:mm tt");
+                    return date.ToString("h tt");
                 }
                 else
                 {
-                    return date.ToString("h:mmtt");
+                    return date.ToString("htt");
                 }
             }
 
-            return date.ToShortTimeString();
+            if (includeSpaceBetween.GetValueOrDefault())
+            {
+                return date.ToString("h:mm tt");
+            }
+            else
+            {
+                return date.ToString("h:mmtt");
+            }
+
         }
+
+                /// <summary>
+        /// Returns the shortest time possible using only actual values. E.G, for a time of 6:00 6 PM is returned.
+        /// </summary>
+        public static string ToShortestTimeString(this DateTime? date, bool? includeSpaceBetween = null, string defaultValue = "")
+        {
+            if (!date.HasValue)
+            {
+                return defaultValue;
+            }
+
+            return date.GetValueOrDefault().ToShortestTimeString();
+        }
+
 
         /// <summary>
         /// Returns the shortest time possible using only actual values. E.G, for a time of 6:00 6 PM is returned.
@@ -67,31 +78,43 @@ namespace Toolshed
         {
             includeSpaceBetween ??= DateTimeSettings.SpaceBetweenTimeOfDay;
 
-            if (time.Second == 0)
+            if (time.Minute == 0)
             {
-                if (time.Minute == 0)
-                {
-                    if (includeSpaceBetween.GetValueOrDefault())
-                    {
-                        return time.ToString("h tt");
-                    }
-                    else
-                    {
-                        return time.ToString("htt");
-                    }
-                }
-
                 if (includeSpaceBetween.GetValueOrDefault())
                 {
-                    return time.ToString("h:mm tt");
+                    return time.ToString("h tt");
                 }
                 else
                 {
-                    return time.ToString("h:mmtt");
+                    return time.ToString("htt");
                 }
             }
 
-            return time.ToShortTimeString();
+            if (includeSpaceBetween.GetValueOrDefault())
+            {
+                return time.ToString("h:mm tt");
+            }
+            else
+            {
+                return time.ToString("h:mmtt");
+            }
+        }
+
+        /// <summary>
+        /// Returns the shortest time possible using only actual values. E.G, for a time of 6:00 6 PM is returned.
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="includeSpaceBetween">Determines whether to include a space between the time and time of day, i.e. 9AM vs 9 AM.
+        /// You can set the default values using DateTimeSettings.SpaceBetweenTimeOfDay </param>
+        /// <returns></returns>
+        public static string ToShortestTimeString(this TimeOnly? time, bool? includeSpaceBetween = null, string defaultValue = "")
+        {
+            if (!time.HasValue)
+            {
+                return defaultValue;
+            }
+
+            return time.GetValueOrDefault().ToShortestTimeString(includeSpaceBetween);
         }
 
 
