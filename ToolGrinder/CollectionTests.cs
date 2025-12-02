@@ -2,10 +2,10 @@ using Toolshed;
 namespace ToolGrinder
 {
     [TestClass]
-    public class UnitTest1
+    public class CollectionTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void GetBeforeAndAfterValues_Valid_IsValid()
         {
 
             var list = new List<double>() { 25.5, 27.5, 30, 45 };

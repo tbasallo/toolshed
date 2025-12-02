@@ -37,11 +37,27 @@
         }
 
         /// <summary>
+        /// Returns the first date of the specified year at 00:00:00:000
+        /// </summary>
+        public static DateOnly GetStartDateOfYear(int year)
+        {
+            return new DateOnly(year, 1, 1);
+        }
+
+        /// <summary>
         /// Returns the last date of the year provided at 23:59:59
         /// </summary>
         public static DateTime GetEndOfYear(int year)
         {
             return new DateTime(year, 12, DateTime.DaysInMonth(year, 12), 23, 59, 59);
+        }
+
+        /// <summary>
+        /// Returns the last date of the year provided at 23:59:59
+        /// </summary>
+        public static DateOnly GetEndDateOfYear(int year)
+        {
+            return new DateOnly(year, 12, DateTime.DaysInMonth(year, 12));
         }
 
         /// <summary>
@@ -53,11 +69,27 @@
         }
 
         /// <summary>
+        /// Returns the start date of last year with a time of 00:00:00:000
+        /// </summary>
+        public static DateOnly GetStartDateOfLastYear()
+        {
+            return GetStartOfYear(DateTime.Now.Year - 1).AsDateOnly();
+        }
+
+        /// <summary>
         /// Returns the last date of last year at 23:59:59:999
         /// </summary>
         public static DateTime GetEndOfLastYear()
         {
             return GetEndOfYear(DateTime.Now.Year - 1);
+        }
+
+        /// <summary>
+        /// Returns the last date of last year at 23:59:59:999
+        /// </summary>
+        public static DateOnly GetEndDateOfLastYear()
+        {
+            return GetEndOfYear(DateTime.Now.Year - 1).AsDateOnly();
         }
 
         /// <summary>
@@ -69,11 +101,27 @@
         }
 
         /// <summary>
+        /// Returns the first date of the current year at 00:00:00:000
+        /// </summary>
+        public static DateOnly GetStartDateOfCurrentYear()
+        {
+            return GetStartOfYear(DateTime.Now.Year).AsDateOnly();
+        }
+
+        /// <summary>
         /// Returns the last date of the current year at 23:59:59
         /// </summary>
         public static DateTime GetEndOfCurrentYear()
         {
             return GetEndOfYear(DateTime.Now.Year);
+        }
+
+        /// <summary>
+        /// Returns the last date of the current year at 23:59:59
+        /// </summary>
+        public static DateOnly GetEndDateOfCurrentYear()
+        {
+            return GetEndOfYear(DateTime.Now.Year).AsDateOnly();
         }
 
         /// <summary>
@@ -85,11 +133,27 @@
         }
 
         /// <summary>
+        /// Returns the first date of next year 
+        /// </summary>
+        public static DateOnly GetStartDateOfNextYear()
+        {
+            return GetStartOfYear(DateTime.Now.Year + 1).AsDateOnly();
+        }
+
+        /// <summary>
         /// Returns the last date of next year at 23:59:59:999
         /// </summary>
         public static DateTime GetEndOfNextYear()
         {
             return GetEndOfYear(DateTime.Now.Year + 1);
+        }
+
+        /// <summary>
+        /// Returns the last date of next year 
+        /// </summary>
+        public static DateOnly GetEndDateOfNextYear()
+        {
+            return GetEndOfNextYear().AsDateOnly();
         }
 
         /// <summary>
@@ -100,6 +164,18 @@
         /// <param name="endDate">The earlier of the two dates</param>
         /// <returns>The number of years between the provided dates</returns>
         public static int GetYearsBetweenDates(DateTime startDate, DateTime endDate)
+        {
+            return (startDate.Year - endDate.Year);
+        }
+
+        /// <summary>
+        /// Returns the number of whole years between two dates
+        /// <para>The subtracts two dates' years (i.e (2009 - 2007) = 2)</para>
+        /// </summary>
+        /// <param name="startDate">The later of the two dates</param>
+        /// <param name="endDate">The earlier of the two dates</param>
+        /// <returns>The number of years between the provided dates</returns>
+        public static int GetYearsBetweenDates(DateOnly startDate, DateOnly endDate)
         {
             return (startDate.Year - endDate.Year);
         }
