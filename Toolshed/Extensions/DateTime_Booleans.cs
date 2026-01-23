@@ -2,20 +2,33 @@
 {
     public static partial class DateHelperExtensions
     {
-
         /// <summary>
-        /// Indicates whether this is a Saturday or Sunday
+        /// Indicates whether this is in the previous month as it relates to today
         /// </summary>
-        public static bool IsWeekend(this DateTime date)
+        public static bool IsPreviousMonth(this DateTime date)
         {
-            return DateHelper.IsWeekend(date);
+            return DateHelper.IsPreviousMonthAndYear(date);
         }
         /// <summary>
-        /// Indicates whether this is a Saturday or Sunday
+        /// Indicates whether this is in the previous month as it relates to today
         /// </summary>
-        public static bool IsWeekend(this DateOnly date)
+        public static bool IsPreviousMonth(this DateOnly date)
         {
-            return DateHelper.IsWeekend(date);
+            return DateHelper.IsPreviousMonthAndYear(date);
+        }
+        /// <summary>
+        /// Indicates whether this is in the previous month as it relates to today
+        /// </summary>
+        public static bool IsNextMonth(this DateTime date)
+        {
+            return DateHelper.IsNextMonthAndYear(date);
+        }
+        /// <summary>
+        /// Indicates whether this is in the previous month as it relates to today
+        /// </summary>
+        public static bool IsNextMonth(this DateOnly date)
+        {
+            return DateHelper.IsNextMonthAndYear(date);
         }
 
         /// <summary>
@@ -25,13 +38,29 @@
         {
             return DateHelper.IsCurrentMonthAndYear(date);
         }
+        /// <summary>
+        /// Indicates whether this is the current month and year
+        /// </summary>
+        public static bool IsCurrentMonthAndYear(this DateOnly date)
+        {
+            return DateHelper.IsCurrentMonthAndYear(date);
+        }
 
         /// <summary>
-        /// Indicates
+        /// Indicates whether this is the current year
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
         public static bool IsCurrentYear(this DateTime date)
+        {
+            return date.Year == DateTime.Now.Year;
+        }
+        /// <summary>
+        /// Indicates whether this is the current year
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static bool IsCurrentYear(this DateOnly date)
         {
             return date.Year == DateTime.Now.Year;
         }
@@ -49,6 +78,24 @@
         public static bool IsMonthAndYearEqual(this DateOnly thisDate, DateOnly date)
         {
             return DateHelper.IsMonthAndYearEqual(thisDate, date);
+        }
+
+
+
+
+        /// <summary>
+        /// Indicates whether this is a Saturday or Sunday
+        /// </summary>
+        public static bool IsWeekend(this DateTime date)
+        {
+            return DateHelper.IsWeekend(date);
+        }
+        /// <summary>
+        /// Indicates whether this is a Saturday or Sunday
+        /// </summary>
+        public static bool IsWeekend(this DateOnly date)
+        {
+            return DateHelper.IsWeekend(date);
         }
         /// <summary>
         /// Indicates whether the specified date is equal to DateTime.Today (no time component) (UTC)
@@ -179,6 +226,13 @@
         public static bool IsDateEqualTo(this DateTime date, DateTime dateTwo)
         {
             return date.Date == dateTwo.Date;
+        }
+        /// <summary>
+        /// Indicates whether the specified dates are equal
+        /// </summary>
+        public static bool IsDateEqualTo(this DateOnly date, DateOnly dateTwo)
+        {
+            return date == dateTwo;
         }
 
         /// <summary>

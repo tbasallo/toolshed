@@ -42,6 +42,15 @@ namespace Toolshed
         {
             return IsMonthAndYearEqual(DateTime.Now, date);
         }
+        /// <summary>
+        /// Returns whether the specified date is the the current month and year.
+        /// </summary>
+        /// <param name="date">A System.DateOnly </param>
+        /// <returns>A bool indicating whether the date in the paramter is the the current month and year.</returns>
+        public static bool IsCurrentMonthAndYear(DateOnly date)
+        {
+            return IsMonthAndYearEqual(DateOnly.FromDateTime(DateTime.Now), date);
+        }
 
         /// <summary>
         /// Returns a bool indicating whether the specified month and year are the same as the current date's month and year
@@ -63,6 +72,15 @@ namespace Toolshed
         {
             return IsMonthAndYearEqual(DateTime.Now.AddMonths(1), date);
         }
+        /// <summary>
+        /// Returns a boolean indicating whether the specified date is the following month and year.
+        /// </summary>
+        /// <param name="date">A System.DateOnly</param>
+        /// <returns>A boolean indicating whether the specified date is the following month and year.</returns>
+        public static bool IsNextMonthAndYear(DateOnly date)
+        {
+            return IsMonthAndYearEqual(DateOnly.FromDateTime(DateTime.Now.AddMonths(1)), date);
+        }
 
         /// <summary>
         /// Returns a boolean indicating whether the specified month and year is the following month and year.
@@ -82,6 +100,15 @@ namespace Toolshed
         public static bool IsPreviousMonthAndYear(DateTime date)
         {
             return IsMonthAndYearEqual(DateTime.Now.AddMonths(-1), date);
+        }
+        /// <summary>
+        /// Returns a boolean indicating whether the specified date is the previous month and year.
+        /// </summary>
+        /// <param name="date">A System.DateOnly</param>
+        /// <returns>A boolean indicating whether the specified date is the previous month and year.</returns>
+        public static bool IsPreviousMonthAndYear(DateOnly date)
+        {
+            return IsMonthAndYearEqual(DateOnly.FromDateTime(DateTime.Now.AddMonths(-1)), date);
         }
 
         /// <summary>
@@ -134,6 +161,13 @@ namespace Toolshed
         public static bool IsDateEqualToToday(DateTime date)
         {
             return DateHelper.GetStartOfDay(date) == DateTime.Today;
+        }
+        /// <summary>
+        /// Indicates whether the specified date is equal to today's date
+        /// </summary>
+        public static bool IsDateEqualToToday(DateOnly date)
+        {
+            return date == DateOnly.FromDateTime(DateTime.Today);
         }
 
         /// <summary>
