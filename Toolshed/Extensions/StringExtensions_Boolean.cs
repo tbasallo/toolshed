@@ -75,8 +75,9 @@ namespace Toolshed
         /// Indicates if the string is equal to the specified value using the selected StringComparison type (defaults to OrdinalIgnoreCase)
         /// </summary>
         /// <returns>Boolean indicating if the values are equal</returns>
-        public static bool IsEqualTo(this string? s, string value, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        public static bool IsEqualTo(this string? s, string? value, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
         {
+            if (s == value) return true;
             if (s == null) return false;
             if (value == null) return false;
             return s.Equals(value, comparisonType);
