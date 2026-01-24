@@ -5,28 +5,28 @@
         /// <summary>
         /// Indicates whether this is in the previous month as it relates to today
         /// </summary>
-        public static bool IsPreviousMonth(this DateTime date)
+        public static bool IsPreviousMonthAndYear(this DateTime date)
         {
             return DateHelper.IsPreviousMonthAndYear(date);
         }
         /// <summary>
         /// Indicates whether this is in the previous month as it relates to today
         /// </summary>
-        public static bool IsPreviousMonth(this DateOnly date)
+        public static bool IsPreviousMonthAndYear(this DateOnly date)
         {
             return DateHelper.IsPreviousMonthAndYear(date);
         }
         /// <summary>
         /// Indicates whether this is in the previous month as it relates to today
         /// </summary>
-        public static bool IsNextMonth(this DateTime date)
+        public static bool IsNextMonthAndYear(this DateTime date)
         {
             return DateHelper.IsNextMonthAndYear(date);
         }
         /// <summary>
         /// Indicates whether this is in the previous month as it relates to today
         /// </summary>
-        public static bool IsNextMonth(this DateOnly date)
+        public static bool IsNextMonthAndYear(this DateOnly date)
         {
             return DateHelper.IsNextMonthAndYear(date);
         }
