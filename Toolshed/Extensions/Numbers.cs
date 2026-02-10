@@ -6,6 +6,10 @@
         private const long BYTES_IN_MB = 1048576;
         private const long BYTES_IN_KB = 1024;
 
+        private const long THOUSAND = 1000;
+        private const long MILLION = 1000000;
+        private const long BILLION = 1000000000;
+
         //Not sure if I needed it, but I loved the potential, so it's here
         //SO: https://stackoverflow.com/questions/954198/what-is-the-best-or-most-interesting-use-of-extension-methods-youve-seen/954254#954254
         /// <summary>
@@ -45,33 +49,34 @@
         /// </summary>
         public static string ToSemanticValue(this double number)
         {
-            if (number >= 1000000000)
+            if (number >= BILLION)
             {
-                return Math.Round(((number / 1000000000) * 10)) / 10 + "B";
+                return Math.Round(((number / BILLION) * 10)) / 10 + "B";
             }
-            if (number >= 1000000)
+            if (number >= MILLION)
             {
-                return Math.Round(((number / 1000000) * 10)) / 10 + "M";
+                return Math.Round(((number / MILLION) * 10)) / 10 + "M";
             }
-            if (number >= 1000)
+            if (number >= THOUSAND)
             {
-                return Math.Round(((number / 1000) * 10)) / 10 + "K";
+                return Math.Round(((number / THOUSAND) * 10)) / 10 + "K";
             }
 
+            // Current: negative check is AFTER positive checks, so -5000 returns "-5000" not "-5K"
             if (number < 0)
             {
                 var absNumber = Math.Abs(number);
-                if (absNumber >= 1000000000)
+                if (absNumber >= BILLION)
                 {
-                    return "-" + Math.Round(((absNumber / 1000000000) * 10)) / 10 + "B";
+                    return "-" + Math.Round(((absNumber / BILLION) * 10)) / 10 + "B";
                 }
-                if (absNumber >= 1000000)
+                if (absNumber >= MILLION)
                 {
-                    return "-" + Math.Round(((absNumber / 1000000) * 10)) / 10 + "M";
+                    return "-" + Math.Round(((absNumber / MILLION) * 10)) / 10 + "M";
                 }
-                if (absNumber >= 1000)
+                if (absNumber >= THOUSAND)
                 {
-                    return "-" + Math.Round(((absNumber / 1000) * 10)) / 10 + "K";
+                    return "-" + Math.Round(((absNumber / THOUSAND) * 10)) / 10 + "K";
                 }
             }
 
@@ -83,33 +88,34 @@
         /// </summary>
         public static string ToSemanticValue(this decimal number)
         {
-            if (number >= 1000000000)
+            if (number >= BILLION)
             {
-                return Math.Round(((number / 1000000000) * 10)) / 10 + "B";
+                return Math.Round(((number / BILLION) * 10)) / 10 + "B";
             }
-            if (number >= 1000000)
+            if (number >= MILLION)
             {
-                return Math.Round(((number / 1000000) * 10)) / 10 + "M";
+                return Math.Round(((number / MILLION) * 10)) / 10 + "M";
             }
-            if (number >= 1000)
+            if (number >= THOUSAND)
             {
-                return Math.Round(((number / 1000) * 10)) / 10 + "K";
+                return Math.Round(((number / THOUSAND) * 10)) / 10 + "K";
             }
 
+            // Current: negative check is AFTER positive checks, so -5000 returns "-5000" not "-5K"
             if (number < 0)
             {
                 var absNumber = Math.Abs(number);
-                if (absNumber >= 1000000000)
+                if (absNumber >= BILLION)
                 {
-                    return "-" + Math.Round(((absNumber / 1000000000) * 10)) / 10 + "B";
+                    return "-" + Math.Round(((absNumber / BILLION) * 10)) / 10 + "B";
                 }
-                if (absNumber >= 1000000)
+                if (absNumber >= MILLION)
                 {
-                    return "-" + Math.Round(((absNumber / 1000000) * 10)) / 10 + "M";
+                    return "-" + Math.Round(((absNumber / MILLION) * 10)) / 10 + "M";
                 }
-                if (absNumber >= 1000)
+                if (absNumber >= THOUSAND)
                 {
-                    return "-" + Math.Round(((absNumber / 1000) * 10)) / 10 + "K";
+                    return "-" + Math.Round(((absNumber / THOUSAND) * 10)) / 10 + "K";
                 }
             }
 
