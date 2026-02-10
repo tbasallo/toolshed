@@ -499,10 +499,10 @@
         }
 
         /// <summary>
-        /// Converts a double value to an HTMl friendly version.
+        /// Converts an int value to an HTML friendly version.
         /// </summary>
-        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
-        /// <param name="defaultValueForNanOrInfinity">TH evalue to display instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="format">The exact version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinity">The value to display instead of NaN or Infinity. Specify null if NaN or Infinity is desired.</param>
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
@@ -539,10 +539,10 @@
         }
 
         /// <summary>
-        /// Converts a double value to an HTMl friendly version.
+        /// Converts an int value to an HTML friendly version.
         /// </summary>
-        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
-        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="format">The exact version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Infinity. Specify null if NaN or Infinity is desired.</param>
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
@@ -557,10 +557,10 @@
         }
 
         /// <summary>
-        /// Converts a double value to an HTMl friendly version.
+        /// Converts a double value to an HTML friendly version.
         /// </summary>
-        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
-        /// <param name="defaultValueForNanOrInfinity">TH evalue to display instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="format">The exact version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinity">The value to display instead of NaN or Infinity. Specify null if NaN or Infinity is desired.</param>
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
@@ -597,10 +597,10 @@
         }
 
         /// <summary>
-        /// Converts a double value to an HTMl friendly version.
+        /// Converts a double value to an HTML friendly version.
         /// </summary>
-        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
-        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="format">The exact version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Infinity. Specify null if NaN or Infinity is desired.</param>
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
@@ -615,10 +615,10 @@
         }
 
         /// <summary>
-        /// Converts a double value to an HTMl friendly version.
+        /// Converts a decimal value to an HTML friendly version.
         /// </summary>
-        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
-        /// <param name="defaultValueForNanOrInfinity">TH evalue to display instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="format">The exact version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinity">The value to display instead of NaN or Infinity. Specify null if NaN or Infinity is desired.</param>
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
@@ -650,10 +650,10 @@
         }
 
         /// <summary>
-        /// Converts a double value to an HTMl friendly version.
+        /// Converts a decimal value to an HTML friendly version.
         /// </summary>
-        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
-        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="format">The exact version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Infinity. Specify null if NaN or Infinity is desired.</param>
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
@@ -668,10 +668,10 @@
         }
 
         /// <summary>
-        /// Converts a double value to an HTMl friendly version.
+        /// Converts a float value to an HTML friendly version.
         /// </summary>
-        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
-        /// <param name="defaultValueForNanOrInfinity">TH evalue to display instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="format">The exact version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinity">The value to display instead of NaN or Infinity. Specify null if NaN or Infinity is desired.</param>
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
@@ -708,10 +708,10 @@
         }
 
         /// <summary>
-        /// Converts a double value to an HTMl friendly version.
+        /// Converts a float value to an HTML friendly version.
         /// </summary>
-        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
-        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="format">The exact version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Infinity. Specify null if NaN or Infinity is desired.</param>
         /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
@@ -754,7 +754,7 @@
             return value >= threshold;
         }
         /// <summary>
-        /// Indicates whether this number is a postive number, greater than or equal to 0
+        /// Indicates whether this number is a positive number, greater than or equal to 0
         /// </summary>
         public static bool IsPositive(this int value)
         {
@@ -804,7 +804,7 @@
             return value >= threshold;
         }
         /// <summary>
-        /// Indicates whether this number is a postive number, greater than or equal to 0
+        /// Indicates whether this number is a positive number, greater than or equal to 0
         /// </summary>
         public static bool IsPositive(this double value)
         {
@@ -854,7 +854,7 @@
             return value >= threshold;
         }
         /// <summary>
-        /// Indicates whether this number is a postive number, greater than or equal to 0
+        /// Indicates whether this number is a positive number, greater than or equal to 0
         /// </summary>
         public static bool IsPositive(this long value)
         {
@@ -940,7 +940,7 @@
             return value >= threshold;
         }
         /// <summary>
-        /// Indicates whether this number is a postive number, greater than or equal to 0
+        /// Indicates whether this number is a positive number, greater than or equal to 0
         /// </summary>
         public static bool IsPositive(this decimal value)
         {
@@ -990,7 +990,7 @@
             return value >= threshold;
         }
         /// <summary>
-        /// Indicates whether this number is a postive number, greater than or equal to 0
+        /// Indicates whether this number is a positive number, greater than or equal to 0
         /// </summary>
         public static bool IsPositive(this float value)
         {

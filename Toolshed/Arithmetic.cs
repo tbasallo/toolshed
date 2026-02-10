@@ -10,7 +10,46 @@
         {
             return Divide(Convert.ToDouble(dividend), divisor, decimals);
         }
+        public static double Divide(int dividend, long divisor, int? decimals = null)
+        {
+            return Divide(Convert.ToDouble(dividend), divisor, decimals);
+        }
 
+
+        //LONG 
+        public static double Divide(long dividend, long divisor, int? decimals = null)
+        {
+            if (decimals.HasValue)
+            {
+                return Math.Round((double)(dividend / divisor), decimals.Value);
+            }
+            else
+            {
+                return dividend / divisor;
+            }
+        }
+        public static double Divide(long dividend, int divisor, int? decimals = null)
+        {
+            if (decimals.HasValue)
+            {
+                return Math.Round((double)(dividend / divisor), decimals.Value);
+            }
+            else
+            {
+                return dividend / divisor;
+            }
+        }
+        public static double Divide(long dividend, double divisor, int? decimals = null)
+        {
+            if (decimals.HasValue)
+            {
+                return Math.Round((double)(dividend / divisor), decimals.Value);
+            }
+            else
+            {
+                return dividend / divisor;
+            }
+        }
 
         //DOUBLE
 
@@ -29,6 +68,7 @@
                 return dividend / divisor;
             }
         }
+        
         /// <summary>
         /// Divides the two numbers, returning a double with the specified number of decimal places. If either the dividend or divisor is null, the default value will be returned (defaults to 0).
         /// </summary>
