@@ -2,6 +2,10 @@
 {
     public static partial class Numbers
     {
+        private const long BYTES_IN_GB = 1073741824;
+        private const long BYTES_IN_MB = 1048576;
+        private const long BYTES_IN_KB = 1024;
+
         //Not sure if I needed it, but I loved the potential, so it's here
         //SO: https://stackoverflow.com/questions/954198/what-is-the-best-or-most-interesting-use-of-extension-methods-youve-seen/954254#954254
         /// <summary>
@@ -56,18 +60,18 @@
 
             if (number < 0)
             {
-
-                if (number >= 1000000000)
+                var absNumber = Math.Abs(number);
+                if (absNumber >= 1000000000)
                 {
-                    return Math.Round(((number / 1000000000) * 10)) / 10 * -1 + "B";
+                    return "-" + Math.Round(((absNumber / 1000000000) * 10)) / 10 + "B";
                 }
-                if (number >= 100000000)
+                if (absNumber >= 1000000)
                 {
-                    return Math.Round(((number / 100000000) * 10)) / 10 * -1 + "M";
+                    return "-" + Math.Round(((absNumber / 1000000) * 10)) / 10 + "M";
                 }
-                if (number >= 1000)
+                if (absNumber >= 1000)
                 {
-                    return Math.Round(((number / 1000) * 10)) / 10 * -1 + "K";
+                    return "-" + Math.Round(((absNumber / 1000) * 10)) / 10 + "K";
                 }
             }
 
@@ -94,22 +98,31 @@
 
             if (number < 0)
             {
-
-                if (number >= 1000000000)
+                var absNumber = Math.Abs(number);
+                if (absNumber >= 1000000000)
                 {
-                    return Math.Round(((number / 1000000000) * 10)) / 10 * -1 + "B";
+                    return "-" + Math.Round(((absNumber / 1000000000) * 10)) / 10 + "B";
                 }
-                if (number >= 100000000)
+                if (absNumber >= 1000000)
                 {
-                    return Math.Round(((number / 100000000) * 10)) / 10 * -1 + "M";
+                    return "-" + Math.Round(((absNumber / 1000000) * 10)) / 10 + "M";
                 }
-                if (number >= 1000)
+                if (absNumber >= 1000)
                 {
-                    return Math.Round(((number / 1000) * 10)) / 10 * -1 + "K";
+                    return "-" + Math.Round(((absNumber / 1000) * 10)) / 10 + "K";
                 }
             }
 
             return Math.Round(number, 2).ToString();
+        }
+
+        /// <summary>
+        /// Returns the number rounded to the largest segment with the suffix of K,M,B for thousand, million or billion
+        /// </summary>
+        public static string ToSemanticValue(this float number)
+        {
+            var amount = Convert.ToDouble(number);
+            return amount.ToSemanticValue();
         }
 
         /// <summary>
@@ -197,6 +210,34 @@
         }
 
         /// <summary>
+        /// Adds the ordinal suffix for st, nd, rd and th.
+        /// </summary>
+        public static string ToOrdinal(this float number)
+        {
+            string suffix = "th";
+
+            // gets condition for 11, 12, 13
+            int preTeen = ((int)(number % 100) / 10);
+            if (preTeen != 1)
+            {
+                int lastDigit = ((int)number % 10);
+                switch (lastDigit)
+                {
+                    case 1:
+                        suffix = "st";
+                        break;
+                    case 2:
+                        suffix = "nd";
+                        break;
+                    case 3:
+                        suffix = "rd";
+                        break;
+                }
+            }
+            return string.Format("{0}{1}", number, suffix);
+        }
+
+        /// <summary>
         /// Returns the file size as a descriptive string (12MB)
         /// </summary>
         public static string ToFileSize(this int bytes)
@@ -207,20 +248,20 @@
             }
 
             string filesize = "MB";
-            int divisor; ;
+            long divisor;
 
-            if (bytes >= 1073741824)
+            if (bytes >= BYTES_IN_GB)
             {
-                divisor = 1073741824;
+                divisor = BYTES_IN_GB;
                 filesize = "GB";
             }
-            else if (bytes >= 1048576)
+            else if (bytes >= BYTES_IN_MB)
             {
-                divisor = 1048576;
+                divisor = BYTES_IN_MB;
             }
-            else if (bytes >= 1024)
+            else if (bytes >= BYTES_IN_KB)
             {
-                divisor = 1024;
+                divisor = BYTES_IN_KB;
                 filesize = "KB";
             }
             else
@@ -242,20 +283,20 @@
             }
 
             string filesize = "MB";
-            int divisor;
+            long divisor;
 
-            if (bytes >= 1073741824)
+            if (bytes >= BYTES_IN_GB)
             {
-                divisor = 1073741824;
+                divisor = BYTES_IN_GB;
                 filesize = "GB";
             }
-            else if (bytes >= 1048576)
+            else if (bytes >= BYTES_IN_MB)
             {
-                divisor = 1048576;
+                divisor = BYTES_IN_MB;
             }
-            else if (bytes >= 1024)
+            else if (bytes >= BYTES_IN_KB)
             {
-                divisor = 1024;
+                divisor = BYTES_IN_KB;
                 filesize = "KB";
             }
             else
@@ -277,20 +318,20 @@
             }
 
             string filesize = "MB";
-            int divisor;
+            long divisor;
 
-            if (bytes >= 1073741824)
+            if (bytes >= BYTES_IN_GB)
             {
-                divisor = 1073741824;
+                divisor = BYTES_IN_GB;
                 filesize = "GB";
             }
-            else if (bytes >= 1048576)
+            else if (bytes >= BYTES_IN_MB)
             {
-                divisor = 1048576;
+                divisor = BYTES_IN_MB;
             }
-            else if (bytes >= 1024)
+            else if (bytes >= BYTES_IN_KB)
             {
-                divisor = 1024;
+                divisor = BYTES_IN_KB;
                 filesize = "KB";
             }
             else
@@ -312,20 +353,55 @@
             }
 
             string filesize = "MB";
-            int divisor;
+            long divisor;
 
-            if (bytes >= 1073741824)
+            if (bytes >= BYTES_IN_GB)
             {
-                divisor = 1073741824;
+                divisor = BYTES_IN_GB;
                 filesize = "GB";
             }
-            else if (bytes >= 1048576)
+            else if (bytes >= BYTES_IN_MB)
             {
-                divisor = 1048576;
+                divisor = BYTES_IN_MB;
             }
-            else if (bytes >= 1024)
+            else if (bytes >= BYTES_IN_KB)
             {
-                divisor = 1024;
+                divisor = BYTES_IN_KB;
+                filesize = "KB";
+            }
+            else
+            {
+                return string.Format("{0:##.##} bytes", bytes);
+            }
+
+            return string.Format("{0:##.##} {1}", Arithmetic.Divide(bytes, divisor), filesize);
+        }
+
+        /// <summary>
+        /// Returns the file size as a descriptive string (12MB)
+        /// </summary>
+        public static string ToFileSize(this float bytes)
+        {
+            if (bytes == 0)
+            {
+                return "0 MB";
+            }
+
+            string filesize = "MB";
+            long divisor;
+
+            if (bytes >= BYTES_IN_GB)
+            {
+                divisor = BYTES_IN_GB;
+                filesize = "GB";
+            }
+            else if (bytes >= BYTES_IN_MB)
+            {
+                divisor = BYTES_IN_MB;
+            }
+            else if (bytes >= BYTES_IN_KB)
+            {
+                divisor = BYTES_IN_KB;
                 filesize = "KB";
             }
             else
@@ -391,6 +467,22 @@
         /// <param name="format">The format to use if the number has a value</param>
         /// <param name="defaultValue">The value to return if the number is null. Defaults to ""</param>
         public static string ToFormat(this decimal? d, string format, string defaultValue = "")
+        {
+            if (!d.HasValue)
+            {
+                return defaultValue;
+            }
+
+            return d.Value.ToString(format);
+        }
+
+        /// <summary>
+        /// Formats the nullable value with the specified format if the number is not null,
+        /// otherwise, returns the default value
+        /// </summary>
+        /// <param name="format">The format to use if the number has a value</param>
+        /// <param name="defaultValue">The value to return if the number is null. Defaults to ""</param>
+        public static string ToFormat(this float? d, string format, string defaultValue = "")
         {
             if (!d.HasValue)
             {
@@ -560,6 +652,64 @@
         /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
         /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
         public static string ToHtmlPercent(this decimal? value, string format = "p1", string defaultValueForNanOrInfinityOrNull = "", string overrideValueForZeroResult = null, string overrideValueFor1 = null, bool removeSpaces = true)
+        {
+            if (!value.HasValue)
+            {
+                return defaultValueForNanOrInfinityOrNull;
+            }
+
+            return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinityOrNull, overrideValueForZeroResult, overrideValueFor1, removeSpaces);
+        }
+
+        /// <summary>
+        /// Converts a double value to an HTMl friendly version.
+        /// </summary>
+        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinity">TH evalue to display instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
+        /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
+        /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
+        public static string ToHtmlPercent(this float value, string format = "p1", string defaultValueForNanOrInfinity = "", string overrideValueForZeroResult = null, string overrideValueFor1 = null, bool removeSpaces = true)
+        {
+            if (!format.StartsWith("p"))
+            {
+                throw new ArgumentException("Format must start with p to represent a percentage, e.g., p1, p2, etc.", format);
+            }
+
+            if (value == 0 && overrideValueForZeroResult != null)
+            {
+                return overrideValueForZeroResult;
+            }
+
+            if (value == 1 && overrideValueFor1 != null)
+            {
+                return overrideValueFor1;
+            }
+
+            if ((float.IsNaN(value) || float.IsInfinity(value)) && defaultValueForNanOrInfinity != null)
+            {
+                return defaultValueForNanOrInfinity;
+            }
+
+            if (removeSpaces)
+            {
+                return value.ToString(format).RemoveSpaces();
+            }
+            else
+            {
+                return value.ToString(format);
+            }
+        }
+
+        /// <summary>
+        /// Converts a double value to an HTMl friendly version.
+        /// </summary>
+        /// <param name="format">THe extact  version to display. By default it will use p1 or 1 place after the decimal.</param>
+        /// <param name="defaultValueForNanOrInfinityOrNull">The value to display for NULL values or instead of NaN or Inifinity. Specify null if Nan or Infinity is desired.</param>
+        /// <param name="overrideValueForZeroResult">The value to display instead of 0. Specify null (default) to display 0</param>
+        /// <param name="removeSpaces">Whether to display a space between the value and the %, e.g., 34.45% vs. 34.45 %</param>
+        /// <returns>A string that looks like 34.45% where string.format(value, format) would be true.</returns>
+        public static string ToHtmlPercent(this float? value, string format = "p1", string defaultValueForNanOrInfinityOrNull = "", string overrideValueForZeroResult = null, string overrideValueFor1 = null, bool removeSpaces = true)
         {
             if (!value.HasValue)
             {
@@ -748,20 +898,6 @@
             return value >= threshold;
         }
         /// <summary>
-        /// Indicates whether this number is a postive number, greater than or equal to 0
-        /// </summary>
-        public static bool IsPositive(this byte value)
-        {
-            return value >= 0;
-        }
-        /// <summary>
-        /// Indicates whether this number is a negative number, less than 0
-        /// </summary>
-        public static bool IsNegative(this byte value)
-        {
-            return value < 0;
-        }
-        /// <summary>
         /// Indicates whether this number is within the range, including the start and end of the range
         /// </summary>
         public static bool IsInRange(this byte value, byte startRange, byte endRange)
@@ -815,6 +951,56 @@
         /// Indicates whether this number is within the range, including the start and end of the range
         /// </summary>
         public static bool IsInRange(this decimal value, decimal startRange, decimal endRange)
+        {
+            return (value.IsGreaterThanEqualTo(startRange) && value.IsLessThanEqualTo(endRange));
+        }
+
+        /// <summary>
+        /// Indicates whether this number is greater than the threshold provided
+        /// </summary>
+        public static bool IsGreaterThan(this float value, float threshold)
+        {
+            return value > threshold;
+        }
+        /// <summary>
+        /// Indicates whether this number is less than the threshold provided
+        /// </summary>
+        public static bool IsLessThan(this float value, float threshold)
+        {
+            return value < threshold;
+        }
+        /// <summary>
+        /// Indicates whether this number is less than or equal to the threshold provided
+        /// </summary>
+        public static bool IsLessThanEqualTo(this float value, float threshold)
+        {
+            return value <= threshold;
+        }
+        /// <summary>
+        /// Indicates whether this number is greater than or equal to the threshold provided
+        /// </summary>
+        public static bool IsGreaterThanEqualTo(this float value, float threshold)
+        {
+            return value >= threshold;
+        }
+        /// <summary>
+        /// Indicates whether this number is a postive number, greater than or equal to 0
+        /// </summary>
+        public static bool IsPositive(this float value)
+        {
+            return value >= 0;
+        }
+        /// <summary>
+        /// Indicates whether this number is a negative number, less than 0
+        /// </summary>
+        public static bool IsNegative(this float value)
+        {
+            return value < 0;
+        }
+        /// <summary>
+        /// Indicates whether this number is within the range, including the start and end of the range
+        /// </summary>
+        public static bool IsInRange(this float value, float startRange, float endRange)
         {
             return (value.IsGreaterThanEqualTo(startRange) && value.IsLessThanEqualTo(endRange));
         }
