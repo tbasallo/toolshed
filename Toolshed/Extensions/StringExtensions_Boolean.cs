@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace Toolshed
 {
@@ -108,7 +109,7 @@ namespace Toolshed
         // Returns:
         //     true if the value parameter is null or System.String.Empty, or if value consists
         //     exclusively of white-space characters.
-        public static bool IsNullOrWhiteSpace(this string? s)
+        public static bool IsNullOrWhiteSpace([NotNullWhen(true)] this string? s)
         {
             return string.IsNullOrWhiteSpace(s);
         }

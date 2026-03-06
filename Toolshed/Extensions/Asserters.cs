@@ -1,4 +1,6 @@
-﻿namespace Toolshed
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Toolshed
 {
     public static class Asserters
     {
@@ -7,7 +9,7 @@
         /// </summary>
         /// <param name="o">Since this is an extension method we can actually check ourself for null. Cool!</param>
         /// <returns>A boolean indicating if the object is null</returns>
-        public static bool IsNull(this object o)
+        public static bool IsNull([NotNullWhen(false)] this object o)
         {
             return (o == null);
         }
@@ -17,7 +19,7 @@
         /// </summary>
         /// <param name="o">Since this is an extension method we can actually check ourself for null. Cool!</param>
         /// <returns>A boolean indicating if the object is not null</returns>
-        public static bool IsNotNull(this object o)
+        public static bool IsNotNull([NotNullWhen(true)] this object o)
         {
             return (o != null);
         }
