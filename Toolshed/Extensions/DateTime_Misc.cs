@@ -3,13 +3,35 @@
     public static partial class DateHelperExtensions
     {
         /// <summary>
-        /// Returns a DateOnly instance from the DateTime 
+        /// Returns a DateOnly instance from the DateTime
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
+        public static DateOnly ToDateOnly(this DateTime date)
+        {
+            return DateOnly.FromDateTime(date);
+        }
+
+        /// <summary>
+        /// Returns a DateOnly instance from the DateTime
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        [Obsolete("Use ToDateOnly instead")]
         public static DateOnly AsDateOnly(this DateTime date)
         {
             return DateOnly.FromDateTime(date);
+        }
+
+        /// <summary>
+        /// Returns a DateTime instance from the DateOnly with a TimeOnly.Min
+        /// Will this ocnflict with c## BCL
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this DateOnly date)
+        {
+            return date.ToDateTime(TimeOnly.MinValue);
         }
 
         /// <summary>
