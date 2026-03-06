@@ -109,7 +109,7 @@ namespace Toolshed
         // Returns:
         //     true if the value parameter is null or System.String.Empty, or if value consists
         //     exclusively of white-space characters.
-        public static bool IsNullOrWhiteSpace([NotNullWhen(true)] this string? s)
+        public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? s)
         {
             return string.IsNullOrWhiteSpace(s);
         }
