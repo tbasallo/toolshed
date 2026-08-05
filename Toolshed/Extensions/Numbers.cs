@@ -725,6 +725,167 @@
             return value.Value.ToHtmlPercent(format, defaultValueForNanOrInfinityOrNull, overrideValueForZeroResult, overrideValueFor1, removeSpaces);
         }
 
+
+        /// <summary>
+        /// Converts a nullable int to a string when it is non-zero; otherwise returns an empty string.
+        /// </summary>
+        /// <param name="value">The nullable int value to convert.</param>
+        /// <param name="format">An optional numeric format string.</param>
+        /// <returns>The formatted value when non-zero; otherwise an empty string.</returns>
+        public static string ToStringIfNotZero(this int? value, string? format = null)
+        {
+            if (!value.HasValue || value == 0)
+            {
+                return string.Empty;
+            }
+
+            return value.GetValueOrDefault().ToString(format);
+        }
+
+        /// <summary>
+        /// Converts an int to a string when it is non-zero; otherwise returns an empty string.
+        /// </summary>
+        /// <param name="value">The int value to convert.</param>
+        /// <param name="format">An optional numeric format string.</param>
+        /// <returns>The formatted value when non-zero; otherwise an empty string.</returns>
+        public static string ToStringIfNotZero(this int value, string? format = null)
+        {
+            if (value == 0)
+            {
+                return string.Empty;
+            }
+
+            return value.ToString(format);
+        }
+
+        /// <summary>
+        /// Converts a nullable long to a string when it is non-zero; otherwise returns an empty string.
+        /// </summary>
+        /// <param name="value">The nullable long value to convert.</param>
+        /// <param name="format">An optional numeric format string.</param>
+        /// <returns>The formatted value when non-zero; otherwise an empty string.</returns>
+        public static string ToStringIfNotZero(this long? value, string? format = null)
+        {
+            if (!value.HasValue || value == 0)
+            {
+                return string.Empty;
+            }
+
+            return value.GetValueOrDefault().ToString(format);
+        }
+
+        /// <summary>
+        /// Converts a long to a string when it is non-zero; otherwise returns an empty string.
+        /// </summary>
+        /// <param name="value">The long value to convert.</param>
+        /// <param name="format">An optional numeric format string.</param>
+        /// <returns>The formatted value when non-zero; otherwise an empty string.</returns>
+        public static string ToStringIfNotZero(this long value, string? format = null)
+        {
+            if (value == 0)
+            {
+                return string.Empty;
+            }
+
+            return value.ToString(format);
+        }
+
+        /// <summary>
+        /// Converts a nullable short to a string when it is non-zero; otherwise returns an empty string.
+        /// </summary>
+        /// <param name="value">The nullable short value to convert.</param>
+        /// <param name="format">An optional numeric format string.</param>
+        /// <returns>The formatted value when non-zero; otherwise an empty string.</returns>
+        public static string ToStringIfNotZero(this short? value, string? format = null)
+        {
+            if (!value.HasValue || value == 0)
+            {
+                return string.Empty;
+            }
+
+            return value.GetValueOrDefault().ToString(format);
+        }
+
+        /// <summary>
+        /// Converts a short to a string when it is non-zero; otherwise returns an empty string.
+        /// </summary>
+        /// <param name="value">The short value to convert.</param>
+        /// <param name="format">An optional numeric format string.</param>
+        /// <returns>The formatted value when non-zero; otherwise an empty string.</returns>
+        public static string ToStringIfNotZero(this short value, string? format = null)
+        {
+            if (value == 0)
+            {
+                return string.Empty;
+            }
+
+            return value.ToString(format);
+        }
+
+        /// <summary>
+        /// Converts a nullable double to a string when it is non-zero; otherwise returns an empty string.
+        /// </summary>
+        /// <param name="value">The nullable double value to convert.</param>
+        /// <param name="format">An optional numeric format string.</param>
+        /// <returns>The formatted value when non-zero; otherwise an empty string.</returns>
+        public static string ToStringIfNotZero(this double? value, string? format = null)
+        {
+            if (!value.HasValue || value == 0)
+            {
+                return string.Empty;
+            }
+
+            return value.GetValueOrDefault().ToString(format);
+        }
+
+        /// <summary>
+        /// Converts a double to a string when it is non-zero; otherwise returns an empty string.
+        /// </summary>
+        /// <param name="value">The double value to convert.</param>
+        /// <param name="format">An optional numeric format string.</param>
+        /// <returns>The formatted value when non-zero; otherwise an empty string.</returns>
+        public static string ToStringIfNotZero(this double value, string? format = null)
+        {
+            if (value == 0)
+            {
+                return string.Empty;
+            }
+
+            return value.ToString(format);
+        }
+
+        /// <summary>
+        /// Converts a nullable decimal to a string when it is non-zero; otherwise returns an empty string.
+        /// </summary>
+        /// <param name="value">The nullable decimal value to convert.</param>
+        /// <param name="format">An optional numeric format string.</param>
+        /// <returns>The formatted value when non-zero; otherwise an empty string.</returns>
+        public static string ToStringIfNotZero(this decimal? value, string? format = null)
+        {
+            if (!value.HasValue || value == 0)
+            {
+                return string.Empty;
+            }
+
+            return value.GetValueOrDefault().ToString(format);
+        }
+
+        /// <summary>
+        /// Converts a decimal to a string when it is non-zero; otherwise returns an empty string.
+        /// </summary>
+        /// <param name="value">The decimal value to convert.</param>
+        /// <param name="format">An optional numeric format string.</param>
+        /// <returns>The formatted value when non-zero; otherwise an empty string.</returns>
+        public static string ToStringIfNotZero(this decimal value, string? format = null)
+        {
+            if (value == 0)
+            {
+                return string.Empty;
+            }
+
+            return value.ToString(format);
+        }
+
         /// <summary>
         /// Indicates whether this number is greater than the threshold provided
         /// </summary>
