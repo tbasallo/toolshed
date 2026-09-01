@@ -73,7 +73,7 @@
         /// </summary>
         public static DateOnly GetStartDateOfLastYear()
         {
-            return GetStartOfYear(DateTime.Now.Year - 1).AsDateOnly();
+            return GetStartOfYear(DateTime.Now.Year - 1).ToDateOnly();
         }
 
         /// <summary>
@@ -89,7 +89,7 @@
         /// </summary>
         public static DateOnly GetEndDateOfLastYear()
         {
-            return GetEndOfYear(DateTime.Now.Year - 1).AsDateOnly();
+            return GetEndOfYear(DateTime.Now.Year - 1).ToDateOnly();
         }
 
         /// <summary>
@@ -105,7 +105,7 @@
         /// </summary>
         public static DateOnly GetStartDateOfCurrentYear()
         {
-            return GetStartOfYear(DateTime.Now.Year).AsDateOnly();
+            return GetStartOfYear(DateTime.Now.Year).ToDateOnly();
         }
 
         /// <summary>
@@ -121,7 +121,7 @@
         /// </summary>
         public static DateOnly GetEndDateOfCurrentYear()
         {
-            return GetEndOfYear(DateTime.Now.Year).AsDateOnly();
+            return GetEndOfYear(DateTime.Now.Year).ToDateOnly();
         }
 
         /// <summary>
@@ -137,7 +137,7 @@
         /// </summary>
         public static DateOnly GetStartDateOfNextYear()
         {
-            return GetStartOfYear(DateTime.Now.Year + 1).AsDateOnly();
+            return GetStartOfYear(DateTime.Now.Year + 1).ToDateOnly();
         }
 
         /// <summary>
@@ -153,7 +153,7 @@
         /// </summary>
         public static DateOnly GetEndDateOfNextYear()
         {
-            return GetEndOfNextYear().AsDateOnly();
+            return GetEndOfNextYear().ToDateOnly();
         }
 
         /// <summary>

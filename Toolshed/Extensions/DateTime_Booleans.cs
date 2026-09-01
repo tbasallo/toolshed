@@ -318,7 +318,7 @@
         /// <returns>Bool</returns>
         public static bool IsInRange(this DateOnly date, DateTime startDate, DateTime endDate)
         {
-            return date >= startDate.AsDateOnly() && date <= endDate.AsDateOnly();
+            return date >= startDate.ToDateOnly() && date <= endDate.ToDateOnly();
         }
 
         /// <summary>

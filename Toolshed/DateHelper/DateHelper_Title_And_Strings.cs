@@ -154,17 +154,17 @@ namespace Toolshed
         {
             if (!endOfDateRange.HasValue)
             {
-                if (date == DateTime.Today.AsDateOnly())
+                if (date == DateTime.Today.ToDateOnly())
                 {
                     return string.Format("Today, {0}", date.ToShortDateString());
                 }
 
-                if (date == DateTime.Today.AddDays(-1).AsDateOnly())
+                if (date == DateTime.Today.AddDays(-1).ToDateOnly())
                 {
                     return string.Format("Yesterday, {0}", date.ToShortDateString());
                 }
 
-                if (date == DateTime.Today.AddDays(1).AsDateOnly())
+                if (date == DateTime.Today.AddDays(1).ToDateOnly())
                 {
                     return string.Format("Tomorrow, {0}", date.ToShortDateString());
                 }

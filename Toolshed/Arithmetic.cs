@@ -16,9 +16,11 @@
         }
 
 
-        //LONG 
+        //LONG
         public static double Divide(long dividend, long divisor, int? decimals = null)
         {
+            if(dividend == 0) return 0;
+
             if (decimals.HasValue)
             {
                 return Math.Round((double)(dividend / divisor), decimals.Value);
@@ -30,6 +32,8 @@
         }
         public static double Divide(long dividend, int divisor, int? decimals = null)
         {
+            if (dividend == 0) return 0;
+
             if (decimals.HasValue)
             {
                 return Math.Round((double)(dividend / divisor), decimals.Value);
@@ -41,6 +45,8 @@
         }
         public static double Divide(long dividend, double divisor, int? decimals = null)
         {
+            if (dividend == 0) return 0;
+
             if (decimals.HasValue)
             {
                 return Math.Round((double)(dividend / divisor), decimals.Value);
@@ -59,6 +65,8 @@
         }
         public static double Divide(double dividend, double divisor, int? decimals = null)
         {
+            if (dividend == 0) return 0;
+
             if (decimals.HasValue)
             {
                 return Math.Round(dividend / divisor, decimals.Value);
@@ -68,7 +76,7 @@
                 return dividend / divisor;
             }
         }
-        
+
         /// <summary>
         /// Divides the two numbers, returning a double with the specified number of decimal places. If either the dividend or divisor is null, the default value will be returned (defaults to 0).
         /// </summary>
@@ -81,6 +89,8 @@
         {
             if (dividend.HasValue && divisor.HasValue)
             {
+                if (dividend == 0) return 0;
+
                 return Divide(dividend.Value, divisor.Value, decimals);
             }
 
@@ -99,6 +109,8 @@
         /// <returns></returns>
         public static decimal Divide(decimal dividend, decimal divisor, int? decimals = null, decimal defaultValue = 0)
         {
+            if (dividend == 0) return 0;
+
             if (divisor > 0)
             {
                 if (decimals.HasValue)
@@ -126,6 +138,8 @@
         {
             if (dividend.HasValue && divisor.HasValue)
             {
+                if (dividend == 0) return 0;
+
                 return Divide(dividend.Value, divisor.Value, decimals);
             }
 
