@@ -25,6 +25,84 @@
             }
         }
 
+        /// <summary>
+        /// Converts the current DateTime into UTC based on the DateTimeKind of the DateTime
+        /// If Local, converts to UTC using ToUniversalTime(), if Unspecified, assumes it's already UTC and returns same datetime with the kind specified.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static DateTime? ToUtc(this DateTime? dateTime)
+        {
+            if(!dateTime.HasValue)
+            {
+                return null;
+            }
+
+            if (dateTime.GetValueOrDefault().Kind == DateTimeKind.Utc)
+            {
+                return dateTime;
+            }
+            else if (dateTime.GetValueOrDefault().Kind == DateTimeKind.Local)
+            {
+                return dateTime.GetValueOrDefault().ToUniversalTime();
+            }
+            else
+            {
+                // Unspecified kind, assume it's UTC
+                return DateTime.SpecifyKind(dateTime.GetValueOrDefault(), DateTimeKind.Utc);
+            }
+        }
+
+        /// <summary>
+        /// Converts the current DateTime into UTC based on the DateTimeKind of the DateTime
+        /// If Local, converts to UTC using ToUniversalTime(), if Unspecified, assumes it's already UTC and returns same datetime with the kind specified.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static DateTimeOffset ToDateTimeOffset(this DateTime dateTime)
+        {
+            if (dateTime.Kind == DateTimeKind.Utc)
+            {
+                return new(DateTime.SpecifyKind(dateTime, DateTimeKind.Utc));
+            }
+            else if (dateTime.Kind == DateTimeKind.Local)
+            {
+                return dateTime.ToUniversalTime();
+            }
+            else
+            {
+                // Unspecified kind, assume it's UTC
+                return new(DateTime.SpecifyKind(dateTime, DateTimeKind.Utc));
+            }
+        }
+        /// <summary>
+        /// Converts the current DateTime into UTC based on the DateTimeKind of the DateTime
+        /// If Local, converts to UTC using ToUniversalTime(), if Unspecified, assumes it's already UTC and returns same datetime with the kind specified.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static DateTimeOffset? ToDateTimeOffset(this DateTime? dateTime)
+        {
+            if (!dateTime.HasValue)
+            {
+                return null;
+            }
+
+            if (dateTime.GetValueOrDefault().Kind == DateTimeKind.Utc)
+            {
+                return new(DateTime.SpecifyKind(dateTime.GetValueOrDefault(), DateTimeKind.Utc));
+            }
+            else if (dateTime.GetValueOrDefault().Kind == DateTimeKind.Local)
+            {
+                return dateTime.GetValueOrDefault().ToUniversalTime();
+            }
+            else
+            {
+                // Unspecified kind, assume it's UTC
+                return new(DateTime.SpecifyKind(dateTime.GetValueOrDefault(), DateTimeKind.Utc));
+            }
+        }
+
 
         public static DateTime ToTimeZone(this DateTime date, string timeZone)
         {
